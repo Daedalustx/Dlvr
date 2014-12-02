@@ -1,0 +1,90 @@
+/* video delivery app config css stylesheet */
+
+section {
+	padding: 0 40px 0 40px;
+	border-bottom: 1px solid #444;
+	position: relative;
+}
+
+.view-button {
+	position: absolute;
+	width: 100%;
+	margin-top: -1em;
+}
+
+img.logo {
+	position: absolute;
+	right: 40px;
+	top: -.5em;
+}
+
+h1.project-name {
+	text-align: center;
+}
+
+span.logo {
+	padding-left: 40px;
+	display: inline-block;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+}
+
+div.row {
+	border: 1px solid #444;
+	padding: 1em;
+}
+
+li.headers {
+	margin-bottom: .5em;
+}
+
+span.col.header>input {
+	background-color: #444;
+	color: #EEE;
+}
+
+li.row {
+	margin-bottom: .5em;
+}
+
+span.col {
+	display: inline-block;
+	width: 22.5%;
+}
+
+.delivery-list button {
+	color: red;
+}
+
+.delivery-list li:nth-child(even) {
+	background-color: #DDD;
+}
+
+.delivery-list li:nth-child(odd) {
+	background-color: #FFF;
+}
+
+span.index {
+	display: inline-block;
+	width: 10%;
+	background-color: #FFF;
+}
+
+.centered {
+	text-align: center;
+}
+
+input.display-order {
+	width: 5em;
+}
+
+span.delete-row, span.col-0 {
+	float: right;
+}
+
+span.delete-row {
+	margin-top: -1em;
+}

@@ -1,0 +1,13 @@
+<a href="#/video-list"><= Back to List</a>
+<section class="centered">
+<h2>{{video.name}}</h2>
+<video controls>
+	<source src="{{source(path, video.previewFilename, '.mp4')}}" type="video/mp4">
+	<source src="{{source(path, video.previewFilename, '.webm')}}" type="video/webm">
+	We could not find a source file that your browser supports....
+</video>
+<p>
+  
+  {{ 'Dlvr v%VERSION%' | interpolate }}
+</p>
+</section>

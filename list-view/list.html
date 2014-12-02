@@ -1,0 +1,21 @@
+<div>
+<p class="intro-text">{{projectText}}</p>
+<div class="search">Search Videos: <input ng-model="query"></div>
+<div class="col-headers"><span class="col-header" ng-class="{displayinline: header.display}" ng-repeat="header in colHeaders">{{getHeader(header)}}</span>
+</div>
+<ul class="video-list">
+	<li ng-repeat="video in videoList | filter:query | orderBy:priority">
+		<span class="index col">{{getIndex($index)}}</span>
+		<span class="col" ng-switch on="video.linksTo">
+			<a ng-switch-when="previewUrl" href="#/previews/{{video.previewUrl}}">{{video.name}}</a>
+			<a ng-switch-when="downloadFilename" href="{{data.downloadPath}}{{video.downloadFilename}}">{{video.name}}</a>
+			<a ng-switch-when="groupName" href="#/deliverables/{{video.groupName}}">{{video.name}}</a>
+			<span ng-switch-default>{{video.name}}</span>
+		</span>
+		<span class="col" ng-if="colHeaders[2].display">{{video.optional1}}</span>
+		<span class="col" ng-if="colHeaders[3].display">{{video.optional2}}</span>
+		<span class="col" ng-if="colHeaders[4].displayDownloadAsIcon && colHeaders[4].display"><a href="{{data.downloadPath}}{{video.downloadFilename}}"><img height="32" width="40" ng-src="delivery/{{data.colHeaders[4].iconFilename}}"></a></span>
+		<span class="col" ng-if="!colHeaders[4].displayDownloadAsIcon && colHeaders[4].display"><a href="{{data.downloadPath}}{{video.downloadFilename}}">{{video.downloadFilename}}</span>
+	</li>
+</ul>
+</div>

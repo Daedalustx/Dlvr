@@ -1,0 +1,73 @@
+/* video delivery app css stylesheet */
+
+header {
+	padding: 0 40px 0 40px;
+}
+
+img.logo {
+	float: left;
+	max-width: 20%;
+}
+
+h1.project-name {
+	text-align: center;
+}
+
+p.intro-text {
+	padding: 0 40px 0 40px;
+}
+
+section {
+	padding: 0 40px 0 40px;
+}
+
+.centered {
+	text-align: center;
+}
+
+div.col-headers {
+	margin: 1em 40px 0 40px;
+	border-bottom: 2px solid #000;
+}
+
+.col-header {
+	width: 20%;
+	display: none;
+}
+
+.displayinline {
+	display: inline-block;
+}
+
+ul.video-list {
+	list-style-type: none;
+	padding-right: 40px;
+	margin-top: 0;
+}
+
+ul.video-list li {
+	width: 100%;
+	background-color: #CCC;
+}
+
+ul.video-list li:nth-child(even) {
+	background-color: #FFF;
+}
+
+span.col {
+	width: 20%;
+	display: inline-block;
+}
+
+span.index.col, div.col-headers span.col-header:first-child {
+	width: 2em;
+	padding-right: 1em;
+}
+
+.search {
+	padding-left: 40px;
+}
+
+video {
+	max-width: 100%;
+}
