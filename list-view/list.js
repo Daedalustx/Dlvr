@@ -60,3 +60,8 @@ listModule.config(['$routeProvider', function($routeProvider) {
 		}
 	};
 }]);
+
+listModule.directive('Headers', [ '$scope', function($scope) {
+	console.log($scope);
+}]);
+
