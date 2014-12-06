@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('video1.videoList', ['ngRoute'])
+var listModule = angular.module('video1.videoList', ['ngRoute']);
 
-.config(['$routeProvider', function($routeProvider) {
+listModule.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/deliverables', {
     templateUrl: 'list-view/list.html',
     controller: 'VideoListCtrl'
