@@ -66,7 +66,7 @@
 			<div class="row">
 				<div ng-repeat="(colIndex, col) in data.colHeaders" ng-if="showHeader(colIndex, rowIndex)">
 					<span class="col-{{$index}}">{{col.title}}: 
-						<span ng-if="colIndex==0"><input class="display-order" type="number"  col-input="colValue(colIndex,rowIndex)" ng-model-options="{updateOn: 'blur'}"></span>
+						<span ng-if="colIndex==0"><input class="display-order"  col-input="colValue(colIndex,rowIndex)" ng-model-options="{updateOn: 'blur'}"></span>
 					</span>
 					<span ng-if="colIndex!=0"><input col-input="colValue(colIndex,rowIndex)"></span>
 					<span ng-if="$index==1">

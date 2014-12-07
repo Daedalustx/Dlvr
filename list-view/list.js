@@ -46,16 +46,13 @@ listModule.directive('dlvrHeaders', function() {
 listModule.directive('videoList', function() {
 	return {
 		restrict: 'E',
-		scope: {
-			list: '=',
-			data: '='
-		},
+		transclude: true,
 		controller: function($scope, $routeParams) {
-			$scope.getIndex = function(index) {
+			$scope.getIndex = function(index, priority) {
 				if ($scope.data.colHeaders[0].displayConsecutive) {
 					return index + 1;
 				} else {
-					return $scope.list[index].priority;
+					return priority;
 				}
 			};
 		},

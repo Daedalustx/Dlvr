@@ -1,6 +1,6 @@
 <ul class="video-list">
-	<li ng-repeat="video in list | filter:query | orderBy:priority">
-		<span class="index col">{{getIndex($index)}}</span>
+	<li ng-repeat="video in videoList | filter:query | orderBy:priority">
+		<span class="index col" ng-if="data.colHeaders[0].display">{{getIndex($index, video.priority)}}</span>
 		<span class="col" ng-switch on="video.linksTo">
 			<a ng-switch-when="previewUrl" href="#/previews/{{video.previewUrl}}">{{video.name}}</a>
 			<a ng-switch-when="downloadFilename" href="{{data.downloadPath}}{{video.downloadFilename}}">{{video.name}}</a>
