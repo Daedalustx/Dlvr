@@ -1,8 +1,7 @@
 <div>
 <p class="intro-text">{{projectText}}</p>
 <div class="search">Search Videos: <input ng-model="query"></div>
-<div class="col-headers"><span class="col-header" ng-class="{displayinline: header.display}" ng-repeat="header in colHeaders">{{getHeader(header)}}</span>
-</div>
+<dlvr-headers my-headers="colHeaders"></dlvr-headers>
 <ul class="video-list">
 	<li ng-repeat="video in videoList | filter:query | orderBy:priority">
 		<span class="index col">{{getIndex($index)}}</span>
