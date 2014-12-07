@@ -13,7 +13,9 @@ config(['$routeProvider', function($routeProvider) {
 	$http.get('delivery/project.json').success(function(list) {
 		$scope.data = list;
 	});
-	$scope.priority = "priority";
+	$scope.priority = function(isSortable) {
+			return isSortable ? 'priority' : 'id';
+	};
 	$scope.index = "index";
 	$scope.testWrite = function() {
 		//console.log($scope.data);
@@ -31,8 +33,10 @@ config(['$routeProvider', function($routeProvider) {
 		});
 	};
 	$scope.addRow = function() {
-		var videos = $scope.data.videos;
-		videos[videos.length] = {};
+		var videos = $scope.data.videos,
+			index = videos.length;
+		videos[index] = {};
+		videos[index].id = index + 1;
 	};
 	$scope.deleteRow = function(index) {
 		var videos = $scope.data.videos;
