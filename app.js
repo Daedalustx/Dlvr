@@ -20,6 +20,6 @@ config(['$routeProvider', function($routeProvider) {
 		$scope.projectName = list.projectName;
 		$scope.projectText = list.introText;
 		$scope.colHeaders = list.colHeaders;
-		$scope.priority = (list.colHeaders[0].sortable ? 'priority' : null).toString();
+		$scope.priority = list.colHeaders[0].sortable ? 'priority' : 'id';
 	});	
 }]);

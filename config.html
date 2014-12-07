@@ -62,7 +62,7 @@
 		<p>Choices apply to all items, but can be individually overriden below</p>
 	</div>
 	<ul class="delivery-list">
-		<li class="row" ng-repeat="(rowIndex, video) in data.videos | orderBy:priority">
+		<li class="row" ng-repeat="(rowIndex, video) in data.videos | orderBy:priority(data.colHeaders[0].sortable)">
 			<div class="row">
 				<div ng-repeat="(colIndex, col) in data.colHeaders" ng-if="showHeader(colIndex, rowIndex)">
 					<span class="col-{{$index}}">{{col.title}}: 
