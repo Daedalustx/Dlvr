@@ -13,27 +13,21 @@ listModule.config(['$routeProvider', function($routeProvider) {
 }])
 
 .controller('VideoListCtrl', [ '$scope', '$http', function($scope, $http) {				
-	$scope.getIndex = function(index) {
-		if ($scope.data.colHeaders[0].displayConsecutive) {
-			return index + 1;
-		} else {
-			return $scope.data.videos[index].priority;
-		}
-	};
+	
 }]);
 
 listModule.directive('dlvrHeaders', function() {
 	return {
 		restrict: 'E',
 		scope: {
-			myHeaders: '='
+			headers: '='
 		},
 		controller: function($scope, $routeParams) {
 			$scope.getHeader = function(header) {
 				var group = angular.isDefined($routeParams.groupName) ? $routeParams.groupName : null;
 				switch(header.index) {
 					case 0:
-						return header.display === true ? header.title : false;
+						return header.display === true ? header.title : "";
 					case 1:
 						return header.title;
 					case 2:
@@ -46,6 +40,26 @@ listModule.directive('dlvrHeaders', function() {
 			};
 		},
 		templateUrl: 'list-view/dlvr-headers.html'
+	};
+});
+
+listModule.directive('videoList', function() {
+	return {
+		restrict: 'E',
+		scope: {
+			list: '=',
+			data: '='
+		},
+		controller: function($scope, $routeParams) {
+			$scope.getIndex = function(index) {
+				if ($scope.data.colHeaders[0].displayConsecutive) {
+					return index + 1;
+				} else {
+					return $scope.list[index].priority;
+				}
+			};
+		},
+		templateUrl: 'list-view/video-list.html'
 	};
 });
 
