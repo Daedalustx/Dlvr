@@ -57,6 +57,7 @@ ul.video-list li:nth-child(even) {
 span.col {
 	width: 20%;
 	display: inline-block;
+	vertical-align: middle;
 }
 
 span.index.col, div.col-headers span.col-header:first-child {
