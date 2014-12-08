@@ -17,6 +17,23 @@ config(['$routeProvider', function($routeProvider) {
 			return isSortable ? 'priority' : 'id';
 	};
 	$scope.index = "index";
+	$scope.anyGroups = function() {
+		var anyItemIsGroup = false,
+			groupNames = ['main'];
+		angular.forEach($scope.data.videos, function(video) {
+			if (video.isGroup) {
+				anyItemIsGroup = true;
+				if (groupNames.indexOf(video.groupName) == -1) {
+					groupNames.push(video.groupName);
+				}
+			}
+		});
+		$scope.groupNames = groupNames;
+		return anyItemIsGroup;
+	};
+	$scope.watchIsGroup = function(item) {
+		item.isGroup = item.linksTo == 'groupName' ? true : false;
+	};
 	$scope.testWrite = function() {
 		//console.log($scope.data);
 		$http({
@@ -78,7 +95,7 @@ config(['$routeProvider', function($routeProvider) {
 				url = '';
 			url = name.replace(/[^a-zA-Z0-9]/g,"-").toLowerCase();
 			if (urlType === 'preview') video.previewUrl = url;
-			if (urlType === 'group') video.groupName = url;
+			if (urlType === 'group' && video.isGroup) video.groupName = url;
 		});
 	};
 	$scope.setSeqFilenames = function(fileType) {
@@ -112,3 +129,10 @@ configVideoApp.directive('colInput', ['$compile', function($compile) {
 		}
 	};
 }]);
+
+configVideoApp.directive('itemGroup', function() {
+	return {
+		transclude: true,
+		templateUrl: 'config/item-group.html'
+	};
+});

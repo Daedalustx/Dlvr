@@ -1,0 +1,5 @@
+<span ng-if="!anyGroups()">This item belongs to: The main list</span>
+<span ng-if="anyGroups() && video.linksTo!='groupName'">This item belongs to 
+	<select ng-model="video.belongsTo" ng-options="group as group for group in groupNames">
+	</select>
+</span>

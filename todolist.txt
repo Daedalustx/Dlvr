@@ -1,0 +1,11 @@
+Add Timestamp to config page for user reference
+
+Fade out delivery configured successfully message {{feedback}} and update timestamp on save
+dialog box directive?
+
+nested list:
+	
+	add config belongsTo=groupName select box for each list item
+	filter public display to reflect nested list items
+	add breadcrumbs to public display
+	

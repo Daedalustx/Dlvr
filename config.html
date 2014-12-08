@@ -68,9 +68,9 @@
 					<span class="col-{{$index}}">{{col.title}}: 
 						<span ng-if="colIndex==0"><input class="display-order"  col-input="colValue(colIndex,rowIndex)" ng-model-options="{updateOn: 'blur'}"></span>
 					</span>
-					<span ng-if="colIndex!=0"><input col-input="colValue(colIndex,rowIndex)"></span>
+					<span ng-if="(colIndex!=0 && video.linksTo!='groupName') || colIndex==1"><input col-input="colValue(colIndex,rowIndex)"></span>
 					<span ng-if="$index==1">
-						Links to: <select ng-model="video.linksTo">
+						Links to: <select ng-model="video.linksTo" ng-change="watchIsGroup(video)">
 							<option value="false">No Link</option>
 							<option value="previewUrl">Preview URL</option>
 							<option value="downloadFilename">File Download</option>
@@ -78,18 +78,22 @@
 						</select>
 						<br>
 						<span ng-if="video.linksTo=='previewUrl'">
-							Preview Url: {{data.previewPath}} <input ng-model="video.previewUrl">
+							Preview URL: {{data.previewPath}} <input ng-model="video.previewUrl">
 							Preview Filename: <input ng-model="video.previewFilename">
 						</span>
 						<span ng-if="video.linksTo=='groupName'">
-							Group Name: /deliverables/<input ng-model="video.groupName">
+							Group URL: /deliverables/<input ng-model="video.groupName" ng-change="video.isGroup=video.groupName?true:false">
 						</span>
 						<span ng-if="video.linksTo=='downloadFilename'">
-							Download: {{data.downloadPath}} <input ng-model="video.downloadFilename">
+							Download URL: {{data.downloadPath}} <input ng-model="video.downloadFilename">
 						</span>
 					</span>
-					<span ng-if="$index==4 && col.displayDownloadAsIcon"> Displayed as icon <img height="32" width="40" ng-src="delivery/{{col.iconFilename}}"/>
+					<span ng-if="$index==4 && col.displayDownloadAsIcon && video.linksTo!='groupName' && video.downloadFilename"> Displayed as icon <img height="32" width="40" ng-src="delivery/{{col.iconFilename}}"/>
 					</span>
+				</div>
+				<div class="belongs-to">
+					<span ng-if="video.isGroup">--</span>
+					<item-group></item-group>
 				</div>
 				<span class="delete-row"><button ng-click="deleteRow($index)">Delete Row</button></span>
 			</div>
