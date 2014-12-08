@@ -6,7 +6,7 @@ listModule.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/deliverables', {
     templateUrl: 'list-view/list.html',
     controller: 'VideoListCtrl'
-  }).when('/deliverables/:groupName', {
+  }).when('/deliverables/:groupUrl', {
     templateUrl: 'list-view/list.html',
     controller: 'VideoListCtrl'
   });;
@@ -24,7 +24,7 @@ listModule.directive('dlvrHeaders', function() {
 		},
 		controller: function($scope, $routeParams) {
 			$scope.getHeader = function(header) {
-				var group = angular.isDefined($routeParams.groupName) ? $routeParams.groupName : null;
+				var group = angular.isDefined($routeParams.groupUrl) ? $routeParams.groupUrl : null;
 				switch(header.index) {
 					case 0:
 						return header.display === true ? header.title : "";

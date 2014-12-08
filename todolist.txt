@@ -3,6 +3,8 @@ Add Timestamp to config page for user reference
 Fade out delivery configured successfully message {{feedback}} and update timestamp on save
 dialog box directive?
 
+prevent titles from rendering links to download urls if none specified
+
 nested list:
 	
 	add config belongsTo=groupName select box for each list item

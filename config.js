@@ -19,20 +19,20 @@ config(['$routeProvider', function($routeProvider) {
 	$scope.index = "index";
 	$scope.anyGroups = function() {
 		var anyItemIsGroup = false,
-			groupNames = ['main'];
+			groupUrls = ['main'];
 		angular.forEach($scope.data.videos, function(video) {
 			if (video.isGroup) {
 				anyItemIsGroup = true;
-				if (groupNames.indexOf(video.groupName) == -1) {
-					groupNames.push(video.groupName);
+				if (groupUrls.indexOf(video.groupUrl) == -1) {
+					groupUrls.push(video.groupUrl);
 				}
 			}
 		});
-		$scope.groupNames = groupNames;
+		$scope.groupUrls = groupUrls;
 		return anyItemIsGroup;
 	};
 	$scope.watchIsGroup = function(item) {
-		item.isGroup = item.linksTo == 'groupName' ? true : false;
+		item.isGroup = item.linksTo == 'groupUrl' ? true : false;
 	};
 	$scope.testWrite = function() {
 		//console.log($scope.data);
@@ -95,7 +95,7 @@ config(['$routeProvider', function($routeProvider) {
 				url = '';
 			url = name.replace(/[^a-zA-Z0-9]/g,"-").toLowerCase();
 			if (urlType === 'preview') video.previewUrl = url;
-			if (urlType === 'group' && video.isGroup) video.groupName = url;
+			if (urlType === 'group' && video.isGroup) video.groupUrl = url;
 		});
 	};
 	$scope.setSeqFilenames = function(fileType) {
