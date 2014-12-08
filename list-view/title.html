@@ -1,6 +1,9 @@
 <span ng-switch on="video.linksTo">
 	<a ng-switch-when="previewUrl" href="#/previews/{{video.previewUrl}}">{{video.name}}</a>
-	<a ng-switch-when="downloadFilename" href="{{data.downloadPath}}{{video.downloadFilename}}">{{video.name}}</a>
+	<span ng-switch-when="downloadFilename">
+	<a ng-if='video.downloadFilename' href="{{data.downloadPath}}{{video.downloadFilename}}">{{video.name}}</a>
+	<span ng-if='!video.downloadFilename'>{{video.name}}</span>
+	</span>
 	<span ng-switch-when="groupUrl">
 		<a href="#/deliverables/{{video.groupUrl}}">{{video.name}}</a> (list)</span>
 	<span ng-switch-default>{{video.name}}</span>

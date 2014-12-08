@@ -1,13 +1,25 @@
 Add Timestamp to config page for user reference
 
-Fade out delivery configured successfully message {{feedback}} and update timestamp on save
+Fade out 'delivery configured successfully message' {{feedback}} and update timestamp on save
 dialog box directive?
 
+add prefix options to sequential filenames
 
 prevent titles from rendering links to download urls if none specified
+
+Skins
+	Add dark and light config colors
+
+	Add dark and light display colors
 
 nested list:
 
 	add breadcrumbs (or back links) to public display
-
+	Prevent nesting more than 1? level deep?
 	
+multiple projects functionality:
+	
+	New main config page
+		Create a new project
+		Edit a project
+		
