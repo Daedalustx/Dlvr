@@ -59,5 +59,35 @@ listModule.directive('videoList', function() {
 		templateUrl: 'list-view/video-list.html'
 	};
 });
-
+listModule.directive('index', function() {
+	return {
+		transclude: true,
+		template: '<span ng-if="data.colHeaders[0].display">{{getIndex($index, video.priority)}}</span>'
+	};
+});
+listModule.directive('titleField', function() {
+	return {
+		transclude: true,
+		templateUrl: 'list-view/title.html'
+	};
+});
+listModule.directive('optional1', function() {
+	return {
+		transclude: true,
+		template: '<span ng-if="data.colHeaders[2].display">{{video.optional1}}</span>'
+	};
+});
+listModule.directive('optional2', function() {
+	return {
+		transclude: true,
+		template: '<span ng-if="data.colHeaders[3].display">{{video.optional2}}</span>'
+	};
+});
+listModule.directive('downloadField', function() {
+	return {
+		transclude: true,
+		templateUrl: 'list-view/download-field.html'
+	};
+});
+	
 

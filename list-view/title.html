@@ -1,0 +1,6 @@
+<span ng-switch on="video.linksTo">
+	<a ng-switch-when="previewUrl" href="#/previews/{{video.previewUrl}}">{{video.name}}</a>
+	<a ng-switch-when="downloadFilename" href="{{data.downloadPath}}{{video.downloadFilename}}">{{video.name}}</a>
+	<a ng-switch-when="groupName" href="#/deliverables/{{video.groupName}}">{{video.name}}</a>
+	<span ng-switch-default>{{video.name}}</span>
+</span>
