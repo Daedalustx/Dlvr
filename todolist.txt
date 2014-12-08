@@ -5,7 +5,7 @@ dialog box directive?
 
 add prefix options to sequential filenames
 
-prevent titles from rendering links to download urls if none specified
+prevent titles from rendering links to preview urls if none specified
 
 Skins
 	Add dark and light config colors
