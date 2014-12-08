@@ -62,7 +62,7 @@ listModule.directive('videoList', function() {
 listModule.directive('index', function() {
 	return {
 		transclude: true,
-		template: '<span class="index col" ng-if="data.colHeaders[0].display">{{getIndex($index, video.priority)}}</span>'
+		template: '<span ng-if="data.colHeaders[0].display">{{getIndex($index, video.priority)}}</span>'
 	};
 });
 listModule.directive('titleField', function() {
@@ -74,13 +74,13 @@ listModule.directive('titleField', function() {
 listModule.directive('optional1', function() {
 	return {
 		transclude: true,
-		template: '<span class="col" ng-if="data.colHeaders[2].display">{{video.optional1}}</span>'
+		template: '<span ng-if="data.colHeaders[2].display">{{video.optional1}}</span>'
 	};
 });
 listModule.directive('optional2', function() {
 	return {
 		transclude: true,
-		template: '<span class="col" ng-if="data.colHeaders[3].display">{{video.optional2}}</span>'
+		template: '<span ng-if="data.colHeaders[3].display">{{video.optional2}}</span>'
 	};
 });
 listModule.directive('downloadField', function() {
