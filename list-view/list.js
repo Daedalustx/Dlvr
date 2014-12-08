@@ -12,9 +12,22 @@ listModule.config(['$routeProvider', function($routeProvider) {
   });;
 }])
 
-.controller('VideoListCtrl', [ '$scope', '$http', function($scope, $http) {				
+.controller('VideoListCtrl', [ '$scope', '$http', '$routeParams', 'nestedFilter', function($scope, $http, $routeParams, nestedFilter) {
+	$scope.list = $routeParams.groupUrl	? $routeParams.groupUrl : 'main';			
+}])
+
+.filter('nested', function() {
+	return function(videos, list) {
+		var filtered = [];
+		for (var i=0; i < videos.length; i++) {
+			if (videos[i].belongsTo == list || (videos[i].isGroup && list=='main')) {
+				filtered.push(videos[i]);
+			}
+		};
+		return filtered;
+	};
+});
 	
-}]);
 
 listModule.directive('dlvrHeaders', function() {
 	return {

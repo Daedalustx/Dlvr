@@ -1,5 +1,5 @@
 <ul class="video-list">
-	<li ng-repeat="video in videoList | filter:query | orderBy:priority">
+	<li ng-repeat="video in videoList | nested:list | filter:query | orderBy:priority">
 		<index class="index col"></index>
 		<title-field class="col"></title-field>
 		<optional1 class="col"></optional1>

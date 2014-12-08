@@ -6,8 +6,6 @@ dialog box directive?
 prevent titles from rendering links to download urls if none specified
 
 nested list:
-	
-	add config belongsTo=groupName select box for each list item
-	filter public display to reflect nested list items
-	add breadcrumbs to public display
+
+	add breadcrumbs (or back links) to public display
 	
