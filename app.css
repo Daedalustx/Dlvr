@@ -33,6 +33,7 @@ div.col-headers {
 .col-header {
 	width: 25%;
 	display: none;
+	padding-right: .5em;
 }
 
 .displayinline {
@@ -62,6 +63,7 @@ ul.video-list li:nth-child(even) {
 	vertical-align: middle;
 	display: table-cell;
 	padding-right: .5 em;
+
 }
 
 .index.col, div.col-headers .col-header:first-child {
@@ -69,6 +71,7 @@ ul.video-list li:nth-child(even) {
 }
 .download.col, .col-headers .col-header:last-child {
 	width: 15%;
+	padding-right: 0;
 }
 
 .search {
