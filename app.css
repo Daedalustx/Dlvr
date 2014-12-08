@@ -61,6 +61,7 @@ ul.video-list li:nth-child(even) {
 	display: inline-block;
 	vertical-align: middle;
 	display: table-cell;
+	padding-right: .5 em;
 }
 
 .index.col, div.col-headers .col-header:first-child {
