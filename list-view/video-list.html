@@ -1,15 +1,9 @@
 <ul class="video-list">
 	<li ng-repeat="video in videoList | filter:query | orderBy:priority">
-		<span class="index col" ng-if="data.colHeaders[0].display">{{getIndex($index, video.priority)}}</span>
-		<span class="col" ng-switch on="video.linksTo">
-			<a ng-switch-when="previewUrl" href="#/previews/{{video.previewUrl}}">{{video.name}}</a>
-			<a ng-switch-when="downloadFilename" href="{{data.downloadPath}}{{video.downloadFilename}}">{{video.name}}</a>
-			<a ng-switch-when="groupName" href="#/deliverables/{{video.groupName}}">{{video.name}}</a>
-			<span ng-switch-default>{{video.name}}</span>
-		</span>
-		<span class="col" ng-if="data.colHeaders[2].display">{{video.optional1}}</span>
-		<span class="col" ng-if="data.colHeaders[3].display">{{video.optional2}}</span>
-		<span class="col" ng-if="data.colHeaders[4].displayDownloadAsIcon && data.colHeaders[4].display && video.downloadFilename"><a href="{{data.downloadPath}}{{video.downloadFilename}}"><img height="32" width="40" ng-src="delivery/{{data.colHeaders[4].iconFilename}}"></a></span>
-		<span class="col" ng-if="!data.colHeaders[4].displayDownloadAsIcon && data.colHeaders[4].display"><a href="{{data.downloadPath}}{{video.downloadFilename}}">{{video.downloadFilename}}</span>
+		<index></index>
+		<title-field></title-field>
+		<optional1></optional1>
+		<optional2></optional2>
+		<download-field></download-field>
 	</li>
 </ul>
