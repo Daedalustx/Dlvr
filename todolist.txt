@@ -8,9 +8,8 @@ add prefix options to sequential filenames
 prevent titles from rendering links to preview urls if none specified
 
 Skins
-	Add dark and light config colors
 
-	Add dark and light display colors
+	Add dark display colors
 
 nested list:
 
@@ -23,3 +22,6 @@ multiple projects functionality:
 		Create a new project
 		Edit a project
 		
+Stylesheets
+	So much...
+	

@@ -1,5 +1,37 @@
 /* video delivery app config css stylesheet */
 
+body.night {
+	background-color: #212128;
+	color: #EEE;
+}
+
+.theme-switch {
+	float: left;
+	margin: -2em 0 0 1em;
+}
+
+.night .delivery-list li:nth-child(even) {
+	background-color: #160242;
+}
+
+.night .delivery-list li:nth-child(odd) {
+	background-color: #5e5e5e;
+}
+
+.night .index {
+	background-color: inherit;
+}
+
+.night input {
+	background-color: #ddd;
+	border: 2px ridge #57A;
+}
+
+.save {
+	color: #000;
+	background-color: rgba(106, 255, 82, 0.65);
+}
+
 section {
 	padding: 0 40px 0 40px;
 	border-bottom: 1px solid #444;
@@ -53,6 +85,10 @@ li.row {
 span.col {
 	display: inline-block;
 	width: 22.5%;
+}
+
+.delivery-list div {
+	margin-bottom: .5em
 }
 
 .delivery-list button {

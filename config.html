@@ -14,9 +14,10 @@
   <link rel="stylesheet" href="config.css">
   <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
-<body>
+<body ng-class="{night: nightTheme}">
 <header>
 <h1 class="project-name">Configure A Delivery</h1>
+<div class="theme-switch">Night Theme <input type="checkbox" ng-model="nightTheme"></div>
 </header>
 <hr>
   <!--[if lt IE 7]>
@@ -26,9 +27,9 @@
 <section id="project-config">
 	<img class="logo" ng-src="{{data.clientLogo && 'delivery/' + data.clientLogo || ''}}">
 	<h2>Project Information</h2>
-	<p>Project Title: <input ng-model="data.projectName"><span class="logo">Client Logo Filename: <input ng-model="data.clientLogo"></span></p>
+	<p class="centered">Project Title: <input ng-model="data.projectName"><span class="logo">Client Logo Filename: <input ng-model="data.clientLogo"></span></p>
 	<p class="centered">Project Header Text: <br><textarea cols="60" ng-model="data.introText"></textarea></p>
-	<p>Previews Folder: <input ng-model="data.previewPath"> <span>Downloads Folder: <input ng-model="data.downloadPath"></span></p>
+	<p class="centered">Previews Folder: <input ng-model="data.previewPath"> <span>Downloads Folder: <input ng-model="data.downloadPath"></span></p>
 </section>
 <section id="column-config">
 	<h2>Configure Columns</h2>
@@ -101,7 +102,7 @@
 	</ul>
 	<p><button ng-click="addRow()">Add a row</button></p>
 </section>
-<p class="centered"><button ng-click="testWrite()">Save to File</button></p>
+<p class="centered"><button ng-click="testWrite()" class="save">Save to File</button></p>
 <p class="centered">{{feedback}}</p>
 <p class="centered"><button><a href="../app/#/deliverables" target="_blank">View Delivery</a></button></p>
   <!-- In production use:
