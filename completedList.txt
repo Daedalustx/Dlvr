@@ -1,4 +1,10 @@
-prevent titles from rendering links to download urls if none specified
+//// CONFIG DONE
 
 Add dark and light config colors
 
+
+//// PUBLIC DONE
+
+prevent titles from rendering links to download urls if none specified
+prevent download column display for parent list items
+Write title attrs for title links

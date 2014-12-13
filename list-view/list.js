@@ -81,7 +81,13 @@ listModule.directive('index', function() {
 listModule.directive('titleField', function() {
 	return {
 		transclude: true,
-		templateUrl: 'list-view/title.html'
+		templateUrl: 'list-view/title.html',
+		controller: function($scope) {
+			$scope.video.numChildren = 0;
+			for (var i = 0; i < $scope.data.videos.length; i++) {
+				if ( $scope.data.videos[i].belongsTo == $scope.video.groupUrl ) $scope.video.numChildren++;
+			};
+		}
 	};
 });
 listModule.directive('optional1', function() {

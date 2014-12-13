@@ -10,9 +10,13 @@ config(['$routeProvider', function($routeProvider) {
 }])
 .controller('ConfigController', ['$scope', '$http', function($scope, $http) {
 	$scope.data = {};
-	$http.get('delivery/project.json').success(function(list) {
-		$scope.data = list;
-	});
+	$http.get('delivery/project.json')
+		.success(function(list) {
+			$scope.data = list;
+		})
+		.error( function() {
+			alert("Error retreiving Data");
+		});
 	$scope.priority = function(isSortable) {
 			return isSortable ? 'priority' : 'id';
 	};

@@ -1,3 +1,5 @@
+//// CONFIG TODO
+
 Add Timestamp to config page for user reference
 
 Fade out 'delivery configured successfully message' {{feedback}} and update timestamp on save
@@ -5,25 +7,26 @@ dialog box directive?
 
 add prefix options to sequential filenames
 
+Prevent nesting more than 1? level deep?
+
+//// PUBLIC
+
+
 prevent titles from rendering links to preview urls if none specified
 
-prevent download column display for parent list items
+Pluralize the title attribute for groups
 
-Skins
+If a column has no entries it should be hidden even if it is enabled
 
-	Add dark display colors
+Skins - Add a colors object with dark display colors
 
-nested list:
+Div for breadcrumbs
 
-	add breadcrumbs (or back links) to public display
-	Prevent nesting more than 1? level deep?
+nested list - add breadcrumbs (or back links) to public display
 	
-multiple projects functionality:
+	
+//// multiple projects branch
 	
 	New main config page
 		Create a new project
 		Edit a project
-		
-Stylesheets
-	So much...
-	
