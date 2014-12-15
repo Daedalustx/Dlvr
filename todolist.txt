@@ -19,6 +19,5 @@ Pluralize the title attribute for groups
 	
 //// multiple projects branch
 	
-	New main config page
-		Create a new project
-		Edit a project
+	match up project with settings page - pass Scope? or move projects scope into config controller
+	

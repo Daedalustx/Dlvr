@@ -1,18 +1,25 @@
 <section>
 	<h2>Projects</h2>
-	<p ng-hide="create">{{actionText}}</p>
+	<p ng-hide="create" ng-if="!projects[0]">{{actionText}}</p>
 	<ul ng-if="projects">
-		<li ng-repeat="project in projects">{{project.projectId}}</li>
+		<li ng-repeat="project in projects"> 
+			<a href="#/projects/{{project.projectId}}">{{project.projectName}}</a>
+			 Path: {{project.projectRootPath}} Use Night Theme: {{project.configNightTheme}}
+			 <button ng-click="editProject($index)">Edit</button>
+			 <button style="color:#E00;" ng-click="deleteProject($index)">X</button>
+			 </li>
 	</ul>
-	<p ng-hide="create"><button ng-click="create=true">New Project</button></p>
+	<p ng-hide="create"><button ng-click="createProject(true)">New Project</button></p>
 	<form class="create-project" ng-show="create">
 		<legend>Enter Project Details:</legend>
-		<label>Url: <input placeholder="Project ID (url)"></label>
-		<label>Project Name:<input placeholder="Project Name"></label>
-		<label>Root Folder: <input placeholder="path"></label>
-		<label>Use Night theme: <input type="checkbox"></label>
+		<label>Url: <input placeholder="Project ID (url)" ng-model="projectId"></label>
+		<label>Project Name:<input placeholder="Project Name" ng-model="projectName"></label>
+		<label>Root Folder: <input placeholder="path" ng-model="projectRootPath"></label>
+		<label>Use Night theme: <input type="checkbox"
+		ng-model="configNightTheme"></label>
 		<br>
-		<input type="submit" class="save" value="Save Project">
+		<input type="submit" class="save" value="Save Project" ng-click="writeProject()">
 		<input type="reset" class="delete" value="Cancel" ng-click="create=false">
 	</form>
+	<p ng-class="{feedback: feedback}" class="centered">{{feedback}}</p>
 </section>

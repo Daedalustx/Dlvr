@@ -9,9 +9,10 @@ projectSettings.config(['$routeProvider', function ($routeProvider) {
 		templateUrl: 'settings-view/settings.html'
 	});
 }])
-.controller('projectSettingsCtrl', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+.controller('projectSettingsCtrl', ['$scope', '$http', '$timeout', '$routeParams', function ($scope, $http, $timeout, $routeParams) {
+	console.log($routeParams.projectId, $scope.projects);
 	$scope.data = {};
-	$http.get('../delivery/project.json')
+	$http.get('/app/delivery/project.json')
 		.success(function(list) {
 			$scope.data = list;
 		})
