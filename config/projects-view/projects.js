@@ -10,19 +10,7 @@ projects.config(['$routeProvider', function ($routeProvider) {
 	});
 }])
 .controller('projectCtrl', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
-	$scope.actionText = 'Choose a Project';
-	$http.get('projects.json')
-	.success(function(list) {
-		if (angular.isDefined(list.projects[0])) {
-			$scope.projects = list.projects;
-		} else {
-			$scope.actionText = 'No projects found, create one?';
-		}
-			
-	})
-	.error( function() {
-		alert("Error retreiving Data");
-	});
+	
 	$scope.createProject = function() {
 		$scope.projects = $scope.projects || [];
 		$scope.projectIndex = $scope.projects.length;
