@@ -18,7 +18,7 @@ config(['$routeProvider', function($routeProvider) {
 		$scope.logo = list.clientLogo;
 		$scope.path = list.previewPath;
 		$scope.projectName = list.projectName;
-		$scope.projectText = list.introText;
+		$scope.projectText = list.projectText;
 		$scope.colHeaders = list.colHeaders;
 		$scope.priority = list.colHeaders[0].sortable ? 'priority' : 'id';
 	});	

@@ -19,10 +19,6 @@ Pluralize the title attribute for groups
 If a column has no entries it should be hidden even if it is enabled
 
 Skins - Add a colors object with dark display colors
-
-Div for breadcrumbs
-
-nested list - add breadcrumbs (or back links) to public display
 	
 	
 //// multiple projects branch

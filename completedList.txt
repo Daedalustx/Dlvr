@@ -8,3 +8,5 @@ Add dark and light config colors
 prevent titles from rendering links to download urls if none specified
 prevent download column display for parent list items
 Write title attrs for title links
+Div for breadcrumbs
+nested list - add breadcrumbs (or back links) to public display

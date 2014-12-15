@@ -28,7 +28,7 @@
 	<img class="logo" ng-src="{{data.clientLogo && 'delivery/' + data.clientLogo || ''}}">
 	<h2>Project Information</h2>
 	<p class="centered">Project Title: <input ng-model="data.projectName"><span class="logo">Client Logo Filename: <input ng-model="data.clientLogo"></span></p>
-	<p class="centered">Project Header Text: <br><textarea cols="60" ng-model="data.introText"></textarea></p>
+	<p class="centered">Project Header Text: <br><textarea cols="60" ng-model="data.projectText"></textarea></p>
 	<p class="centered">Previews Folder: <input ng-model="data.previewPath"> <span>Downloads Folder: <input ng-model="data.downloadPath"></span></p>
 </section>
 <section id="column-config">
@@ -84,6 +84,7 @@
 						</span>
 						<span ng-if="video.linksTo=='groupUrl'">
 							Group URL: /deliverables/<input ng-model="video.groupUrl" ng-change="video.isGroup=video.groupUrl?true:false">
+							<br>Group Description: <textarea ng-model="video.groupDescription" placeholder="optional"></textarea>
 						</span>
 						<span ng-if="video.linksTo=='downloadFilename'">
 							Download URL: {{data.downloadPath}} <input ng-model="video.downloadFilename">
