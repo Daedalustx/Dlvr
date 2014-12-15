@@ -1,16 +1,17 @@
 'use strict';
 
-// Declare app level module which depends on views, and components
-var configVideoApp = angular.module('videoConfig', [
-  'ngRoute'
-]).
-config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/'});
-  
+var projectSettings = angular.module('configuration.projectSettings', ['ngRoute']);
+
+projectSettings.config(['$routeProvider', function ($routeProvider) {
+	$routeProvider
+	.when('/projects/:projectId', {
+		controller: 'projectSettingsCtrl',
+		templateUrl: 'settings-view/settings.html'
+	});
 }])
-.controller('ConfigController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
+.controller('projectSettingsCtrl', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 	$scope.data = {};
-	$http.get('delivery/project.json')
+	$http.get('../delivery/project.json')
 		.success(function(list) {
 			$scope.data = list;
 		})
@@ -120,7 +121,7 @@ config(['$routeProvider', function($routeProvider) {
 		});
 	};
 }]);
-configVideoApp.directive('colInput', ['$compile', function($compile) {
+projectSettings.directive('colInput', ['$compile', function($compile) {
 	return {
 		'link': function(scope, element, attrs) {
 			scope.$watch(attrs.colInput, function(colInput) {
@@ -140,9 +141,9 @@ configVideoApp.directive('colInput', ['$compile', function($compile) {
 	};
 }]);
 
-configVideoApp.directive('itemGroup', function() {
+projectSettings.directive('itemGroup', function() {
 	return {
 		transclude: true,
-		templateUrl: 'config/item-group.html'
+		templateUrl: '../config/item-group.html'
 	};
 });

@@ -1,31 +1,6 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="videoConfig" ng-controller="ConfigController" class="no-js"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Video Delivery Config</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/css/main.css">
-  <link rel="stylesheet" href="config.css">
-  <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
-</head>
-<body ng-class="{night: nightTheme}">
-<header>
-<h1 class="project-name">Dlvr</h1>
-<div class="theme-switch">Night Theme <input type="checkbox" ng-model="nightTheme"></div>
-</header>
-<hr>
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
 <p class="view-button centered"><button><a href="../app/#/deliverables" target="_blank">View Delivery</a></button></p>
 <section id="project-config">
-	<img class="logo" ng-src="{{data.clientLogo && 'delivery/' + data.clientLogo || ''}}">
+	<img class="logo" ng-src="{{data.clientLogo && '../delivery/' + data.clientLogo || ''}}">
 	<h2>Project Information</h2>
 	<p class="centered">Project Title: <input ng-model="data.projectName"><span class="logo">Client Logo Filename: <input ng-model="data.clientLogo"></span></p>
 	<p class="centered">Project Header Text: <br><textarea cols="60" ng-model="data.projectText"></textarea></p>
@@ -91,7 +66,7 @@
 							Download URL: {{data.downloadPath}} <input ng-model="video.downloadFilename">
 						</span>
 					</span>
-					<span ng-if="$index==4 && col.displayDownloadAsIcon && video.linksTo!='groupUrl' && video.downloadFilename"> Displayed as icon <img height="32" width="40" ng-src="delivery/{{col.iconFilename}}"/>
+					<span ng-if="$index==4 && col.displayDownloadAsIcon && video.linksTo!='groupUrl' && video.downloadFilename"> Displayed as icon <img height="32" width="40" ng-src="../delivery/{{col.iconFilename}}"/>
 					</span>
 				</div>
 				<div class="belongs-to">
@@ -107,12 +82,3 @@
 <p class="centered"><button ng-click="writeData()" class="save">Save to File</button></p>
 <p ng-class="{feedback: feedback}" class="centered">{{feedback}}</p>
 <p class="centered"><button><a href="../app/#/deliverables" target="_blank">View Delivery</a></button></p>
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="bower_components/angular-resource/angular-resource.js"></script>
-  <script src="config.js"></script>
-</body>
-</html>
