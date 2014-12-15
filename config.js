@@ -8,7 +8,7 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/'});
   
 }])
-.controller('ConfigController', ['$scope', '$http', function($scope, $http) {
+.controller('ConfigController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
 	$scope.data = {};
 	$http.get('delivery/project.json')
 		.success(function(list) {
@@ -48,9 +48,15 @@ config(['$routeProvider', function($routeProvider) {
 		})
 		.success(function() {
 			$scope.feedback="Delivery configured sucessfully";
+			$timeout( function() {
+				$scope.feedback="";
+			}, 2000 );
 		})
 		.error(function() {
 			$scope.feedback="Delivery configuration Failed";
+			$timeout( function() {
+				$scope.feedback="";
+			}, 3000 );
 		});
 	};
 	$scope.addRow = function() {

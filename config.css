@@ -124,3 +124,16 @@ span.delete-row, span.col-0 {
 span.delete-row {
 	margin-top: -1em;
 }
+
+.feedback {
+	position: fixed;
+	top:0;
+	left: 0;
+	right: 0;
+	margin: 8em;
+	background-color: green;
+	padding: 2em 1em;
+	font-size: 1.5em;
+	color: #FFF;
+	border: 1px solid #CFC;
+}

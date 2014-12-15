@@ -105,7 +105,7 @@
 	<p><button ng-click="addRow()">Add a row</button></p>
 </section>
 <p class="centered"><button ng-click="writeData()" class="save">Save to File</button></p>
-<p class="centered">{{feedback}}</p>
+<p ng-class="{feedback: feedback}" class="centered">{{feedback}}</p>
 <p class="centered"><button><a href="../app/#/deliverables" target="_blank">View Delivery</a></button></p>
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
