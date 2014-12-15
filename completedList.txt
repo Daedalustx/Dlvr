@@ -1,7 +1,7 @@
 //// CONFIG DONE
 
 Add dark and light config colors
-
+Add night theme option for public display
 
 //// PUBLIC DONE
 
@@ -10,3 +10,4 @@ prevent download column display for parent list items
 Write title attrs for title links
 Div for breadcrumbs
 nested list - add breadcrumbs (or back links) to public display
+Add night theme to controller and styles
