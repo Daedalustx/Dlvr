@@ -103,7 +103,7 @@ listModule.directive('colHeaders', function() {
 			for (var i=0; i < 5; i++) {
 				
 				headers += scope.getHeader(scope.colHeaders[i]);
-			}
+			};
 			el.append(headers);
 		}
 	};

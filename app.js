@@ -21,5 +21,6 @@ config(['$routeProvider', function($routeProvider) {
 		$scope.projectText = list.projectText;
 		$scope.colHeaders = list.colHeaders;
 		$scope.priority = list.colHeaders[0].sortable ? 'priority' : 'id';
+		$scope.nightTheme = list.nightTheme;
 	});	
 }]);

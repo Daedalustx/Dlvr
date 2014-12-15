@@ -38,7 +38,7 @@ config(['$routeProvider', function($routeProvider) {
 	$scope.watchIsGroup = function(item) {
 		item.isGroup = item.linksTo == 'groupUrl' ? true : false;
 	};
-	$scope.testWrite = function() {
+	$scope.writeData = function() {
 		//console.log($scope.data);
 		$http({
 			method: 'post',

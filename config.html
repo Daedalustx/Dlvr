@@ -30,6 +30,7 @@
 	<p class="centered">Project Title: <input ng-model="data.projectName"><span class="logo">Client Logo Filename: <input ng-model="data.clientLogo"></span></p>
 	<p class="centered">Project Header Text: <br><textarea cols="60" ng-model="data.projectText"></textarea></p>
 	<p class="centered">Previews Folder: <input ng-model="data.previewPath"> <span>Downloads Folder: <input ng-model="data.downloadPath"></span></p>
+	<p class="centered">Use night theme for delivery <input type="checkbox" ng-model="data.nightTheme"></p>
 </section>
 <section id="column-config">
 	<h2>Configure Columns</h2>
@@ -103,7 +104,7 @@
 	</ul>
 	<p><button ng-click="addRow()">Add a row</button></p>
 </section>
-<p class="centered"><button ng-click="testWrite()" class="save">Save to File</button></p>
+<p class="centered"><button ng-click="writeData()" class="save">Save to File</button></p>
 <p class="centered">{{feedback}}</p>
 <p class="centered"><button><a href="../app/#/deliverables" target="_blank">View Delivery</a></button></p>
   <!-- In production use:
