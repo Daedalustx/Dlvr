@@ -1,3 +1,18 @@
 <section>
-	<h2>Choose a Project</h2>
+	<h2>Projects</h2>
+	<p ng-hide="create">{{actionText}}</p>
+	<ul ng-if="projects">
+		<li ng-repeat="project in projects">{{project.projectId}}</li>
+	</ul>
+	<p ng-hide="create"><button ng-click="create=true">New Project</button></p>
+	<form class="create-project" ng-show="create">
+		<legend>Enter Project Details:</legend>
+		<label>Url: <input placeholder="Project ID (url)"></label>
+		<label>Project Name:<input placeholder="Project Name"></label>
+		<label>Root Folder: <input placeholder="path"></label>
+		<label>Use Night theme: <input type="checkbox"></label>
+		<br>
+		<input type="submit" class="save" value="Save Project">
+		<input type="reset" class="delete" value="Cancel" ng-click="create=false">
+	</form>
 </section>
