@@ -80,6 +80,16 @@ listModule.directive('colHeaders', function() {
 	return {
 		restrict: 'E',
 		controller: function($scope, $routeParams) {
+			$scope.getTitle = function(title, group, column) {
+				var numVideos = $scope.videoList.length,
+					showHeaderText = false;
+				for (var i=0; i < numVideos; i++) {
+					if ($scope.videoList[i].belongsTo == group && !$scope.videoList[i].isGroup && $scope.videoList[i][column]) {
+						showHeaderText = true;
+					}
+				};
+				return showHeaderText ? title : '';
+			};
 			$scope.getHeader = function(header) {
 				var group = angular.isDefined($routeParams.groupUrl) ? $routeParams.groupUrl : null;
 				
@@ -89,10 +99,23 @@ listModule.directive('colHeaders', function() {
 					case 1:
 						return "<span class='col " + $scope.variableColumn() + "'>" + header.title + "</span>";
 					case 2:
+						if ( header.display === true ) {
+							return "<span class='col " + $scope.variableColumn() + "'>" + $scope.getTitle(header.title, group, 'optional1') + "</span>";
+						} else {
+							return "";
+						};
 					case 3:
-						return header.display === true ? "<span class='col " + $scope.variableColumn() + "'>" + header.title + "</span>" : "";
+						if ( header.display === true ) {
+							return "<span class='col " + $scope.variableColumn() + "'>" + $scope.getTitle(header.title, group, 'optional2') + "</span>";
+						} else {
+							return "";
+						};
 					case 4:
-						return header.display === true ? "<span class='download col'>" + header.title + "</span>" : "";
+						if ( header.display === true ) {
+							return "<span class='download col'>" + $scope.getTitle(header.title, group, 'downloadFilename') + "</span>";
+						} else {
+							return "";
+						}
 					default:
 						return;
 				};
