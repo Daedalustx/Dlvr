@@ -1,10 +1,11 @@
 <p class="view-button centered"><button><a href="../app/#/deliverables" target="_blank">View Delivery</a></button></p>
 <section id="project-config">
-	<img class="logo" ng-src="{{data.clientLogo && '../delivery/' + data.clientLogo || ''}}">
+	<img class="logo" ng-src="{{data.clientLogo && ('../' + settings.projectRootPath + '/' + data.clientLogo) || ''}}">
 	<h2>Project Information</h2>
-	<p class="centered">Project Title: <input ng-model="data.projectName"><span class="logo">Client Logo Filename: <input ng-model="data.clientLogo"></span></p>
 	<p class="centered">Project Header Text: <br><textarea cols="60" ng-model="data.projectText"></textarea></p>
-	<p class="centered">Previews Folder: <input ng-model="data.previewPath"> <span>Downloads Folder: <input ng-model="data.downloadPath"></span></p>
+	<p class="logo centered">Client Logo Filename: <input ng-model="data.clientLogo"></p>
+	
+	<p class="centered">Previews Folder: <span class="faded">{{settings.projectRootPath}}/</span><input ng-model="data.previewPath"></p><p class="centered"><span>Downloads Folder: <span class="faded">{{settings.projectRootPath}}/</span><input ng-model="data.downloadPath"></span></p>
 	<p class="centered">Use night theme for delivery <input type="checkbox" ng-model="data.nightTheme"></p>
 </section>
 <section id="column-config">
@@ -55,7 +56,7 @@
 						</select>
 						<br>
 						<span ng-if="video.linksTo=='previewUrl'">
-							Preview URL: {{data.previewPath}} <input ng-model="video.previewUrl">
+							Preview URL: {{settings.projectRootPath}}/{{data.previewPath}}/<input ng-model="video.previewUrl"><br>
 							Preview Filename: <input ng-model="video.previewFilename">
 						</span>
 						<span ng-if="video.linksTo=='groupUrl'">
@@ -63,10 +64,10 @@
 							<br>Group Description: <textarea ng-model="video.groupDescription" placeholder="optional"></textarea>
 						</span>
 						<span ng-if="video.linksTo=='downloadFilename'">
-							Download URL: {{data.downloadPath}} <input ng-model="video.downloadFilename">
+							Download URL: {{settings.projectRootPath}}/{{data.downloadPath}}/<input ng-model="video.downloadFilename">
 						</span>
 					</span>
-					<span ng-if="$index==4 && col.displayDownloadAsIcon && video.linksTo!='groupUrl' && video.downloadFilename"> Displayed as icon <img height="32" width="40" ng-src="../delivery/{{col.iconFilename}}"/>
+					<span ng-if="$index==4 && col.displayDownloadAsIcon && video.linksTo!='groupUrl' && video.downloadFilename"> Displayed as icon <img height="32" width="40" ng-src="../{{settings.projectRootPath}}/{{col.iconFilename}}"/>
 					</span>
 				</div>
 				<div class="belongs-to">

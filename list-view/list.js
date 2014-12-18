@@ -3,10 +3,10 @@
 var listModule = angular.module('video1.videoList', ['ngRoute']);
 
 listModule.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/deliverables', {
+  $routeProvider.when('/:projectUrl', {
     templateUrl: 'list-view/list.html',
     controller: 'VideoListCtrl'
-  }).when('/deliverables/:groupUrl', {
+  }).when('/:projectUrl/:groupUrl', {
     templateUrl: 'list-view/list.html',
     controller: 'VideoListCtrl'
   });;

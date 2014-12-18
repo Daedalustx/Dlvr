@@ -2,19 +2,26 @@
 
 var projectSettings = angular.module('configuration.projectSettings', ['ngRoute']);
 
-projectSettings.config(['$routeProvider', function ($routeProvider) {
+projectSettings.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 	$routeProvider
 	.when('/projects/:projectId', {
 		controller: 'projectSettingsCtrl',
 		templateUrl: 'settings-view/settings.html'
 	});
 }])
-.controller('projectSettingsCtrl', ['$scope', '$http', '$timeout', '$routeParams', function ($scope, $http, $timeout, $routeParams) {
-	console.log($routeParams.projectId, $scope.projects);
+.controller('projectSettingsCtrl', ['$scope', '$http', '$timeout', '$routeParams', '$location', function ($scope, $http, $timeout, $routeParams, $location) {
+	$scope.settings = $scope.projects[$location.search().id];
+	if ( $scope.settings.configNightTheme ) {
+		$scope.$emit('lightsOut');
+	} else {
+		$scope.$emit('lightsOn');
+	};
 	$scope.data = {};
-	$http.get('/app/delivery/project.json')
+	$http.get('/app/' + $scope.settings.projectRootPath + '/project.json')
 		.success(function(list) {
 			$scope.data = list;
+			$scope.data.projectName = $scope.settings.projectName;
+			$scope.$emit('setProjectTitle', $scope.data.projectName);
 		})
 		.error( function() {
 			alert("Error retreiving Data");
@@ -41,10 +48,11 @@ projectSettings.config(['$routeProvider', function ($routeProvider) {
 		item.isGroup = item.linksTo == 'groupUrl' ? true : false;
 	};
 	$scope.writeData = function() {
-		//console.log($scope.data);
+		var path = '../' + $scope.settings.projectRootPath + '/config.php';
+		$scope.data.rootPath = $scope.settings.projectRootPath;
 		$http({
 			method: 'post',
-			url: 'delivery/config.php', 
+			url: '../' + $scope.settings.projectRootPath + '/config.php', 
 			data : $scope.data,
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		})

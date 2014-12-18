@@ -16,7 +16,7 @@
 </head>
 <body ng-class="{night: nightTheme}">
 <header>
-<img class="logo" ng-src="{{logo && 'delivery/' + logo || ''}}"/>
+<img class="logo" ng-src="{{logo && (data.rootPath + '/' + logo) || ''}}"/>
 <h1 class="project-name" ng-bind="projectName"></h1>
 </header>
 <hr>

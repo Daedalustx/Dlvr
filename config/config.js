@@ -10,6 +10,16 @@ config(['$routeProvider', function($routeProvider) {
   $routeProvider.otherwise({redirectTo: '/projects'});
 }])
 .controller('ConfigController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
+	$scope.title = "Dlvr";
+	$scope.$on('setProjectTitle', function (event, title) {
+		$scope.title = title;
+	});
+	$scope.$on('lightsOut', function () {
+		$scope.configNightTheme = true;
+	});
+	$scope.$on('lightsOn', function () {
+		$scope.configNightTheme = false;
+	}); 
 	$scope.actionText = 'Choose a Project';
 	$http.get('projects.json')
 	.success(function(list) {

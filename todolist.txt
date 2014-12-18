@@ -21,3 +21,7 @@ Pluralize the title attribute for groups
 	
 	match up project with settings page - pass Scope? or move projects scope into config controller
 	
+	On public Side - Use resolve function to load pointer to folder - default view?
+	
+	
+	
