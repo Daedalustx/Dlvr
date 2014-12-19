@@ -16,8 +16,8 @@
 </head>
 <body ng-class="{night: nightTheme}">
 <header>
-<img class="logo" ng-src="{{logo && (data.rootPath + '/' + logo) || ''}}"/>
-<h1 class="project-name" ng-bind="projectName"></h1>
+<img class="logo" ng-src="{{logo && (settings.projectRootPath + '/' + logo) || ''}}"/>
+<h1 class="project-name" ng-bind="settings.projectName"></h1>
 </header>
 <hr>
   <!--[if lt IE 7]>
