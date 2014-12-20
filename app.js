@@ -10,16 +10,18 @@ var videoApp = angular.module('video1', [
 		
 videoApp.config(['$routeProvider', function($routeProvider) {
   $routeProvider
-	.when('/:projectUrl', {
-	
-		
-	})
+	.when('/:projectUrl', {})
 	.otherwise({redirectTo: '/not-found'});
   
 }]);
 
 videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route', '$routeParams', '$location',  function($rootScope, $scope, $http, $route, $routeParams, $location) {
 	console.log('video app controller');
+	$rootScope.dataLoaded = false;
+	$rootScope.$on('$routeChangeStart', function () {
+		
+		console.log('routeChangeStart');		
+	});
 	$rootScope.$on('$routeChangeSuccess', function () {
 		if (!angular.isDefined($scope.data)) {
 			console.log('no data yet - loading it');
@@ -43,8 +45,10 @@ videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route',
 					$scope.nightTheme = list.nightTheme;
 		
 					console.log('success callback');
-					console.log($scope.data);
-					if (!$route.current.params.groupUrl) {
+					$rootScope.dataLoaded = true;
+					console.log($route.current.params);
+					
+					if (!$route.current.params.groupUrl && !$route.current.params.previewUrl) {
 						$location.path('/' + $scope.settings.projectId + '/main');
 					}
 				})

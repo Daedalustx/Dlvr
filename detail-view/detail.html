@@ -8,7 +8,7 @@
 </video>
 <p ng-if="video.optional1">{{colHeaders[2].title}}: {{video.optional1}}</p>
 <p ng-if="video.optional2">{{colHeaders[3].title}}: {{video.optional2}}</p>
-<p ng-if="video.downloadFilename"><a href="{{data.downloadPath}}{{video.downloadFilename}}">Download</a></p>
+<p ng-if="video.downloadFilename"><a href="{{settings.projectRootPath}}/{{data.downloadPath}}/{{video.downloadFilename}}">Download</a></p>
 <p>
   
   {{ 'Dlvr v%VERSION%' | interpolate }}

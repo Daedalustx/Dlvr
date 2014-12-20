@@ -9,26 +9,38 @@ angular.module('video1.detail', ['ngRoute'])
   });
 }])
 
-.controller('DetailViewCtrl', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+.controller('DetailViewCtrl', ['$rootScope', '$scope', '$http', '$routeParams', function($rootScope, $scope, $http, $routeParams) {
+	$rootScope.$on('$routeChangeStart', function () {
+		console.log('routeChangeStart detail');
+	});
+	$scope.$on('$routeChangeSuccess', function () {
+		console.log('routeChangeSuccess detail');
+	});
 	$scope.list = 'list-item';
-	
-	var id = $routeParams.previewUrl,
-		videos = $scope.videoList;
-	
 	$scope.video = null;
+	$scope.$watch('settings', function(newVal) {
+			$scope.source = function(fileName, ext) {
+				return $scope.settings.projectRootPath + '/' + $scope.path + '/' + fileName + ext;
+			};
+	});
+	$scope.$watch('data', function(newVal) {
+		if (newVal) {
+			var id = $routeParams.previewUrl,
+				videos = $scope.videoList;
 	
-	for (var i=0; i < videos.length; i++) {
-		$scope.video = videos[i].previewUrl === id ? videos[i] : $scope.video;
-	};
+			
 	
-	angular.forEach($scope.videoList, function(item) {
-		if (item.groupUrl == $scope.video.belongsTo && $scope.list != 'main') {
-			$scope.listName = item.name;
+			for (var i=0; i < videos.length; i++) {
+				$scope.video = videos[i].previewUrl === id ? videos[i] : $scope.video;
+			};
+	
+			angular.forEach($scope.videoList, function(item) {
+				if (item.groupUrl == $scope.video.belongsTo && $scope.list != 'main') {
+					$scope.listName = item.name;
+				}
+			});
+	
+			
 		}
 	});
-	
-	$scope.source = function(fileName, ext) {
-		return $scope.settings.projectRootPath + '/' + $scope.path + '/' + fileName + ext;
-		
-	}
 }]);

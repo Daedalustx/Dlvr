@@ -1,41 +1,53 @@
 'use strict';
 
-var listModule = angular.module('video1.videoList', ['ngRoute', 'video1']);
+var listModule = angular.module('video1.videoList', ['ngRoute']);
 
 listModule.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/:projectUrl/:groupUrl', {
     templateUrl: 'list-view/list.html',
     controller: 'VideoListCtrl'
-  });;
+  });
 }])
 
-.controller('VideoListCtrl', [ '$scope', '$http', '$routeParams', 'nestedFilter', function($scope, $http, $routeParams, nestedFilter) {
-	
+.controller('VideoListCtrl', [ '$rootScope', '$scope', '$http', '$route', '$routeParams', 'nestedFilter', function($rootScope, $scope, $http, $route, $routeParams, nestedFilter) {
+	$rootScope.$on('$routeChangeStart', function () {
+		console.log('routeChangeStart list');
+	});
+	$scope.$on('$routeChangeSuccess', function () {
+		console.log('routeChangeSuccess list');
+	});
 	var numColumns = 0;
 	$scope.list = $routeParams.groupUrl;
-	angular.forEach($scope.videoList, function(item) {
-		if (item.groupUrl == $scope.list && $scope.list != 'main') {
-			$scope.listName = item.name;
-			$scope.listDescription = item.groupDescription || '';
+	$scope.$watch('data', function(newVal) {
+		if (newVal) {
+			angular.forEach($scope.videoList, function(item) {
+				if (item.groupUrl == $scope.list && $scope.list != 'main') {
+					$scope.listName = item.name;
+					$scope.listDescription = item.groupDescription || '';
+				}
+			});
+			angular.forEach($scope.colHeaders, function(header) {
+				if ( header.display && header.index != 0 && header.index !=4 ) numColumns++;
+			});	
+			$scope.variableColumn = function () {
+				return 'col-' + numColumns;
+			};	
 		}
 	});
-	angular.forEach($scope.colHeaders, function(header) {
-		if ( header.display && header.index != 0 && header.index !=4 ) numColumns++;
-	});	
-	$scope.variableColumn = function () {
-		return 'col-' + numColumns;
-	};	
+	
 }])
 
 .filter('nested', function() {
 	return function(videos, list) {
-		var filtered = [];
-		for (var i=0; i < videos.length; i++) {
-			if (videos[i].belongsTo == list || (videos[i].isGroup && list=='main')) {
-				filtered.push(videos[i]);
-			}
-		};
-		return filtered;
+		if ( videos ) {
+			var filtered = [];
+			for (var i=0; i < videos.length; i++) {
+				if (videos[i].belongsTo == list || (videos[i].isGroup && list=='main')) {
+					filtered.push(videos[i]);
+				}
+			};
+			return filtered;
+		}
 	};
 });
 	
@@ -43,14 +55,19 @@ listModule.directive('projectText', function() {
 	return {
 		controller: function($scope) {
 			
-			if ( $scope.list == 'main' ) {
-				$scope.introText = $scope.projectText;
-			} else {
-				$scope.introText = "<h2>" + $scope.listName + "</h2>" + $scope.listDescription;
-			}
 		},
 		link: function (scope, el) {
-			return el.append(scope.introText);
+			scope.$watch('data', function (newVal) {
+				if (newVal) {
+					console.log('write project text');
+					if ( scope.list == 'main' ) {
+						scope.introText = scope.projectText;
+					} else {
+						scope.introText = "<h2>" + scope.listName + "</h2>" + scope.listDescription;
+					}
+					return el.append(scope.introText);
+				}
+			});
 		}
 	};
 });
@@ -58,28 +75,30 @@ listModule.directive('projectText', function() {
 listModule.directive('breadcrumb', function() {
 	return {
 		link: function(scope, el) {
-			var breadcrumbs = [];
-			if (scope.list == 'list-item') {
-				breadcrumbs[1] = "<a href='#/" + scope.settings.projectId + "/" + scope.video.belongsTo + "'>" + scope.listName + "</a> &raquo;";
-			} 
-			if ( scope.list !== 'main' ) {
-				breadcrumbs[0] = "<a href='#/" + scope.settings.projectId + "/main'>Home</a>";
-			} else {
-				scope.breadcrumbs = "";
-			}
+			scope.$watch('data', function(newVal) {
+				if (newVal) {
+					var breadcrumbs = [];
+					if (scope.list == 'list-item') {
+						breadcrumbs[1] = "<a href='#/" + scope.settings.projectId + "/" + scope.video.belongsTo + "'>" + scope.listName + "</a> &raquo;";
+					} 
+					if ( scope.list !== 'main' ) {
+						breadcrumbs[0] = "<a href='#/" + scope.settings.projectId + "/main'>Home</a>";
+					} else {
+						scope.breadcrumbs = "";
+					}
 			
-			el.append(breadcrumbs.join(' &raquo; '));
+					el.append(breadcrumbs.join(' &raquo; '));
+				}
+			});
 		},
 		template: "<span>{{breadcrumbs}}</span>"
 	};
 });
 
 listModule.directive('colHeaders', function() {
-	
 	return {
 		restrict: 'E',
-		controller: function($scope, $routeParams) {
-		console.log($scope.colHeaders[0]);
+		controller: function($scope, $routeParams, $timeout, $interval) {
 			$scope.getTitle = function(title, group, column) {
 				var numVideos = $scope.videoList.length,
 					showHeaderText = false;
@@ -122,12 +141,16 @@ listModule.directive('colHeaders', function() {
 			};
 		},
 		link: function (scope, el) {
-			var headers = "";
-			for (var i=0; i < 5; i++) {
+			scope.$watch('data', function(newVal) {
+				if (newVal) {
+					var headers = "";
+					for (var i=0; i < 5; i++) {
 				
-				headers += scope.getHeader(scope.colHeaders[i]);
-			};
-			el.append(headers);
+						headers += scope.getHeader(scope.colHeaders[i]);
+					};
+					el.append(headers);
+				}
+			});
 		}
 	};
 });
