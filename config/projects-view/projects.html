@@ -2,11 +2,15 @@
 	<h2>Projects</h2>
 	<p ng-hide="create" ng-if="!projects[0]">{{actionText}}</p>
 	<ul ng-if="projects">
-		<li ng-repeat="project in projects"> 
+		<li ng-repeat="project in projects" class="project-list-item"> 
 			<a href="#/projects/{{project.projectId}}?id={{$index}}">{{project.projectName}}</a>
-			 Path: {{project.projectRootPath}} Use Night Theme: {{project.configNightTheme}}
+			 <span class="action-buttons">
 			 <button ng-click="editProject($index)">Edit</button>
 			 <button style="color:#E00;" ng-click="deleteProject($index)">X</button>
+			 </span>
+			 <br>
+			 <span class="details">Path: /{{project.projectRootPath}}/{{project.projectId}}</span>
+			  <span class="details">Use Night Theme: {{project.configNightTheme}}</span>
 			 </li>
 	</ul>
 	<p ng-hide="create"><button ng-click="createProject(true)">New Project</button></p>

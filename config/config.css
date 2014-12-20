@@ -9,6 +9,33 @@
 	margin-bottom: 2em;
 }
 
+.project-list-item {
+	padding: 1em 0 1em 0;
+	border-bottom: 1px solid #333;
+}
+
+.project-list-item a {
+	font-size: 1.5em;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.details {
+	padding-right: 2em;
+	display: inline-block;
+}
+
+.action-buttons {
+	float: right;
+	padding-right: 20%;
+}
+
 body.night {
 	background-color: #212128;
 	color: #EEE;
@@ -17,6 +44,30 @@ body.night {
 .theme-switch {
 	float: left;
 	margin: -2em 0 0 1em;
+}
+
+.night a {
+	color: #C55;
+}
+
+.night a:link {
+	color: #C55;
+}
+
+.night a:visited {
+	color: #89B;
+}
+
+.night a:hover {
+	color: #C55;
+}
+
+.night a:active {
+	color: #E00;
+}
+
+.night .project-list-item {
+	border-bottom: 1px solid #C55;
 }
 
 .night .delivery-list li:nth-child(even) {
