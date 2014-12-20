@@ -5,6 +5,6 @@
 	<span ng-if='!video.downloadFilename'>{{video.name}}</span>
 	</span>
 	<span ng-switch-when="groupUrl">
-		<a href="#/deliverables/{{video.groupUrl}}" title="View {{video.numChildren}} items in {{video.name}}">{{video.name}}</a> ({{video.numChildren}})</span>
+		<a href="#/{{settings.projectId}}/{{video.groupUrl}}" title="View {{video.numChildren}} items in {{video.name}}">{{video.name}}</a> ({{video.numChildren}})</span>
 	<span ng-switch-default>{{video.name}}</span>
 </span>

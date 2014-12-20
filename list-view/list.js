@@ -3,18 +3,16 @@
 var listModule = angular.module('video1.videoList', ['ngRoute']);
 
 listModule.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/:projectUrl/main', {
-    templateUrl: 'list-view/list.html',
-    controller: 'VideoListCtrl'
-  }).when('/:projectUrl/:groupUrl', {
+  $routeProvider.when('/:projectUrl/:groupUrl', {
     templateUrl: 'list-view/list.html',
     controller: 'VideoListCtrl'
   });;
 }])
 
 .controller('VideoListCtrl', [ '$scope', '$http', '$routeParams', 'nestedFilter', function($scope, $http, $routeParams, nestedFilter) {
+	
 	var numColumns = 0;
-	$scope.list = $routeParams.groupUrl	? $routeParams.groupUrl : 'main';
+	$scope.list = $routeParams.groupUrl;
 	angular.forEach($scope.videoList, function(item) {
 		if (item.groupUrl == $scope.list && $scope.list != 'main') {
 			$scope.listName = item.name;
@@ -62,10 +60,10 @@ listModule.directive('breadcrumb', function() {
 		link: function(scope, el) {
 			var breadcrumbs = [];
 			if (scope.list == 'list-item') {
-				breadcrumbs[1] = "<a href='#/deliverables/" + scope.video.belongsTo + "'>" + scope.listName + "</a> &raquo;";
+				breadcrumbs[1] = "<a href='#/" + scope.settings.projectId + "'/" + scope.video.belongsTo + "'>" + scope.listName + "</a> &raquo;";
 			} 
 			if ( scope.list !== 'main' ) {
-				breadcrumbs[0] = "<a href='#/deliverables'>Home</a>";
+				breadcrumbs[0] = "<a href='#/" + scope.settings.projectId + "/main'>Home</a>";
 			} else {
 				scope.breadcrumbs = "";
 			}
