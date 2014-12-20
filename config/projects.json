@@ -1,1 +1,1 @@
-{"projects":[{"projectId":"my-project","projectName":"My Project","projectRootPath":"delivery","configNightTheme":true}]}
+{"projects":[{"projectId":"my-project","projectName":"My Project","projectRootPath":"delivery","configNightTheme":true},{"projectId":"second-project","projectName":"An Even Better Project","projectRootPath":"some-folder","configNightTheme":true}]}

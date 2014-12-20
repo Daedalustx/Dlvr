@@ -19,9 +19,30 @@ Pluralize the title attribute for groups
 	
 //// multiple projects branch
 	
-	match up project with settings page - pass Scope? or move projects scope into config controller
+projects.js - 
 	
-	On public Side - Use resolve function to load pointer to folder - default view?
+	move logo here
+	
+	on save new project - must create project seed 
+		settings.projectRootPath/
+		settings.projectRootPath/settings.projectId.json
+	
+	form validation
+	
+	on delete project - clean up?
+	
+settings.js -
+	
+	refactor logo to reference settings file
+	
+	form validation
+	
+PHP files -
+	
+	Server side validation
+	
+	add .htaccess to distro (mime types mp4, webm)
+	
 	
 	
 	
