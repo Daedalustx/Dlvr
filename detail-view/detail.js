@@ -19,9 +19,11 @@ angular.module('video1.detail', ['ngRoute'])
 	$scope.list = 'list-item';
 	$scope.video = null;
 	$scope.$watch('settings', function(newVal) {
+		if (newVal) {
 			$scope.source = function(fileName, ext) {
 				return $scope.settings.projectRootPath + '/' + $scope.path + '/' + fileName + ext;
 			};
+		}
 	});
 	$scope.$watch('data', function(newVal) {
 		if (newVal) {
