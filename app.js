@@ -21,10 +21,10 @@ videoApp.config(['$routeProvider', function($routeProvider) {
 videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route', '$routeParams', '$location',  function($rootScope, $scope, $http, $route, $routeParams, $location) {
 	console.log('video app controller');
 	$rootScope.$on('$routeChangeSuccess', function () {
-		if (!angular.isDefined($route.current.params.groupUrl)) {
+		if (!angular.isDefined($scope.data)) {
+			console.log('no data yet - loading it');
 			$http.get('config/' + $route.current.params.projectUrl + '.json').success( function (result) {
 				console.log(result);
-				//test.writeSettings(result);
 				$scope.settings = result;
 				$scope.nightTheme = result.configNightTheme;
 			

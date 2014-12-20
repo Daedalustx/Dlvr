@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('video1.detail', ['ngRoute', 'video1'])
+angular.module('video1.detail', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/previews/:previewUrl', {
+  $routeProvider.when('/:projectUrl/previews/:previewUrl', {
     templateUrl: 'detail-view/detail.html',
     controller: 'DetailViewCtrl'
   });
@@ -27,9 +27,8 @@ angular.module('video1.detail', ['ngRoute', 'video1'])
 		}
 	});
 	
-	$scope.source = function(path, fileName, ext) {
-	//console.log(path + id);
-		return path + fileName + ext;
+	$scope.source = function(fileName, ext) {
+		return $scope.settings.projectRootPath + '/' + $scope.path + '/' + fileName + ext;
 		
 	}
 }]);

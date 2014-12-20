@@ -12,8 +12,9 @@
 	<p ng-hide="create"><button ng-click="createProject(true)">New Project</button></p>
 	<form class="create-project" ng-show="create">
 		<legend>Enter Project Details:</legend>
-		<label>Url: <input placeholder="Project ID (url)" ng-model="projectId"></label>
+		<label>Url: <input placeholder="project-id" ng-model="projectId"></label>
 		<label>Project Name:<input placeholder="Project Name" ng-model="projectName"></label>
+		<label>Project Root Folder: <input placeholder="folder-name" ng-model="projectRootPath"><label>
 		<label>Use Night theme: <input type="checkbox"
 		ng-model="configNightTheme"></label>
 		<br>

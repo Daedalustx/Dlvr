@@ -1,6 +1,6 @@
 'use strict';
 
-var listModule = angular.module('video1.videoList', ['ngRoute']);
+var listModule = angular.module('video1.videoList', ['ngRoute', 'video1']);
 
 listModule.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/:projectUrl/:groupUrl', {
@@ -60,7 +60,7 @@ listModule.directive('breadcrumb', function() {
 		link: function(scope, el) {
 			var breadcrumbs = [];
 			if (scope.list == 'list-item') {
-				breadcrumbs[1] = "<a href='#/" + scope.settings.projectId + "'/" + scope.video.belongsTo + "'>" + scope.listName + "</a> &raquo;";
+				breadcrumbs[1] = "<a href='#/" + scope.settings.projectId + "/" + scope.video.belongsTo + "'>" + scope.listName + "</a> &raquo;";
 			} 
 			if ( scope.list !== 'main' ) {
 				breadcrumbs[0] = "<a href='#/" + scope.settings.projectId + "/main'>Home</a>";
@@ -75,9 +75,11 @@ listModule.directive('breadcrumb', function() {
 });
 
 listModule.directive('colHeaders', function() {
+	
 	return {
 		restrict: 'E',
 		controller: function($scope, $routeParams) {
+		console.log($scope.colHeaders[0]);
 			$scope.getTitle = function(title, group, column) {
 				var numVideos = $scope.videoList.length,
 					showHeaderText = false;
