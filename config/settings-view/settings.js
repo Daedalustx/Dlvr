@@ -17,7 +17,7 @@ projectSettings.config(['$routeProvider', '$locationProvider', function ($routeP
 		$scope.$emit('lightsOn');
 	};
 	$scope.data = {};
-	$http.get('/app/' + $scope.settings.projectRootPath + '/project.json')
+	$http.get('../' + $scope.settings.projectRootPath + '/project.json')
 		.success(function(list) {
 			$scope.data = list;
 			$scope.data.projectName = $scope.settings.projectName;

@@ -1,7 +1,7 @@
 <p class="view-button centered"><button><a href="../#/{{settings.projectId}}" target="_blank">View Delivery</a></button></p>
 <section id="project-config">
 	<img class="logo" ng-src="{{data.clientLogo && ('../' + settings.projectRootPath + '/' + data.clientLogo) || ''}}">
-	<a href="/app/config/#/projects">&laquo; Back to projects</a>
+	<a href="../config/#/projects">&laquo; Back to projects</a>
 	<h2>Project Information</h2>
 	<p class="centered">Project Header Text: <br><textarea cols="60" ng-model="data.projectText"></textarea></p>
 	<p class="logo centered">Client Logo Filename: <input ng-model="data.clientLogo"></p>
