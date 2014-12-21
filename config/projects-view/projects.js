@@ -14,18 +14,20 @@ projects.config(['$routeProvider', function ($routeProvider) {
 	$scope.createProject = function() {
 		$scope.projects = $scope.projects || [];
 		$scope.projectIndex = $scope.projects.length;
-		$scope.create = true;
+		$scope.showEditor = true;
 		$scope.projectId = "";
 		$scope.projectName = "";
 		$scope.projectRootPath = "";
+		$scope.projectLogo = "";
 		$scope.configNightTheme = true;
 	};
 	$scope.editProject = function(index) {
 		$scope.projectIndex = index;
-		$scope.create = true;
+		$scope.showEditor = true;
 		$scope.projectId = $scope.projects[index].projectId;
 		$scope.projectName = $scope.projects[index].projectName;
 		$scope.projectRootPath = $scope.projects[index].projectRootPath;
+		$scope.projectLogo = $scope.projects[index].projectLogo;
 		$scope.configNightTheme = $scope.projects[index].configNightTheme;
 	};
 	$scope.deleteProject = function(index) {
@@ -54,11 +56,13 @@ projects.config(['$routeProvider', function ($routeProvider) {
 	};
 	$scope.writeProject = function() {
 		var project = {}; 
-		$scope.create = false;
+		$scope.showEditor = false;
 		project.projectId = $scope.projectId;
 		project.projectName = $scope.projectName;
 		project.projectRootPath = $scope.projectRootPath;
+		project.projectLogo = $scope.projectLogo;
 		project.configNightTheme = $scope.configNightTheme;
+		project.revisionStamp = new Date();
 		if ($scope.projects[$scope.projectIndex]) {
 			$scope.projects[$scope.projectIndex] = project;
 		} else {

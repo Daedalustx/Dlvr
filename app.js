@@ -36,7 +36,6 @@ videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route',
 				$http.get($scope.settings.projectRootPath + '/project.json').success(function(list) {
 					$scope.data = list;
 					$scope.videoList = list.videos;
-					$scope.logo = list.clientLogo;
 					$scope.path = list.previewPath;
 					$scope.projectName = list.projectName;
 					$scope.projectText = list.projectText;
