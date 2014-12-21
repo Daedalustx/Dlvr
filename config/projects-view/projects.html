@@ -10,7 +10,7 @@
 			 <button style="color:#E00;" ng-click="deleteProject($index)">X</button>
 			 </span>
 			 <br>
-			 <span class="details">Path: /{{project.projectRootPath}}/{{project.projectId}}</span>
+			 <span class="details">Root Folder: /{{project.projectId}}</span>
 			  <span class="details">Use Night Theme: {{project.configNightTheme}}</span>
 			  <span class="details">Settings Saved: {{project.revisionStamp | date : 'short'}}</span>
 			 </li>
@@ -20,12 +20,12 @@
 		<legend>Enter Project Details:</legend>
 		<label>Url: <input placeholder="project-id" ng-model="projectId"></label>
 		<label>Project Name:<input placeholder="Project Name" ng-model="projectName"></label>
-		<label>Project Root Folder: <input placeholder="folder-name" ng-model="projectRootPath"><label>
+		<label>Project Root Folder: <input placeholder="folder-name" ng-model="projectRootPath"></label>
 		<label>Client Logo Filename: <input ng-model="projectLogo"></label>
 		<label>Use Night theme: <input type="checkbox"
 		ng-model="configNightTheme"></label>
 		<br>
-		<input type="submit" class="save" value="Save Project" ng-click="writeProject()">
+		<input type="submit" class="save" value="Save Project" ng-click="writeProject($event)">
 		<input type="reset" class="delete" value="Cancel" ng-click="showEditor=false">
 	</form>
 	<p ng-class="{feedback: feedback}" class="centered">{{feedback}}</p>

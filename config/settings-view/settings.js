@@ -50,6 +50,7 @@ projectSettings.config(['$routeProvider', '$locationProvider', function ($routeP
 	$scope.writeData = function() {
 		var path = '../' + $scope.settings.projectRootPath + '/config.php';
 		$scope.data.rootPath = $scope.settings.projectRootPath;
+		$scope.data.revisionStamp = new Date();
 		$http({
 			method: 'post',
 			url: '../' + $scope.settings.projectRootPath + '/config.php', 

@@ -80,5 +80,8 @@
 	<p><button ng-click="addRow()">Add a row</button></p>
 </section>
 <p class="centered"><button ng-click="writeData()" class="save">Save to File</button></p>
-<p ng-class="{feedback: feedback}" class="centered">{{feedback}}</p>
+<p class="centered">Last saved: {{data.revisionStamp | date : 'short'}}</p>
 <p class="centered"><button><a href="../#/{{settings.projectId}}" target="_blank">View Delivery</a></button></p>
+<p></p>
+<p></p>
+<p ng-class="{feedback: feedback}" class="centered">{{feedback}}</p>

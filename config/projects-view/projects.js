@@ -54,7 +54,8 @@ projects.config(['$routeProvider', function ($routeProvider) {
 			});
 		}
 	};
-	$scope.writeProject = function() {
+	$scope.writeProject = function($event) {
+		$event.preventDefault();
 		var project = {}; 
 		$scope.showEditor = false;
 		project.projectId = $scope.projectId;
