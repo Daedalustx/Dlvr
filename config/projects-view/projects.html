@@ -1,32 +1,62 @@
-<section>
+<section class="projects">
+
 	<h2>Projects</h2>
+	
 	<p ng-hide="showEditor" ng-if="!projects[0]">{{actionText}}</p>
-	<ul ng-if="projects">
-		<li ng-repeat="project in projects" class="project-list-item"> 
-			<a href="#/projects/{{project.projectId}}?id={{$index}}">{{project.projectName}}</a>
-			<img ng-src="../{{project.projectRootPath}}/{{project.projectLogo}}" />
-			 <span class="action-buttons">
-			 <button ng-click="editProject($index)">Edit</button>
-			 <button style="color:#E00;" ng-click="deleteProject($index)">X</button>
-			 </span>
-			 <br>
-			 <span class="details">Root Folder: /{{project.projectId}}</span>
-			  <span class="details">Use Night Theme: {{project.configNightTheme}}</span>
-			  <span class="details">Settings Saved: {{project.revisionStamp | date : 'short'}}</span>
-			 </li>
+	
+	<ul ng-if="projects[0]">
+	
+		<li ng-repeat="project in projects | reverse" class="project-list-item">
+		
+			<span class="action-buttons">
+			
+			 	<button ng-click="editProject(projects.length - $index - 1)">Edit</button>
+			 	
+			 	<button style="color:#E00;" ng-click="deleteProject(projects.length - $index - 1)">X</button>
+			 	
+			</span>
+			
+			<a href="#/projects/{{project.projectId}}">{{project.projectName}}</a>
+			
+			<img ng-if="project.projectLogo" onerror="this.style.display='none'" ng-src="../{{project.projectRootPath}}/{{project.projectLogo}}" />
+			
+			<br>
+			
+			<span class="details">Root Folder: /{{project.projectRootPath}}</span>
+			
+			<span class="details">Use Night Theme: {{project.configNightTheme}}</span>
+			
+			<span class="details">Settings Saved: {{project.revisionStamp | date : 'short'}}</span>
+			
+		</li>
+		
 	</ul>
+	
 	<p ng-hide="showEditor"><button ng-click="createProject(true)">New Project</button></p>
+	
 	<form class="create-project" ng-show="showEditor">
+	
 		<legend>Enter Project Details:</legend>
+		
 		<label>Url: <input placeholder="project-id" ng-model="projectId"></label>
-		<label>Project Name:<input placeholder="Project Name" ng-model="projectName"></label>
+		
+		<label>Project Name: <input placeholder="Project Name" ng-model="projectName"></label>
+		
 		<label>Project Root Folder: <input placeholder="folder-name" ng-model="projectRootPath"></label>
-		<label>Client Logo Filename: <input ng-model="projectLogo"></label>
+		
+		<label>Project Logo Filename: <input placeholder="logo-filename.png" ng-model="projectLogo"> <small>( .jpg .png .gif )</small></label>
+		
 		<label>Use Night theme: <input type="checkbox"
 		ng-model="configNightTheme"></label>
+		
 		<br>
-		<input type="submit" class="save" value="Save Project" ng-click="writeProject($event)">
-		<input type="reset" class="delete" value="Cancel" ng-click="showEditor=false">
+		
+		<input type="submit" class="save" value="Save Project" ng-click="writeProject()">
+		
+		<input type="reset" class="cancel" value="Cancel" ng-click="showEditor=false">
+		
 	</form>
-	<p ng-class="{feedback: feedback}" class="centered">{{feedback}}</p>
+	
+	<p ng-class="{feedback: feedback, fail: fail}" class="centered" ng-bind-html="feedback"></p>
+	
 </section>

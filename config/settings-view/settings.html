@@ -1,25 +1,111 @@
-<p class="view-button centered"><button><a href="../#/{{settings.projectId}}" target="_blank">View Delivery</a></button></p>
+<p class="view-button centered">
+
+	<button class="delivery-link">
+	
+		<a href="../#/{{settings.projectId}}" target="_blank">View Delivery</a>
+		
+	</button>
+	
+</p>
+
 <section id="project-config">
+
 	<img class="logo" ng-src="{{settings.projectLogo && ('../' + settings.projectRootPath + '/' + settings.projectLogo) || ''}}">
-	<a href="../config/#/projects">&laquo; Back to projects</a>
+	
+	<a href="../config/#/projects" ng-click="$parent.title='Dlvr'">&laquo; Back to projects</a>
+	
 	<h2>Project Information</h2>
-	<p class="centered">Project Header Text: <br><textarea cols="60" ng-model="data.projectText"></textarea></p>
-	<p class="centered">Previews Folder: <span class="faded">{{settings.projectRootPath}}/</span><input ng-model="data.previewPath"></p><p class="centered"><span>Downloads Folder: <span class="faded">{{settings.projectRootPath}}/</span><input ng-model="data.downloadPath"></span></p>
-	<p class="centered">Use night theme for delivery <input type="checkbox" ng-model="data.nightTheme"></p>
+	
+	<p class="centered">Project Header Text: <br>
+	
+		<textarea  ng-model="data.projectText"></textarea>
+		
+	</p>
+	
+	<p class="centered">Previews Folder: 
+	
+		<span class="faded">{{settings.projectRootPath}}/</span>
+		
+			<input ng-model="data.previewPath">
+			
+	</p>
+	
+	<p class="centered">
+	
+		<span>Downloads Folder: 
+		
+			<span class="faded">{{settings.projectRootPath}}/</span>
+			
+			<input ng-model="data.downloadPath">
+			
+		</span>
+		
+	</p>
+	
+	<p class="centered">Use night theme for delivery 
+	
+		<input type="checkbox" ng-model="data.nightTheme">
+	</p>
+	
 </section>
+
 <section id="column-config">
+
 	<h2>Configure Columns</h2>
+	
 	<ul class="columns">
-	<li class="column" ng-repeat="header in data.colHeaders | orderBy:index">
-		<span class="index">Column {{header.index + 1}}</span>
-		<span class="header"><input ng-model="header.title">
-		</span> <span ng-if="$index==0"><input type="checkbox" ng-model="header.sortable"> Allow custom ordering<span> <input type="checkbox" ng-model="header.display"> Display</span><span> <input type="checkbox" ng-model="header.displayConsecutive"> Consecutive</span></span>
-		<span ng-if="header.optional"><input type="checkbox" ng-model="header.display"> Show this column</span>
-		<span ng-if="$index==4"><input type="checkbox" ng-model="header.displayDownloadAsIcon"> Display as icon</span>
-		<span ng-if="$index==4 && header.displayDownloadAsIcon"> <input ng-model="header.iconFilename" placeholder="Icon Filename"></span>
-	</li>
+	
+		<li class="column" ng-repeat="header in data.colHeaders | orderBy:index">
+		
+			<span class="index">Column {{header.index + 1}}</span>
+			
+			<span class="header">
+			
+				<input ng-model="header.title">
+				
+			</span> 
+			
+			<span ng-if="$index==0">
+				<input type="checkbox" ng-model="header.sortable"> Allow custom ordering
+				
+				<span> 
+				
+					<input type="checkbox" ng-model="header.display"> Display
+					
+				</span>
+				
+				<span> 
+				
+					<input type="checkbox" ng-model="header.displayConsecutive"> Consecutive
+					
+				</span>
+				
+			</span>
+			
+			<span ng-if="header.optional">
+			
+				<input type="checkbox" ng-model="header.display"> Show this column
+				
+			</span>
+			
+			<span ng-if="$index==4">
+			
+				<input type="checkbox" ng-model="header.displayDownloadAsIcon"> Display as icon
+				
+			</span>
+			
+			<span ng-if="$index==4 && header.displayDownloadAsIcon"> 
+			
+				<input ng-model="header.iconFilename" placeholder="Icon Filename">
+				
+			</span>
+			
+		</li>
+		
 	</ul>
+
 </section>
+
 <section id="row-config">
 	<h2>Configure Rows</h2>
 	<h3>Advanced Options <input type="checkbox" ng-model="showAdvancedOptions"></h3>
@@ -81,7 +167,7 @@
 </section>
 <p class="centered"><button ng-click="writeData()" class="save">Save to File</button></p>
 <p class="centered">Last saved: {{data.revisionStamp | date : 'short'}}</p>
-<p class="centered"><button><a href="../#/{{settings.projectId}}" target="_blank">View Delivery</a></button></p>
+<p class="centered"><button class="delivery-link"><a href="../#/{{settings.projectId}}" target="_blank">View Delivery</a></button></p>
 <p></p>
 <p></p>
 <p ng-class="{feedback: feedback}" class="centered">{{feedback}}</p>

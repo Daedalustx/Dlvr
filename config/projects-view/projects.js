@@ -9,7 +9,7 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		templateUrl: 'projects-view/projects.html'
 	});
 }])
-.controller('projectCtrl', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
+.controller('projectCtrl', ['$scope', '$http', '$timeout', '$sce', function ($scope, $http, $timeout, $sce) {
 	
 	$scope.createProject = function() {
 		$scope.projects = $scope.projects || [];
@@ -31,7 +31,8 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		$scope.configNightTheme = $scope.projects[index].configNightTheme;
 	};
 	$scope.deleteProject = function(index) {
-		var confirmDelete = confirm("Are you sure you want to delete " + $scope.projects[index].projectName + "?");
+		var projectName = $scope.projects[index].projectName,
+			confirmDelete = confirm("Are you sure you want to delete " + projectName + "?");
 		if (confirmDelete) {
 			$scope.projects.splice(index, 1);
 			$http({
@@ -41,21 +42,22 @@ projects.config(['$routeProvider', function ($routeProvider) {
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			})
 			.success(function() {
-				$scope.feedback="Project Deleted sucessfully";
+				$scope.feedback = projectName + " Deleted sucessfully";
 				$timeout( function() {
 					$scope.feedback="";
 				}, 2000 );
 			})
 			.error(function() {
 				$scope.feedback="Project Delete Failed";
+				$scope.fail = true;
 				$timeout( function() {
 					$scope.feedback="";
+					$scope.fail = false;
 				}, 3000 );
 			});
 		}
 	};
-	$scope.writeProject = function($event) {
-		$event.preventDefault();
+	$scope.writeProject = function() {
 		var project = {}; 
 		$scope.showEditor = false;
 		project.projectId = $scope.projectId;
@@ -75,16 +77,18 @@ projects.config(['$routeProvider', function ($routeProvider) {
 			data : {"projects": $scope.projects},
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		})
-		.success(function() {
-			$scope.feedback="Project Saved sucessfully";
+		.success(function(response) {
+			$scope.feedback = $sce.trustAsHtml(response);
 			$timeout( function() {
 				$scope.feedback="";
 			}, 2000 );
 		})
 		.error(function() {
 			$scope.feedback="Project Save Failed";
+			$scope.fail = true;
 			$timeout( function() {
 				$scope.feedback="";
+				$scope.fail = false;
 			}, 3000 );
 		});
 	};

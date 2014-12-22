@@ -6,7 +6,7 @@
 }
 
 .create-project .save {
-	margin-bottom: 2em;
+	margin-bottom: 1.5em;
 }
 
 .project-list-item {
@@ -18,6 +18,20 @@
 	font-size: 1.5em;
 }
 
+.project-list-item img {
+	padding-left: 1em;
+	padding-bottom: .25em;
+	max-width: 100px;
+	max-height: 50px;
+}
+
+textarea {
+	resize: both;
+	width: 70%;
+	height: 2em;
+	max-width: 550px;
+}
+
 a {
 	text-decoration: none;
 }
@@ -27,13 +41,21 @@ a:hover {
 }
 
 .details {
-	padding-right: 2em;
+	padding: .25em 2em .25em 0;
+	
 	display: inline-block;
+}
+
+button {
+	padding: .4em;
 }
 
 .action-buttons {
 	float: right;
-	padding-right: 20%;
+}
+
+.action-buttons button {
+	margin-left: 1em;
 }
 
 body.night {
@@ -50,7 +72,7 @@ body.night {
 	color: #C55;
 }
 
-.night a:link {
+.night a {
 	color: #C55;
 }
 
@@ -64,6 +86,18 @@ body.night {
 
 .night a:active {
 	color: #E00;
+}
+
+.night .delivery-link>a {
+	color: green;
+}
+
+.night .delivery-link>a:visited {
+	color: green;
+}
+
+.night .delivery-link>a:hover {
+	color: #89B;
 }
 
 .night .project-list-item {
@@ -87,9 +121,25 @@ body.night {
 	border: 2px ridge #57A;
 }
 
+.night input:focus, .night textarea:focus {
+	outline: #C55 auto 5px;
+}
+
+.cancel, .save, .night .save {
+	padding: .35em .5em .35em .5em;
+}
+
+.cancel {
+	margin-right: 1em;
+}
+
 .save, .night .save {
-	color: #000;
-	background-color: rgba(106, 255, 82, 0.65);
+	color: #FFF;
+	background-color: rgb(79, 174, 79);
+}
+
+.cancel {
+	color: red;
 }
 
 section {
@@ -98,10 +148,14 @@ section {
 	position: relative;
 }
 
+section.projects {
+	border: none;
+}
+
 .view-button {
 	position: absolute;
 	width: 100%;
-	margin-top: -1em;
+	margin-top: -.5em;
 }
 
 img.logo {
@@ -152,7 +206,7 @@ span.col {
 }
 
 .delivery-list button {
-	color: red;
+	color: #C55;
 }
 
 .delivery-list li:nth-child(even) {
@@ -163,10 +217,15 @@ span.col {
 	background-color: #FFF;
 }
 
+li.column {
+	margin-bottom: .5em;
+}
+
 span.index {
 	display: inline-block;
 	width: 10%;
 	background-color: #FFF;
+	min-width: 70px;
 }
 
 .centered {
@@ -182,7 +241,7 @@ span.delete-row, span.col-0 {
 }
 
 span.delete-row {
-	margin-top: -1em;
+	margin-top: -2em;
 }
 
 .feedback {
@@ -196,4 +255,27 @@ span.delete-row {
 	font-size: 1.5em;
 	color: #FFF;
 	border: 1px solid #CFC;
+}
+
+.feedback.fail {
+	background-color: #C55;
+	border: 1px solid #E77;
+}
+
+.faded {
+	color: #ccc;
+}
+
+@media screen and (max-width: 767px) {
+	.feedback {
+		margin: 2em;
+		font-size: 1em;
+	}
+	.theme-switch {
+		float: none;
+		margin: -1em 0 0 1em;
+	}
+	.view-button {
+		position: static;
+	}
 }

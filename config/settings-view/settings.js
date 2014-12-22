@@ -10,7 +10,12 @@ projectSettings.config(['$routeProvider', '$locationProvider', function ($routeP
 	});
 }])
 .controller('projectSettingsCtrl', ['$scope', '$http', '$timeout', '$routeParams', '$location', function ($scope, $http, $timeout, $routeParams, $location) {
-	$scope.settings = $scope.projects[$location.search().id];
+	for (var i=0, length=$scope.projects.length; i < length; i++) {
+		if ($scope.projects[i].projectId === $routeParams.projectId) {
+			$scope.settings = $scope.projects[i];
+			break;
+		}
+	};
 	if ( $scope.settings.configNightTheme ) {
 		$scope.$emit('lightsOut');
 	} else {
@@ -21,7 +26,7 @@ projectSettings.config(['$routeProvider', '$locationProvider', function ($routeP
 		.success(function(list) {
 			$scope.data = list;
 			$scope.data.projectName = $scope.settings.projectName;
-			$scope.$emit('setProjectTitle', $scope.data.projectName);
+			$scope.$parent.title = $scope.data.projectName;
 		})
 		.error( function() {
 			alert("Error retreiving Data");
