@@ -22,7 +22,7 @@ projectSettings.config(['$routeProvider', '$locationProvider', function ($routeP
 		$scope.$emit('lightsOn');
 	};
 	$scope.data = {};
-	$http.get('../' + $scope.settings.projectRootPath + '/project.json')
+	$http.get('../projects/' + $scope.settings.projectRootPath + '/project.json')
 		.success(function(list) {
 			$scope.data = list;
 			$scope.data.projectName = $scope.settings.projectName;
@@ -53,12 +53,12 @@ projectSettings.config(['$routeProvider', '$locationProvider', function ($routeP
 		item.isGroup = item.linksTo == 'groupUrl' ? true : false;
 	};
 	$scope.writeData = function() {
-		var path = '../' + $scope.settings.projectRootPath + '/config.php';
+		var path = '../projects/' + $scope.settings.projectRootPath + '/config.php';
 		$scope.data.rootPath = $scope.settings.projectRootPath;
 		$scope.data.revisionStamp = new Date();
 		$http({
 			method: 'post',
-			url: '../' + $scope.settings.projectRootPath + '/config.php', 
+			url: path, 
 			data : $scope.data,
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		})

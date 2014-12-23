@@ -21,7 +21,7 @@ angular.module('video1.detail', ['ngRoute'])
 	$scope.$watch('settings', function(newVal) {
 		if (newVal) {
 			$scope.source = function(fileName, ext) {
-				return $scope.settings.projectRootPath + '/' + $scope.path + '/' + fileName + ext;
+				return 'projects/' + $scope.settings.projectRootPath + '/' + $scope.path + '/' + fileName + ext;
 			};
 		}
 	});

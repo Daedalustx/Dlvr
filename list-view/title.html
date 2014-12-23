@@ -4,7 +4,7 @@
 	
 	<span ng-switch-when="downloadFilename">
 	
-		<a ng-if='video.downloadFilename' href="{{settings.projectRootPath}}/{{data.downloadPath}}/{{video.downloadFilename}}" title="Download {{video.downloadFilename}}">{{video.name}}</a>
+		<a ng-if='video.downloadFilename' href="projects/{{settings.projectRootPath}}/{{data.downloadPath}}/{{video.downloadFilename}}" title="Download {{video.downloadFilename}}">{{video.name}}</a>
 		
 		<span ng-if='!video.downloadFilename'>{{video.name}}</span>
 		

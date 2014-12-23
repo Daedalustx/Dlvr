@@ -31,9 +31,9 @@ videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route',
 				$scope.nightTheme = result.configNightTheme;
 			
 				var projectPath = '';
-				projectPath = '/' + $scope.settings.projectRootPath + '/project.json';
+				projectPath = '/projects/' + $scope.settings.projectRootPath + '/project.json';
 				console.log(projectPath);
-				$http.get($scope.settings.projectRootPath + '/project.json').success(function(list) {
+				$http.get('projects/' + $scope.settings.projectRootPath + '/project.json').success(function(list) {
 					$scope.data = list;
 					$scope.videoList = list.videos;
 					$scope.path = list.previewPath;

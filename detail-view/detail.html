@@ -6,9 +6,9 @@
 	
 	<video controls ng-if="settings.projectRootPath">
 	
-		<source src="{{source(video.previewFilename, '.mp4')}}" type="video/mp4" ng-if="video.previewFilename">
+		<source ng-src="{{source(video.previewFilename, '.mp4')}}" type="video/mp4" ng-if="video.previewFilename">
 		
-		<source src="{{source(video.previewFilename, '.webm')}}" type="video/webm" ng-if="video.previewFilename">
+		<source ng-src="{{source(video.previewFilename, '.webm')}}" type="video/webm" ng-if="video.previewFilename">
 		
 		We could not find a source file that your browser supports....
 		

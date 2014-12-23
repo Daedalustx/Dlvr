@@ -10,7 +10,7 @@
 
 <section id="project-config">
 
-	<img class="logo" ng-src="{{settings.projectLogo && ('../' + settings.projectRootPath + '/' + settings.projectLogo) || ''}}">
+	<img class="logo" ng-src="{{settings.projectLogo && ('../projects/' + settings.projectRootPath + '/' + settings.projectLogo) || ''}}">
 	
 	<a href="../config/#/projects" ng-click="$parent.title='Dlvr'">&laquo; Back to projects</a>
 	
@@ -152,7 +152,7 @@
 							Download URL: {{settings.projectRootPath}}/{{data.downloadPath}}/<input ng-model="video.downloadFilename">
 						</span>
 					</span>
-					<span ng-if="$index==4 && col.displayDownloadAsIcon && video.linksTo!='groupUrl' && video.downloadFilename"> Displayed as icon <img height="32" width="40" ng-src="../{{settings.projectRootPath}}/{{col.iconFilename}}"/>
+					<span ng-if="$index==4 && col.displayDownloadAsIcon && video.linksTo!='groupUrl' && video.downloadFilename"> Displayed as icon <img height="32" width="40" ng-src="../projects/{{settings.projectRootPath}}/{{col.iconFilename}}"/>
 					</span>
 				</div>
 				<div class="belongs-to">

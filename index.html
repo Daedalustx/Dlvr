@@ -19,7 +19,7 @@
 
 	<header>
 	
-		<img class="logo" ng-src="{{settings.projectLogo && (settings.projectRootPath + '/' + settings.projectLogo) || ''}}"/>
+		<img class="logo" ng-src="{{settings.projectLogo && ('projects/' + settings.projectRootPath + '/' + settings.projectLogo) || ''}}"/>
 		
 		<h1 class="project-name" ng-bind="settings.projectName"></h1>
 	

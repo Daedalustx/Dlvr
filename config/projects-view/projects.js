@@ -42,13 +42,13 @@ projects.config(['$routeProvider', function ($routeProvider) {
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 			})
 			.success(function() {
-				$scope.feedback = projectName + " Deleted sucessfully";
+				$scope.feedback = $sce.trustAsHtml( projectName + " Deleted sucessfully" );
 				$timeout( function() {
 					$scope.feedback="";
 				}, 2000 );
 			})
 			.error(function() {
-				$scope.feedback="Project Delete Failed";
+				$scope.feedback = $sce.trustAsHtml("Project Delete Failed");
 				$scope.fail = true;
 				$timeout( function() {
 					$scope.feedback="";
@@ -59,7 +59,6 @@ projects.config(['$routeProvider', function ($routeProvider) {
 	};
 	$scope.writeProject = function() {
 		var project = {}; 
-		$scope.showEditor = false;
 		project.projectId = $scope.projectId;
 		project.projectName = $scope.projectName;
 		project.projectRootPath = $scope.projectRootPath;
@@ -74,17 +73,18 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		$http({
 			method: 'post',
 			url: 'projects.php', 
-			data : {"projects": $scope.projects},
+			data : {"projects": $scope.projects, "project": $scope.projectId},
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		})
 		.success(function(response) {
+			$scope.showEditor = false;
 			$scope.feedback = $sce.trustAsHtml(response);
 			$timeout( function() {
 				$scope.feedback="";
 			}, 2000 );
 		})
 		.error(function() {
-			$scope.feedback="Project Save Failed";
+			$scope.feedback = $sce.trustAsHtml("Project Save Failed");
 			$scope.fail = true;
 			$timeout( function() {
 				$scope.feedback="";
