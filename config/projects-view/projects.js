@@ -12,6 +12,7 @@ projects.config(['$routeProvider', function ($routeProvider) {
 .controller('projectCtrl', ['$scope', '$http', '$timeout', '$sce', function ($scope, $http, $timeout, $sce) {
 	
 	$scope.createProject = function() {
+		$scope.action = 'create';
 		$scope.projects = $scope.projects || [];
 		$scope.projectIndex = $scope.projects.length;
 		$scope.showEditor = true;
@@ -22,6 +23,7 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		$scope.configNightTheme = true;
 	};
 	$scope.editProject = function(index) {
+		$scope.action = 'edit';
 		$scope.projectIndex = index;
 		$scope.showEditor = true;
 		$scope.projectId = $scope.projects[index].projectId;
@@ -31,30 +33,12 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		$scope.configNightTheme = $scope.projects[index].configNightTheme;
 	};
 	$scope.deleteProject = function(index) {
-		var projectName = $scope.projects[index].projectName,
-			confirmDelete = confirm("Are you sure you want to delete " + projectName + "?");
+		var project = $scope.projects[index],
+			confirmDelete = confirm("Are you sure you want to delete " + project.projectName + "?");
 		if (confirmDelete) {
+			$scope.action = 'delete';
 			$scope.projects.splice(index, 1);
-			$http({
-				method: 'post',
-				url: 'projects.php', 
-				data : {"projects": $scope.projects},
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-			})
-			.success(function() {
-				$scope.feedback = $sce.trustAsHtml( projectName + " Deleted sucessfully" );
-				$timeout( function() {
-					$scope.feedback="";
-				}, 2000 );
-			})
-			.error(function() {
-				$scope.feedback = $sce.trustAsHtml("Project Delete Failed");
-				$scope.fail = true;
-				$timeout( function() {
-					$scope.feedback="";
-					$scope.fail = false;
-				}, 3000 );
-			});
+			$scope.updateFiles($scope.projects, $scope.action, project.projectId);
 		}
 	};
 	$scope.writeProject = function() {
@@ -70,10 +54,19 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		} else {
 			$scope.projects.push(project);
 		}
+		console.log($scope.projects, $scope.action, project.projectId);
+		$scope.updateFiles($scope.projects, $scope.action, project.projectId);
+	};
+	$scope.updateFiles = function(projects, action, project) {
+		
 		$http({
 			method: 'post',
 			url: 'projects.php', 
-			data : {"projects": $scope.projects, "project": $scope.projectId},
+			data : {
+				"projects": projects,
+				"project": project, 
+				"action": action
+			},
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		})
 		.success(function(response) {
@@ -81,16 +74,18 @@ projects.config(['$routeProvider', function ($routeProvider) {
 			$scope.feedback = $sce.trustAsHtml(response);
 			$timeout( function() {
 				$scope.feedback="";
-			}, 2000 );
+			}, 3000 );
 		})
 		.error(function() {
-			$scope.feedback = $sce.trustAsHtml("Project Save Failed");
+			$scope.feedback = $sce.trustAsHtml("Project " + action + " failed");
 			$scope.fail = true;
 			$timeout( function() {
 				$scope.feedback="";
 				$scope.fail = false;
 			}, 3000 );
 		});
+		
+			
 	};
 }]);
 	
