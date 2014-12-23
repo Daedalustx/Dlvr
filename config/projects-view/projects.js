@@ -54,7 +54,6 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		} else {
 			$scope.projects.push(project);
 		}
-		console.log($scope.projects, $scope.action, project.projectId);
 		$scope.updateFiles($scope.projects, $scope.action, project.projectId);
 	};
 	$scope.updateFiles = function(projects, action, project) {
