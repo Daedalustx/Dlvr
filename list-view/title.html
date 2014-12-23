@@ -1,10 +1,21 @@
 <span ng-switch on="video.linksTo">
+
 	<a ng-switch-when="previewUrl" href="#/{{settings.projectId}}/previews/{{video.previewUrl}}" title="Preview {{video.name}}">{{video.name}}</a>
+	
 	<span ng-switch-when="downloadFilename">
-	<a ng-if='video.downloadFilename' href="{{settings.projectRootPath}}/{{data.downloadPath}}/{{video.downloadFilename}}" title="Download {{video.downloadFilename}}">{{video.name}}</a>
-	<span ng-if='!video.downloadFilename'>{{video.name}}</span>
+	
+		<a ng-if='video.downloadFilename' href="{{settings.projectRootPath}}/{{data.downloadPath}}/{{video.downloadFilename}}" title="Download {{video.downloadFilename}}">{{video.name}}</a>
+		
+		<span ng-if='!video.downloadFilename'>{{video.name}}</span>
+		
 	</span>
+	
 	<span ng-switch-when="groupUrl">
-		<a href="#/{{settings.projectId}}/{{video.groupUrl}}" title="View {{video.numChildren}} items in {{video.name}}">{{video.name}}</a> ({{video.numChildren}})</span>
+	
+		<a href="#/{{settings.projectId}}/{{video.groupUrl}}" title="View {{video.numChildren}} items in {{video.name}}">{{video.name}}</a> ({{video.numChildren}})
+		
+	</span>
+	
 	<span ng-switch-default>{{video.name}}</span>
+	
 </span>

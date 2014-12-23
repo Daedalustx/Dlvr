@@ -1,9 +1,17 @@
 <ul>
+
 	<li ng-repeat="video in videoList | nested:list | filter:query | orderBy:priority">
+	
 		<index ng-if="colHeaders[0].display" class="index col"></index>
+		
 		<title-field class="col" ng-class="variableColumn()"></title-field>
+		
 		<optional1 class="col" ng-class="variableColumn()"></optional1>
+		
 		<optional2 class="col" ng-class="variableColumn()"></optional2>
+		
 		<download-field ng-if="colHeaders[4].display" class="download col"></download-field>
+		
 	</li>
+	
 </ul>

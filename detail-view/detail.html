@@ -1,16 +1,29 @@
 <breadcrumb class="breadcrumb"></breadcrumb>
+
 <section class="centered">
-<h2>{{video.name}}</h2>
-<video controls ng-if="settings.projectRootPath">
-	<source src="{{source(video.previewFilename, '.mp4')}}" type="video/mp4" ng-if="video.previewFilename">
-	<source src="{{source(video.previewFilename, '.webm')}}" type="video/webm" ng-if="video.previewFilename">
-	We could not find a source file that your browser supports....
-</video>
-<p ng-if="video.optional1">{{colHeaders[2].title}}: {{video.optional1}}</p>
-<p ng-if="video.optional2">{{colHeaders[3].title}}: {{video.optional2}}</p>
-<p ng-if="video.downloadFilename"><a href="{{settings.projectRootPath}}/{{data.downloadPath}}/{{video.downloadFilename}}">Download</a></p>
-<p>
-  
-  {{ 'Dlvr v%VERSION%' | interpolate }}
-</p>
+
+	<h2>{{video.name}}</h2>
+	
+	<video controls ng-if="settings.projectRootPath">
+	
+		<source src="{{source(video.previewFilename, '.mp4')}}" type="video/mp4" ng-if="video.previewFilename">
+		
+		<source src="{{source(video.previewFilename, '.webm')}}" type="video/webm" ng-if="video.previewFilename">
+		
+		We could not find a source file that your browser supports....
+		
+	</video>
+	
+	<p ng-if="video.optional1">{{colHeaders[2].title}}: {{video.optional1}}</p>
+	
+	<p ng-if="video.optional2">{{colHeaders[3].title}}: {{video.optional2}}</p>
+	
+	<p ng-if="video.downloadFilename">
+	
+		<a href="{{settings.projectRootPath}}/{{data.downloadPath}}/{{video.downloadFilename}}">Download</a>
+		
+	</p>
+	
+	<p>{{ 'Dlvr v%VERSION%' | interpolate }}</p>
+	
 </section>
