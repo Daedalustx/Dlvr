@@ -1,0 +1,6 @@
+AddType video/webm .webm
+
+RewriteEngine On
+
+RewriteRule ^[A-Za-z-]+/?$ index.html [NC,L]
+

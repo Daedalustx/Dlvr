@@ -8,11 +8,11 @@ var videoApp = angular.module('video1', [
   'video1.version'
 ]);
 		
-videoApp.config(['$routeProvider', function($routeProvider) {
+videoApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $routeProvider
 	.when('/:projectUrl', {})
 	.otherwise({redirectTo: '/not-found'});
-  
+  $locationProvider.html5Mode(true);
 }]);
 
 videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route', '$routeParams', '$location',  function($rootScope, $scope, $http, $route, $routeParams, $location) {
