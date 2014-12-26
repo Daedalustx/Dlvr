@@ -3,7 +3,7 @@ AddType video/webm .webm
 RewriteEngine On
 
 
-RewriteRule ^config/?$ config/index.html [NC,L]
+RewriteRule ^config/[A-Z0-9-_/]+?$ config/index.html [NC,L]
 RewriteRule ^[A-Z0-9-_/]+/?$ index.html [NC,L]
 
 

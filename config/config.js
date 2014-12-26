@@ -6,8 +6,9 @@ var configVideoApp = angular.module('configuration', [
   'configuration.projects',
   'configuration.projectSettings'
 ]).
-config(['$routeProvider', function($routeProvider) {
+config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $routeProvider.otherwise({redirectTo: '/projects'});
+  $locationProvider.html5Mode(true);
 }])
 .controller('ConfigController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
 

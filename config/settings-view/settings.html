@@ -2,7 +2,7 @@
 
 	<button class="delivery-link">
 	
-		<a href="../#/{{settings.projectId}}" target="_blank">View Delivery</a>
+		<a href="../{{settings.projectId}}" target="_blank">View Delivery</a>
 		
 	</button>
 	
@@ -167,7 +167,7 @@
 </section>
 <p class="centered"><button ng-click="writeData()" class="save">Save to File</button></p>
 <p class="centered">Last saved: {{data.revisionStamp | date : 'short'}}</p>
-<p class="centered"><button class="delivery-link"><a href="../#/{{settings.projectId}}" target="_blank">View Delivery</a></button></p>
+<p class="centered"><button class="delivery-link"><a href="../{{settings.projectId}}" target="_blank">View Delivery</a></button></p>
 <p></p>
 <p></p>
 <p ng-class="{feedback: feedback}" class="centered">{{feedback}}</p>

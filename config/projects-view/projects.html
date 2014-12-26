@@ -16,13 +16,13 @@
 			 	
 			</span>
 			
-			<a href="#/projects/{{project.projectId}}">{{project.projectName}}</a>
+			<a href="projects/{{project.projectId}}">{{project.projectName}}</a>
 			
 			<img ng-if="project.projectLogo" onerror="this.style.display='none'" ng-src="../projects/{{project.projectRootPath}}/{{project.projectLogo}}" />
 			
 			<br>
 			
-			<span class="details">Root Folder: /{{project.projectRootPath}}</span>
+			<span class="details">Root Folder: projects/{{project.projectRootPath}}</span>
 			
 			<span class="details">Use Night Theme: {{project.configNightTheme}}</span>
 			
