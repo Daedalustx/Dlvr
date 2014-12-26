@@ -1,6 +1,6 @@
 <span ng-switch on="video.linksTo">
 
-	<a ng-switch-when="previewUrl" href="#/{{settings.projectId}}/previews/{{video.previewUrl}}" title="Preview {{video.name}}">{{video.name}}</a>
+	<a ng-switch-when="previewUrl" href="{{settings.projectId}}/previews/{{video.previewUrl}}" title="Preview {{video.name}}">{{video.name}}</a>
 	
 	<span ng-switch-when="downloadFilename">
 	
@@ -12,7 +12,7 @@
 	
 	<span ng-switch-when="groupUrl">
 	
-		<a href="#/{{settings.projectId}}/{{video.groupUrl}}" title="View {{video.numChildren}} items in {{video.name}}">{{video.name}}</a> ({{video.numChildren}})
+		<a href="{{settings.projectId}}/{{video.groupUrl}}" title="View {{video.numChildren}} items in {{video.name}}">{{video.name}}</a> ({{video.numChildren}})
 		
 	</span>
 	

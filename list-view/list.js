@@ -79,10 +79,10 @@ listModule.directive('breadcrumb', function() {
 				if (newVal) {
 					var breadcrumbs = [];
 					if (scope.list == 'list-item') {
-						breadcrumbs[1] = "<a href='#/" + scope.settings.projectId + "/" + scope.video.belongsTo + "'>" + scope.listName + "</a> &raquo;";
+						breadcrumbs[1] = "<a href='" + scope.settings.projectId + "/" + scope.video.belongsTo + "'>" + scope.listName + "</a> &raquo;";
 					} 
 					if ( scope.list !== 'main' ) {
-						breadcrumbs[0] = "<a href='#/" + scope.settings.projectId + "/main'>Home</a>";
+						breadcrumbs[0] = "<a href='" + scope.settings.projectId + "/main'>Home</a>";
 					} else {
 						scope.breadcrumbs = "";
 					}
