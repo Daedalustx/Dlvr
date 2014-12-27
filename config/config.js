@@ -24,16 +24,16 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
 	
 	$scope.actionText = 'Choose a Project';
 	
-	$http.get('projects.json')
+	$http.get('projects/projects.json?t=' + new Date().getTime())
 	.success(function(list) {
-		if (angular.isDefined(list.projects[0])) {
+		if (angular.isDefined(list.projects)) {
 			$scope.projects = list.projects;
 		} else {
 			$scope.actionText = 'No projects found, create one?';
 		}	
 	})
 	.error( function() {
-		alert("Error retreiving Data");
+		$scope.actionText = 'No projects file found, create a new project?';
 	});
 }])
 .filter('reverse', function() {

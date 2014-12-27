@@ -49,46 +49,37 @@ projects.config(['$routeProvider', function ($routeProvider) {
 	$scope.writeProject = function() {
 		var project = {},
 			stripSlashes;
-		//client side validation here
 		stripSlashes = function (str) {
-			console.log('strip ' + str);
 			str = str.replace(/[\/]+/g, '/');
-			console.log('strip ' + str);
 			if (str.indexOf('/') == 0) {
-				console.log('strip leading');
 				str = str.slice(1);
 			}
 			if (str.slice(-1) == '/') {
-				console.log('strip trailing from ' + str);
 				str = str.slice(0, -1);
-				console.log(str + ' after stripping');
 			} 
-				return str;
-			
+			return str;
 		};
+		
 		project.projectId = $scope.projectId;
 		project.projectName = $scope.projectName;
 		project.projectRootPath = stripSlashes($scope.projectRootPath);
-
-		
 		project.projectLogo = stripSlashes($scope.projectLogo);
-		
 		project.configNightTheme = $scope.configNightTheme;
 
-			if (project.projectId && project.projectName && project.projectRootPath && project.projectLogo ) {
-				project.revisionStamp = new Date();
-				if ($scope.projects[$scope.projectIndex]) {
-					$scope.projects[$scope.projectIndex] = project;
-				} else {
-					$scope.projects.push(project);
-				}
-				$scope.updateFiles($scope.projects, $scope.action, project.projectId);
+		if (project.projectId && project.projectName && project.projectRootPath && project.projectLogo ) {
+			project.revisionStamp = new Date();
+			if ($scope.projects[$scope.projectIndex]) {
+				$scope.projects[$scope.projectIndex] = project;
 			} else {
-				console.log(project.projectId);
-				console.log(project.projectName);
-				console.log(project.projectRootPath);
-				console.log(project.projectLogo);
+				$scope.projects.push(project);
 			}
+			$scope.updateFiles($scope.projects, $scope.action, project.projectId);
+		} else {
+			console.log(project.projectId);
+			console.log(project.projectName);
+			console.log(project.projectRootPath);
+			console.log(project.projectLogo);
+		}
 	
 	};
 	$scope.updateFiles = function(projects, action, project) {

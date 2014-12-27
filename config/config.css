@@ -271,9 +271,13 @@ span.delete-row {
 	border: 1px solid #E77;
 }
 
-.faded {
+.night .faded {
 	color: #BBB;
 }
+
+.faded {
+	color: #666;
+};
 
 @media screen and (max-width: 767px) {
 	.feedback {

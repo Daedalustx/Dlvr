@@ -22,11 +22,13 @@ projectSettings.config(['$routeProvider', '$locationProvider', function ($routeP
 		$scope.$emit('lightsOn');
 	};
 	$scope.data = {};
-	$http.get('../projects/' + $scope.settings.projectRootPath + '/project.json')
+	$http.get('../projects/' + $scope.settings.projectRootPath + '/project.json?t=' + new Date().getTime())
 		.success(function(list) {
 			$scope.data = list;
 			$scope.data.projectName = $scope.settings.projectName;
 			$scope.$parent.title = $scope.data.projectName;
+			$scope.data.rootPath = $scope.settings.projectRootPath;
+			console.log($scope.data);
 		})
 		.error( function() {
 			alert("Error retreiving Data");
@@ -53,8 +55,7 @@ projectSettings.config(['$routeProvider', '$locationProvider', function ($routeP
 		item.isGroup = item.linksTo == 'groupUrl' ? true : false;
 	};
 	$scope.writeData = function() {
-		var path = '../projects/' + $scope.settings.projectRootPath + '/config.php';
-		$scope.data.rootPath = $scope.settings.projectRootPath;
+		var path = 'settings-view/settings.php';
 		$scope.data.revisionStamp = new Date();
 		$http({
 			method: 'post',
@@ -159,6 +160,6 @@ projectSettings.directive('colInput', ['$compile', function($compile) {
 projectSettings.directive('itemGroup', function() {
 	return {
 		transclude: true,
-		templateUrl: '../config/item-group.html'
+		templateUrl: '../config/settings-view/item-group.html'
 	};
 });

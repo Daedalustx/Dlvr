@@ -25,15 +25,17 @@ videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route',
 	$rootScope.$on('$routeChangeSuccess', function () {
 		if (!angular.isDefined($scope.data)) {
 			console.log('no data yet - loading it');
-			$http.get('config/' + $route.current.params.projectUrl + '.json').success( function (result) {
+			$http.get('config/projects/' + $route.current.params.projectUrl + '.json?t=' + new Date().getTime())
+			.success( function (result) {
 				console.log(result);
 				$scope.settings = result;
-				$scope.nightTheme = result.configNightTheme;
+				//$scope.nightTheme = result.nightTheme;
 			
 				var projectPath = '';
-				projectPath = '/projects/' + $scope.settings.projectRootPath + '/project.json';
+				projectPath = 'projects/' + $scope.settings.projectRootPath + '/project.json?t=' + new Date().getTime();
 				console.log(projectPath);
-				$http.get('projects/' + $scope.settings.projectRootPath + '/project.json').success(function(list) {
+				$http.get(projectPath)
+				.success(function(list) {
 					$scope.data = list;
 					$scope.videoList = list.videos;
 					$scope.path = list.previewPath;

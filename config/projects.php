@@ -9,7 +9,7 @@ $projectToUpdate = get_object_vars($request)['project'];
 
 if ($action == "delete") {
 
-	unlink( $projectToUpdate . '.json' );
+	unlink( 'projects/' . $projectToUpdate . '.json' );
 	
 	$response = $projectToUpdate . '.json' . ' Deleted<br><small>Media files not affected</small>';
 	
@@ -21,7 +21,7 @@ if ($action == "delete") {
 	
 	foreach ($projects as $project) {
 	
-		file_put_contents( $project->projectId . '.json', json_encode($project));
+		file_put_contents( 'projects/' . $project->projectId . '.json', json_encode($project));
 		
 		if ($project->projectId == $projectToUpdate) {
 		
@@ -45,7 +45,11 @@ if ($action == "delete") {
 
 // Update main projects file
 
-file_put_contents('projects.json', json_encode($request));
+unset($request->project);
+
+unset($request->action);
+
+file_put_contents('projects/projects.json', json_encode($request));
 
 // Send back the html for the success message
 
