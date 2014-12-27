@@ -22,11 +22,17 @@
 			
 			<br>
 			
-			<span class="details">Root Folder: projects/{{project.projectRootPath}}</span>
+			<span class="details">Project Folder: 
+				<span class="faded">Dlvr/projects/{{project.projectRootPath}}</span>
+			</span>
 			
-			<span class="details">Use Night Theme: {{project.configNightTheme}}</span>
+			<span class="details faded" ng-if="project.configNightTheme">
+				Use Night Theme
+			</span>
 			
-			<span class="details">Settings Saved: {{project.revisionStamp | date : 'short'}}</span>
+			<span class="details">Revised: 
+				<span class="faded">{{project.revisionStamp | date : 'short'}}</span>
+			</span>
 			
 		</li>
 		
@@ -34,17 +40,45 @@
 	
 	<p ng-hide="showEditor"><button ng-click="createProject(true)">New Project</button></p>
 	
-	<form class="create-project" ng-show="showEditor">
+	<form class="create-project" ng-show="showEditor" name="projectEditor">
 	
 		<legend>Enter Project Details:</legend>
 		
-		<label>Url: <input placeholder="project-id" ng-model="projectId"></label>
+		<label>Url: <input placeholder="project-id" name="url" ng-model="projectId" project-id required>
 		
-		<label>Project Name: <input placeholder="Project Name" ng-model="projectName"></label>
+			<span class="error" ng-show="projectEditor.url.$error.required">Required!</span>
+			
+			<span class="error" ng-show="projectEditor.url.$error.projectId">
+				Alphanumeric and _ and - only, please.
+			</span>
+			
+		</label>
 		
-		<label>Project Root Folder: <input placeholder="folder-name" ng-model="projectRootPath"></label>
+		<label>Project Name: <input placeholder="Project Name" name="pname"  ng-model="projectName" project-name required>
 		
-		<label>Project Logo Filename: <input placeholder="logo-filename.png" ng-model="projectLogo"> <small>( .jpg .png .gif )</small></label>
+			<span class="error" ng-show="projectEditor.pname.$error.required">Required!</span>
+			
+			<span class="error" ng-show="projectEditor.pname.$error.projectName">
+				Alphanumeric, spaces, and - only, please.
+			</span>
+			
+		</label>
+		
+		<label>Project Folder: Dlvr/projects/ <input placeholder="folder-name" name="fname" ng-model="projectRootPath" folder-name required>
+		
+			<span class="error" ng-show="projectEditor.fname.$error.required">Required!</span>
+			
+			<span class="error" ng-show="projectEditor.fname.$error.folderName">
+				Alphanumeric and _ and - and / only, please.
+			</span>
+		
+		</label>
+		
+		<label>Project Logo Filename: <input placeholder="logo-filename.png" name="logofile" ng-model="projectLogo" logo-filename> <small>( .jpg .png .gif )</small>
+			 <span class="error" ng-show="projectEditor.logofile.$error.logoFilename">
+				Alphanumeric and _ and - and / only, please.
+			</span>
+		</label>
 		
 		<label>Use Night theme: <input type="checkbox"
 		ng-model="configNightTheme"></label>

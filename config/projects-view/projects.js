@@ -42,19 +42,49 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		}
 	};
 	$scope.writeProject = function() {
-		var project = {}; 
+		var project = {},
+			stripSlashes;
+		//client side validation here
+		stripSlashes = function (str) {
+			console.log('strip ' + str);
+			str = str.replace(/[\/]+/g, '/');
+			console.log('strip ' + str);
+			if (str.indexOf('/') == 0) {
+				console.log('strip leading');
+				str = str.slice(1);
+			}
+			if (str.slice(-1) == '/') {
+				console.log('strip trailing from ' + str);
+				str = str.slice(0, -1);
+				console.log(str + ' after stripping');
+			} 
+				return str;
+			
+		};
 		project.projectId = $scope.projectId;
 		project.projectName = $scope.projectName;
-		project.projectRootPath = $scope.projectRootPath;
-		project.projectLogo = $scope.projectLogo;
+		project.projectRootPath = stripSlashes($scope.projectRootPath);
+
+		
+		project.projectLogo = stripSlashes($scope.projectLogo);
+		
 		project.configNightTheme = $scope.configNightTheme;
-		project.revisionStamp = new Date();
-		if ($scope.projects[$scope.projectIndex]) {
-			$scope.projects[$scope.projectIndex] = project;
-		} else {
-			$scope.projects.push(project);
-		}
-		$scope.updateFiles($scope.projects, $scope.action, project.projectId);
+
+			if (project.projectId && project.projectName && project.projectRootPath && project.projectLogo ) {
+				project.revisionStamp = new Date();
+				if ($scope.projects[$scope.projectIndex]) {
+					$scope.projects[$scope.projectIndex] = project;
+				} else {
+					$scope.projects.push(project);
+				}
+				$scope.updateFiles($scope.projects, $scope.action, project.projectId);
+			} else {
+				console.log(project.projectId);
+				console.log(project.projectName);
+				console.log(project.projectRootPath);
+				console.log(project.projectLogo);
+			}
+	
 	};
 	$scope.updateFiles = function(projects, action, project) {
 		
@@ -87,4 +117,75 @@ projects.config(['$routeProvider', function ($routeProvider) {
 			
 	};
 }]);
-	
+
+projects.directive('projectId', function() {
+	var ID_REGEXP = /^[0-9A-Za-z_-]*$/;
+  	return {
+    	require: 'ngModel',
+    	link: function(scope, elm, attrs, ctrl) {
+      		ctrl.$validators.projectId = function(modelValue, viewValue) {
+				if (ID_REGEXP.test(viewValue)) {
+					 // it is valid
+					return true;
+				}
+
+				// it is invalid
+				return false;
+			};
+		}
+	};
+});
+
+projects.directive('projectName', function() {
+	var PNAME_REGEXP = /^[\s0-9A-Za-z-]*$/;
+  	return {
+    	require: 'ngModel',
+    	link: function(scope, elm, attrs, ctrl) {
+      		ctrl.$validators.projectName = function(modelValue, viewValue) {
+				if (PNAME_REGEXP.test(viewValue)) {
+					 // it is valid
+					return true;
+				}
+
+				// it is invalid
+				return false;
+			};
+		}
+	};
+});
+
+projects.directive('folderName', function() {
+	var FNAME_REGEXP = /^[0-9A-Za-z\/-]*$/;
+  	return {
+    	require: 'ngModel',
+    	link: function(scope, elm, attrs, ctrl) {
+      		ctrl.$validators.folderName = function(modelValue, viewValue) {
+				if (FNAME_REGEXP.test(viewValue)) {
+					 // it is valid
+					return true;
+				}
+
+				// it is invalid
+				return false;
+			};
+		}
+	};
+});
+
+projects.directive('logoFilename', function() {
+	var IMG_PATH_REGEXP = /[0-9A-Za-z-]+\.(jpg|png|gif|jpeg)/;
+  	return {
+    	require: 'ngModel',
+    	link: function(scope, elm, attrs, ctrl) {
+      		ctrl.$validators.logoFilename = function(modelValue, viewValue) {
+				if (IMG_PATH_REGEXP.test(viewValue)) {
+					 // it is valid
+					return true;
+				}
+
+				// it is invalid
+				return false;
+			};
+		}
+	};
+});

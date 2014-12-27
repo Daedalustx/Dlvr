@@ -42,7 +42,7 @@ a:hover {
 
 .details {
 	padding: .25em 2em .25em 0;
-	
+
 	display: inline-block;
 }
 
@@ -235,6 +235,16 @@ input.display-order {
 	width: 5em;
 }
 
+input.ng-invalid {
+	background-color: rgba(204, 85, 85, 0.25);
+	border-color: #C55;
+	color: #DDD;
+}
+
+input.ng-invalid:focus {
+	outline: #DDD auto 5px;
+}
+
 span.delete-row, span.col-0 {
 	float: right;
 }
@@ -262,7 +272,7 @@ span.delete-row {
 }
 
 .faded {
-	color: #ccc;
+	color: #BBB;
 }
 
 @media screen and (max-width: 767px) {
@@ -275,4 +285,8 @@ span.delete-row {
 		margin: -1em 0 0 1em;
 	}
 
+}
+
+.error {
+	color: #E77;
 }
