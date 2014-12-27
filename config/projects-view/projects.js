@@ -23,6 +23,7 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		$scope.configNightTheme = true;
 	};
 	$scope.editProject = function(index) {
+		console.log(index);
 		$scope.action = 'edit';
 		$scope.projectIndex = index;
 		$scope.showEditor = true;
@@ -31,6 +32,10 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		$scope.projectRootPath = $scope.projects[index].projectRootPath;
 		$scope.projectLogo = $scope.projects[index].projectLogo;
 		$scope.configNightTheme = $scope.projects[index].configNightTheme;
+	};
+	$scope.hideEditor = function (event) {
+		event.preventDefault();
+		$scope.showEditor = false;	
 	};
 	$scope.deleteProject = function(index) {
 		var project = $scope.projects[index],

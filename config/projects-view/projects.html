@@ -74,7 +74,7 @@
 		
 		</label>
 		
-		<label>Project Logo Filename: <input placeholder="logo-filename.png" name="logofile" ng-model="projectLogo" logo-filename> <small>( .jpg .png .gif )</small>
+		<label>Project Logo Filename: Dlvr/projects/{{projectRootPath}}/ <input placeholder="logo-filename.png" name="logofile" ng-model="projectLogo" logo-filename> <small>( .jpg .jpeg .png .gif )</small>
 			 <span class="error" ng-show="projectEditor.logofile.$error.logoFilename">
 				Alphanumeric and _ and - and / only, please.
 			</span>
@@ -87,7 +87,7 @@
 		
 		<input type="submit" class="save" value="Save Project" ng-click="writeProject()">
 		
-		<input type="reset" class="cancel" value="Cancel" ng-click="showEditor=false">
+		<input type="reset" class="cancel" value="Cancel" ng-click="hideEditor($event)">
 		
 	</form>
 	

@@ -28,7 +28,7 @@ if ($action == "delete") {
 			$flag = dirname(__DIR__)."/projects/$project->projectRootPath";
 			
 			if ( is_dir($flag) ) {
-			
+				$flag = substr($flag, stripos($flag, '/dlvr'));
 				$response = $project->projectName . $action_text . 'Successfully<br><small>project folder found at: ' . $flag . '</small>'; 
 				
 			} else {
