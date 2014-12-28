@@ -212,7 +212,7 @@ projects.directive('logoFilename', function() {
     	require: 'ngModel',
     	link: function(scope, elm, attrs, ctrl) {
       		ctrl.$validators.logoFilename = function(modelValue, viewValue) {
-				if (IMG_PATH_REGEXP.test(viewValue)) {
+				if (!viewValue || IMG_PATH_REGEXP.test(viewValue)) {
 					 // it is valid
 					return true;
 				}
