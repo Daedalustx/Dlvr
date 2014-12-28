@@ -15,7 +15,7 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		$scope.action = 'create';
 		$scope.projects = $scope.projects || [];
 		$scope.projectIndex = $scope.projects.length;
-		$scope.showEditor = true;
+		$scope.showEditor = 'create';
 		$scope.projectId = "";
 		$scope.projectName = "";
 		$scope.projectRootPath = "";
@@ -28,7 +28,7 @@ projects.config(['$routeProvider', function ($routeProvider) {
 	//	console.log(index);
 		$scope.action = 'edit';
 		$scope.projectIndex = index;
-		$scope.showEditor = true;
+		$scope.showEditor = index;
 		$scope.projectId = $scope.projects[index].projectId;
 		$scope.projectName = $scope.projects[index].projectName;
 		$scope.projectRootPath = $scope.projects[index].projectRootPath;
@@ -51,7 +51,7 @@ projects.config(['$routeProvider', function ($routeProvider) {
 			$scope.updateFiles($scope.projects, $scope.action, project.projectId);
 		}
 	};
-	$scope.writeProject = function() {
+	$scope.writeProject = function(id, name, folder, logo, night) {
 		var project = {},
 			stripSlashes;
 		stripSlashes = function (str) {
@@ -65,12 +65,12 @@ projects.config(['$routeProvider', function ($routeProvider) {
 			return str;
 		};
 		
-		project.projectId = $scope.projectId;
-		project.projectName = $scope.projectName;
-		project.projectRootPath = stripSlashes($scope.projectRootPath);
-		project.projectLogo = stripSlashes($scope.projectLogo);
+		project.projectId = id;
+		project.projectName = name;
+		project.projectRootPath = stripSlashes(folder);
+		project.projectLogo = stripSlashes(logo);
 		project.linked = $scope.linked;
-		project.configNightTheme = $scope.configNightTheme;
+		project.configNightTheme = night;
 
 		if (project.projectId && project.projectName && project.projectRootPath ) {
 			project.revisionStamp = new Date();
@@ -138,7 +138,7 @@ projects.config(['$routeProvider', function ($routeProvider) {
 			$scope.editProject(index);
 			$timeout( function() {
 				
-				$scope.writeProject();
+				$scope.writeProject($scope.projectId, $scope.projectName, $scope.projectRootPath, $scope.projectLogo, $scope.configNightTheme);
 			}, 2000 );
 		})
 		.error(function() {
@@ -151,6 +151,12 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		});	
 	};
 }]);
+
+projects.directive('editor', function() {
+	return {
+		templateUrl: 'projects-view/project-editor.html'
+	};
+});
 
 projects.directive('projectId', function() {
 	var ID_REGEXP = /^[0-9A-Za-z_-]*$/;

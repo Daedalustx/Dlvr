@@ -4,6 +4,10 @@
 	
 	<p ng-hide="showEditor" ng-if="!projects[0]">{{actionText}}</p>
 	
+	<p ng-hide="showEditor"><button ng-click="createProject()">New Project</button></p>
+	
+	<editor ng-if="showEditor=='create'"></editor>
+	
 	<ul ng-if="projects[0]">
 	
 		<li ng-repeat="project in projects | reverse" class="project-list-item">
@@ -36,62 +40,11 @@
 			
 			<p ng-if="!project.linked" class="error">Project folder is not linked. You can <a style="font-size:1em;" ng-click="createFolder(project.projectRootPath, projects.length - $index - 1)">create the Folder</a> or save the project again after uploading the folder {{project.projectRootPath}} to dlvr/projects/</p>
 			
+			<editor ng-if="showEditor===(projects.length - $index - 1)" ng-model="project"></editor>
+			
 		</li>
 		
 	</ul>
-	
-	<p ng-hide="showEditor"><button ng-click="createProject(true)">New Project</button></p>
-	
-	<form class="create-project" ng-show="showEditor" name="projectEditor">
-	
-		<legend>Enter Project Details:</legend>
-		
-		<label>Url: <input placeholder="project-id" name="url" ng-model="projectId" project-id required>
-		
-			<span class="error" ng-show="projectEditor.url.$error.required">Required!</span>
-			
-			<span class="error" ng-show="projectEditor.url.$error.projectId">
-				Alphanumeric and _ and - only, please.
-			</span>
-			
-		</label>
-		
-		<label>Project Name: <input placeholder="Project Name" name="pname"  ng-model="projectName" project-name required>
-		
-			<span class="error" ng-show="projectEditor.pname.$error.required">Required!</span>
-			
-			<span class="error" ng-show="projectEditor.pname.$error.projectName">
-				Alphanumeric, spaces, and - only, please.
-			</span>
-			
-		</label>
-		
-		<label>Project Folder: Dlvr/projects/ <input placeholder="folder-name" name="fname" ng-model="projectRootPath" folder-name required>
-		
-			<span class="error" ng-show="projectEditor.fname.$error.required">Required!</span>
-			
-			<span class="error" ng-show="projectEditor.fname.$error.folderName">
-				Alphanumeric and _ and - and / only, please.
-			</span>
-		
-		</label>
-		
-		<label>Project Logo Filename: Dlvr/projects/{{projectRootPath}}/ <input placeholder="logo-filename.png" name="logofile" ng-model="projectLogo" logo-filename> <small>( .jpg .jpeg .png .gif )</small>
-			 <span class="error" ng-show="projectEditor.logofile.$error.logoFilename">
-				Alphanumeric and _ and - and / only, please.
-			</span>
-		</label>
-		
-		<label>Use Night theme: <input type="checkbox"
-		ng-model="configNightTheme"></label>
-		
-		<br>
-		
-		<input type="submit" class="save" value="Save Project" ng-click="writeProject()">
-		
-		<input type="reset" class="cancel" value="Cancel" ng-click="hideEditor($event)">
-		
-	</form>
 	
 	<p ng-class="{feedback: feedback, fail: fail}" class="centered" ng-bind-html="feedback"></p>
 	
