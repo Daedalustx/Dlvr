@@ -28,12 +28,14 @@ if ($action == "delete") {
 			$flag = dirname(__DIR__)."/projects/$project->projectRootPath";
 			
 			if ( is_dir($flag) ) {
-				$flag = substr($flag, stripos($flag, '/dlvr'));
-				$response = $project->projectName . $action_text . 'Successfully<br><small>project folder found at: ' . $flag . '</small>'; 
-				
+				$flag = substr($flag, stripos($flag, 'dlvr'));
+				$response = $project->projectName . $action_text . 'Successfully<br><small>project folder found at:<br>' . $flag . '</small>'; 
+				$project->linked = true;
 			} else {
 			
 				$response = $project->projectName . $action_text . 'Successfully<br><small style="display:block;background-color:#C55;">project folder not found...</small>';
+				
+				$project->linked = false;
 				
 			};
 			

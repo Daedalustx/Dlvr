@@ -9,7 +9,7 @@ projectSettings.config(['$routeProvider', '$locationProvider', function ($routeP
 		templateUrl: 'settings-view/settings.html'
 	});
 }])
-.controller('projectSettingsCtrl', ['$scope', '$http', '$timeout', '$routeParams', '$location', function ($scope, $http, $timeout, $routeParams, $location) {
+.controller('projectSettingsCtrl', ['$sce', '$scope', '$http', '$timeout', '$routeParams', '$location', function ($sce, $scope, $http, $timeout, $routeParams, $location) {
 	for (var i=0, length=$scope.projects.length; i < length; i++) {
 		if ($scope.projects[i].projectId === $routeParams.projectId) {
 			$scope.settings = $scope.projects[i];
@@ -22,16 +22,33 @@ projectSettings.config(['$routeProvider', '$locationProvider', function ($routeP
 		$scope.$emit('lightsOn');
 	};
 	$scope.data = {};
+	$scope.data.projectName = $scope.settings.projectName;
+	$scope.$parent.title = $scope.data.projectName;
+	$scope.data.rootPath = $scope.settings.projectRootPath;
 	$http.get('../projects/' + $scope.settings.projectRootPath + '/project.json?t=' + new Date().getTime())
 		.success(function(list) {
 			$scope.data = list;
-			$scope.data.projectName = $scope.settings.projectName;
-			$scope.$parent.title = $scope.data.projectName;
-			$scope.data.rootPath = $scope.settings.projectRootPath;
-			console.log($scope.data);
+			
 		})
 		.error( function() {
-			alert("Error retreiving Data");
+			var feedback = "Project Settings File Not Found. <br>";
+			if ($scope.settings.linked) {
+				feedback+=$sce.trustAsHtml(" Creating Defaults...");
+				$scope.data.colHeaders = [
+					{"index":0,"id":"priority","title":"Priority","visible":true,"display":true,"sortable":false,"displayConsecutive":true},
+					{"index":1,"id":"title","title":"Title","visible":true,"display":true,"linksTo":"previewUrl"},
+				
+					{"index":2,"id":"optional-1","optional":true,"title":"Interview Subject","visible":true,"display":false,"linksTo":false},
+					{"index":3,"id":"optional-2","optional":true,"title":"Notes","visible":false,"display":false,"linksTo":false},
+					{"index":4,"id":"download","optional":true,"title":"Download","visible":true,"display":true,"displayDownloadAsIcon":false,"iconFilename":"download.png"}
+				];
+				$scope.data.previewPath = 'videos';
+				$scope.data.downloadPath = 'downloads';
+			};
+			$scope.feedback=$sce.trustAsHtml(feedback);
+			$timeout( function() {
+				$scope.feedback="";
+			}, 3000 );
 		});
 	$scope.priority = function(isSortable) {
 			return isSortable ? 'priority' : 'id';
@@ -64,23 +81,28 @@ projectSettings.config(['$routeProvider', '$locationProvider', function ($routeP
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		})
 		.success(function() {
-			$scope.feedback="Delivery configured sucessfully";
+			$scope.feedback=$sce.trustAsHtml("Delivery configured sucessfully");
 			$timeout( function() {
 				$scope.feedback="";
 			}, 2000 );
 		})
 		.error(function() {
-			$scope.feedback="Delivery configuration Failed";
+			$scope.feedback=$sce.trustAsHtml("Delivery configuration Failed");
 			$timeout( function() {
 				$scope.feedback="";
 			}, 3000 );
 		});
 	};
 	$scope.addRow = function() {
-		var videos = $scope.data.videos,
-			index = videos.length;
+		var videos = $scope.data.videos || [],
+			index = angular.isDefined(videos) ? videos.length : 0;
 		videos[index] = {};
 		videos[index].id = index + 1;
+		videos[index].belongsTo = 'main';
+		videos[index].linksTo = 'false';
+		if (index === 0) {
+			$scope.data.videos = videos;
+		}
 	};
 	$scope.deleteRow = function(index) {
 		var videos = $scope.data.videos;

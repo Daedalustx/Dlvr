@@ -11,10 +11,10 @@ angular.module('video1.detail', ['ngRoute'])
 
 .controller('DetailViewCtrl', ['$rootScope', '$scope', '$http', '$routeParams', function($rootScope, $scope, $http, $routeParams) {
 	$rootScope.$on('$routeChangeStart', function () {
-		console.log('routeChangeStart detail');
+	//	console.log('routeChangeStart detail');
 	});
 	$scope.$on('$routeChangeSuccess', function () {
-		console.log('routeChangeSuccess detail');
+		//console.log('routeChangeSuccess detail');
 	});
 	$scope.list = 'list-item';
 	$scope.video = null;

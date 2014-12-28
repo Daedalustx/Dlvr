@@ -16,24 +16,22 @@ videoApp.config(['$routeProvider', '$locationProvider', function($routeProvider,
 }]);
 
 videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route', '$routeParams', '$location',  function($rootScope, $scope, $http, $route, $routeParams, $location) {
-	console.log('video app controller');
+	//console.log('video app controller');
 	$rootScope.dataLoaded = false;
 	$rootScope.$on('$routeChangeStart', function () {
 		
-		console.log('routeChangeStart');		
+		//console.log('routeChangeStart');		
 	});
 	$rootScope.$on('$routeChangeSuccess', function () {
 		if (!angular.isDefined($scope.data)) {
-			console.log('no data yet - loading it');
+			//console.log('no data yet - loading it');
 			$http.get('config/projects/' + $route.current.params.projectUrl + '.json?t=' + new Date().getTime())
 			.success( function (result) {
-				console.log(result);
 				$scope.settings = result;
-				//$scope.nightTheme = result.nightTheme;
 			
 				var projectPath = '';
 				projectPath = 'projects/' + $scope.settings.projectRootPath + '/project.json?t=' + new Date().getTime();
-				console.log(projectPath);
+				//console.log(projectPath);
 				$http.get(projectPath)
 				.success(function(list) {
 					$scope.data = list;
@@ -45,9 +43,11 @@ videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route',
 					$scope.priority = list.colHeaders[0].sortable ? 'priority' : 'id';
 					$scope.nightTheme = list.nightTheme;
 		
-					console.log('success callback');
+					//console.log('success callback');
 					$rootScope.dataLoaded = true;
-					console.log($route.current.params);
+					//console.log($route.current.params);
+					
+				//	console.log($scope.videoList);
 					
 					if (!$route.current.params.groupUrl && !$route.current.params.previewUrl) {
 						$location.path('/' + $scope.settings.projectId + '/main');
@@ -60,7 +60,7 @@ videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route',
 			
 			})
 			.error( function (errordata) {
-				console.log(errordata);
+				console.log('error');
 			});
 		}
 	});

@@ -11,10 +11,10 @@ listModule.config(['$routeProvider', function($routeProvider) {
 
 .controller('VideoListCtrl', [ '$rootScope', '$scope', '$http', '$route', '$routeParams', 'nestedFilter', function($rootScope, $scope, $http, $route, $routeParams, nestedFilter) {
 	$rootScope.$on('$routeChangeStart', function () {
-		console.log('routeChangeStart list');
+		//console.log('routeChangeStart list');
 	});
 	$scope.$on('$routeChangeSuccess', function () {
-		console.log('routeChangeSuccess list');
+		//console.log('routeChangeSuccess list');
 	});
 	var numColumns = 0;
 	$scope.list = $routeParams.groupUrl;
@@ -24,6 +24,8 @@ listModule.config(['$routeProvider', function($routeProvider) {
 				if (item.groupUrl == $scope.list && $scope.list != 'main') {
 					$scope.listName = item.name;
 					$scope.listDescription = item.groupDescription || '';
+				} else {
+				//	$scope.listName = 'main';
 				}
 			});
 			angular.forEach($scope.colHeaders, function(header) {
@@ -59,7 +61,7 @@ listModule.directive('projectText', function() {
 		link: function (scope, el) {
 			scope.$watch('data', function (newVal) {
 				if (newVal) {
-					console.log('write project text');
+					//console.log('write project text');
 					if ( scope.list == 'main' ) {
 						scope.introText = scope.projectText;
 					} else {
@@ -78,7 +80,7 @@ listModule.directive('breadcrumb', function() {
 			scope.$watch('data', function(newVal) {
 				if (newVal) {
 					var breadcrumbs = [];
-					if (scope.list == 'list-item') {
+					if (scope.list == 'list-item' && scope.listName) {
 						breadcrumbs[1] = "<a href='" + scope.settings.projectId + "/" + scope.video.belongsTo + "'>" + scope.listName + "</a> &raquo;";
 					} 
 					if ( scope.list !== 'main' ) {

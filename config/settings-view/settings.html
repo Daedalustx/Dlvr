@@ -12,7 +12,7 @@
 
 	<img class="logo" ng-src="{{settings.projectLogo && ('../projects/' + settings.projectRootPath + '/' + settings.projectLogo) || ''}}">
 	
-	<a href="../config/#/projects" ng-click="$parent.title='Dlvr'">&laquo; Back to projects</a>
+	<a href="../config/projects" ng-click="$parent.title='Dlvr'">&laquo; Back to projects</a>
 	
 	<h2>Project Information</h2>
 	
@@ -165,9 +165,10 @@
 	</ul>
 	<p><button ng-click="addRow()">Add a row</button></p>
 </section>
-<p class="centered"><button ng-click="writeData()" class="save">Save to File</button></p>
-<p class="centered">Last saved: {{data.revisionStamp | date : 'short'}}</p>
+<p ng-if="!settings.linked" class="centered error">Your project folder '{{settings.projectRootPath}}' is not available.  Please upload a folder via ftp, or <a href="../config/projects" ng-click="$parent.title='Dlvr'">go back to the projects page</a> and create an empty repository.</p> 
+<p class="centered" ng-if="settings.linked"><button ng-click="writeData()" class="save">Save to File</button></p>
+<p class="centered" ng-if="data.revisionStamp">Last saved: {{data.revisionStamp | date : 'short'}}</p>
 <p class="centered"><button class="delivery-link"><a href="../{{settings.projectId}}" target="_blank">View Delivery</a></button></p>
 <p></p>
 <p></p>
-<p ng-class="{feedback: feedback}" class="centered">{{feedback}}</p>
+<p ng-class="{feedback: feedback}" class="centered" ng-bind-html="feedback"></p>

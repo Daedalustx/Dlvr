@@ -9,7 +9,7 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		templateUrl: 'projects-view/projects.html'
 	});
 }])
-.controller('projectCtrl', ['$scope', '$http', '$timeout', '$sce', function ($scope, $http, $timeout, $sce) {
+.controller('projectCtrl', ['$route', '$location', '$scope', '$http', '$timeout', '$sce', function ($route, $location, $scope, $http, $timeout, $sce) {
 	
 	$scope.createProject = function() {
 		$scope.action = 'create';
@@ -20,10 +20,12 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		$scope.projectName = "";
 		$scope.projectRootPath = "";
 		$scope.projectLogo = "";
+		$scope.linked = false;
 		$scope.configNightTheme = true;
+		//console.log($scope.projects);
 	};
 	$scope.editProject = function(index) {
-		console.log(index);
+	//	console.log(index);
 		$scope.action = 'edit';
 		$scope.projectIndex = index;
 		$scope.showEditor = true;
@@ -31,6 +33,7 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		$scope.projectName = $scope.projects[index].projectName;
 		$scope.projectRootPath = $scope.projects[index].projectRootPath;
 		$scope.projectLogo = $scope.projects[index].projectLogo;
+		$scope.linked = $scope.projects[index].linked;
 		$scope.configNightTheme = $scope.projects[index].configNightTheme;
 	};
 	$scope.hideEditor = function (event) {
@@ -43,6 +46,8 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		if (confirmDelete) {
 			$scope.action = 'delete';
 			$scope.projects.splice(index, 1);
+			//console.log($scope.projects);
+			if ( ! angular.isDefined($scope.projects[0]) ) $scope.actionText = 'No projects found, create one?';
 			$scope.updateFiles($scope.projects, $scope.action, project.projectId);
 		}
 	};
@@ -64,15 +69,17 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		project.projectName = $scope.projectName;
 		project.projectRootPath = stripSlashes($scope.projectRootPath);
 		project.projectLogo = stripSlashes($scope.projectLogo);
+		project.linked = $scope.linked;
 		project.configNightTheme = $scope.configNightTheme;
 
-		if (project.projectId && project.projectName && project.projectRootPath && project.projectLogo ) {
+		if (project.projectId && project.projectName && project.projectRootPath ) {
 			project.revisionStamp = new Date();
 			if ($scope.projects[$scope.projectIndex]) {
 				$scope.projects[$scope.projectIndex] = project;
 			} else {
 				$scope.projects.push(project);
 			}
+			//console.log($scope.projects);
 			$scope.updateFiles($scope.projects, $scope.action, project.projectId);
 		} else {
 			console.log(project.projectId);
@@ -97,8 +104,11 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		.success(function(response) {
 			$scope.showEditor = false;
 			$scope.feedback = $sce.trustAsHtml(response);
+			//console.log($scope.projects);
+			$scope.getData();
 			$timeout( function() {
 				$scope.feedback="";
+				$route.reload();
 			}, 3000 );
 		})
 		.error(function() {
@@ -108,9 +118,37 @@ projects.config(['$routeProvider', function ($routeProvider) {
 				$scope.feedback="";
 				$scope.fail = false;
 			}, 3000 );
-		});
-		
-			
+		});	
+	};
+	$scope.editSettings = function (event, id) {
+		event.preventDefault();
+		//console.log($scope.projects);
+	//	console.log(id);
+		$location.path('projects/' + id);
+	};
+	$scope.createFolder = function(folderName, index) {
+		$http({
+			method: 'post',
+			url: 'mkdir.php', 
+			data : {"folder":folderName},
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		})
+		.success(function(response) {
+			$scope.feedback = $sce.trustAsHtml(response);
+			$scope.editProject(index);
+			$timeout( function() {
+				
+				$scope.writeProject();
+			}, 2000 );
+		})
+		.error(function() {
+			$scope.feedback = $sce.trustAsHtml("An unknown error occurred.<br>Could not create folder.");
+			$scope.fail = true;
+			$timeout( function() {
+				$scope.feedback="";
+				$scope.fail = false;
+			}, 3000 );
+		});	
 	};
 }]);
 

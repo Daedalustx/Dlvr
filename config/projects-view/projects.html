@@ -16,7 +16,7 @@
 			 	
 			</span>
 			
-			<a href="projects/{{project.projectId}}">{{project.projectName}}</a>
+			<a href="projects/{{project.projectId}}" ng-click="editSettings($event, project.projectId)">{{project.projectName}}</a>
 			
 			<img ng-if="project.projectLogo" onerror="this.style.display='none'" ng-src="../projects/{{project.projectRootPath}}/{{project.projectLogo}}" />
 			
@@ -33,6 +33,8 @@
 			<span class="details">Revised: 
 				<span class="faded">{{project.revisionStamp | date : 'short'}}</span>
 			</span>
+			
+			<p ng-if="!project.linked" class="error">Project folder is not linked. You can <a style="font-size:1em;" ng-click="createFolder(project.projectRootPath, projects.length - $index - 1)">create the Folder</a> or save the project again after uploading the folder {{project.projectRootPath}} to dlvr/projects/</p>
 			
 		</li>
 		

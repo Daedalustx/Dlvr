@@ -69,11 +69,7 @@ body.night {
 }
 
 .night a {
-	color: #C55;
-}
-
-.night a {
-	color: #C55;
+	color: #89B;
 }
 
 .night a:visited {
@@ -235,13 +231,13 @@ input.display-order {
 	width: 5em;
 }
 
-input.ng-invalid {
+input.ng-dirty.ng-invalid {
 	background-color: rgba(204, 85, 85, 0.25);
 	border-color: #C55;
 	color: #DDD;
 }
 
-input.ng-invalid:focus {
+input.ng-dirty.ng-invalid:focus {
 	outline: #DDD auto 5px;
 }
 
