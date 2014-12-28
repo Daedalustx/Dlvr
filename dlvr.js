@@ -18,12 +18,7 @@ videoApp.config(['$routeProvider', '$locationProvider', function($routeProvider,
   $locationProvider.html5Mode(true);
 }]);
 
-videoApp.controller('HomeController', ['$scope', function ($scope) {
-	$scope.settings = {};
-	$scope.settings.projectName = 'Dlvr';
-}]);
-
-videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route', '$routeParams', '$location',  function($rootScope, $scope, $http, $route, $routeParams, $location) {
+videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route', '$routeParams', '$location', '$window',  function($rootScope, $scope, $http, $route, $routeParams, $location, $window) {
 	console.log('video app controller');
 	if ($location.path() == '/') {
 		$scope.settings = {};
@@ -74,7 +69,8 @@ videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route',
 			
 			})
 			.error( function (errordata) {
-				console.log('error');
+				$location.path('/');
+				$window.location.reload();
 			});
 		}
 	});
