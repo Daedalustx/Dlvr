@@ -1,5 +1,6 @@
 <?php
 $postdata = file_get_contents("php://input");
+if (!$postdata) die();
 $request = json_decode($postdata);
 
 // check for folder existence first

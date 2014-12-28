@@ -1,5 +1,6 @@
 <?php
 $postdata = file_get_contents("php://input");
+if (!$postdata) die();
 $request = json_decode($postdata);
 $folder = get_object_vars($request)['folder'];
 
