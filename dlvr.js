@@ -10,13 +10,27 @@ var videoApp = angular.module('video1', [
 		
 videoApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $routeProvider
+  	.when('/', {
+  		templateUrl: 'dlvr.html'
+  	})
 	.when('/:projectUrl', {})
-	.otherwise({redirectTo: '/not-found'});
+	.otherwise({redirectTo: '/'});
   $locationProvider.html5Mode(true);
 }]);
 
+videoApp.controller('HomeController', ['$scope', function ($scope) {
+	$scope.settings = {};
+	$scope.settings.projectName = 'Dlvr';
+}]);
+
 videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route', '$routeParams', '$location',  function($rootScope, $scope, $http, $route, $routeParams, $location) {
-	//console.log('video app controller');
+	console.log('video app controller');
+	if ($location.path() == '/') {
+		$scope.settings = {};
+		$scope.settings.projectName = 'Dlvr';
+		$scope.nightTheme = true;
+		return;
+	};
 	$rootScope.dataLoaded = false;
 	$rootScope.$on('$routeChangeStart', function () {
 		
