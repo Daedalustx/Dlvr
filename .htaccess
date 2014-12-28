@@ -1,6 +1,5 @@
 Options -Indexes
 
-
 AddType video/webm .webm
 
 RewriteEngine On
@@ -8,8 +7,3 @@ RewriteEngine On
 RewriteRule ^config[A-Z0-9-_/]+?$ config/index.html [NC,L]
 RewriteRule ^[A-Z0-9-_/]+/?$ index.html [NC,L]
 
-
-AuthType Basic
-AuthName "restricted area"
-AuthUserFile /users/daedalus/dev/angular/video1/Dlvr/config/.htpasswd
-require valid-user
