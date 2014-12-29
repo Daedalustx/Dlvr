@@ -59,7 +59,7 @@ videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route',
 				//	console.log($scope.videoList);
 					
 					if (!$route.current.params.groupUrl && !$route.current.params.previewUrl) {
-						$location.path('/' + $scope.settings.projectId + '/main');
+						$location.path('/' + $scope.settings.projectId + '/main').replace();
 					}
 				})
 				.error( function() {
