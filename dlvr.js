@@ -34,12 +34,11 @@ videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route',
 	$rootScope.$on('$routeChangeSuccess', function () {
 		if (!angular.isDefined($scope.data)) {
 			//console.log('no data yet - loading it');
-			$http.get('config/projects/' + $route.current.params.projectUrl + '.json?t=' + new Date().getTime())
+			$http.get('projects/' + $route.current.params.projectUrl + '.json?t=' + new Date().getTime())
 			.success( function (result) {
 				$scope.settings = result;
 			
-				var projectPath = '';
-				projectPath = 'projects/' + $scope.settings.projectRootPath + '/project.json?t=' + new Date().getTime();
+				var projectPath = 'projects/' + $scope.settings.projectRootPath + '/project.json?t=' + new Date().getTime();
 				//console.log(projectPath);
 				$http.get(projectPath)
 				.success(function(list) {
