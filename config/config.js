@@ -7,11 +7,13 @@ var configVideoApp = angular.module('configuration', [
   'configuration.projectSettings'
 ]).
 config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-  $routeProvider.otherwise({redirectTo: '/projects'});
+  $routeProvider
+  .when('/', {})
+  .otherwise({redirectTo: '/'});
   $locationProvider.html5Mode(true);
 }])
-.controller('ConfigController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
-
+.controller('ConfigController', ['$location', '$scope', '$http', '$timeout', function($location, $scope, $http, $timeout) {
+	
 	$scope.title = "Dlvr";
 	
 	$scope.configNightTheme = true;
@@ -37,6 +39,9 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
 		});
 	};
 	$scope.getData();
+	if ($location.path() == '/') {
+		$location.path('/projects').replace();
+	};
 }])
 .filter('reverse', function() {
   return function(items) {
