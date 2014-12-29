@@ -4,7 +4,7 @@
 	
 	<p ng-hide="showEditor" ng-if="!projects[0]">{{actionText}}</p>
 	
-	<p ng-hide="showEditor"><button ng-click="createProject()">New Project</button></p>
+	<p ng-hide="action=='create' || action=='edit' "><button ng-click="createProject()">New Project</button></p>
 	
 	<editor ng-if="showEditor=='create'"></editor>
 	

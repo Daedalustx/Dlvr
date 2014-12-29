@@ -12,49 +12,52 @@ projects.config(['$routeProvider', function ($routeProvider) {
 .controller('projectCtrl', ['$route', '$location', '$scope', '$http', '$timeout', '$sce', function ($route, $location, $scope, $http, $timeout, $sce) {
 	
 	$scope.createProject = function() {
+		$scope.project = {
+							projectId: "",
+							projectName: "",
+							projectRootPath: "",
+							projectLogo: "",
+							linked: false,
+							configNightTheme: true
+						 };
 		$scope.action = 'create';
 		$scope.projects = $scope.projects || [];
-		$scope.projectIndex = $scope.projects.length;
+		$scope.currentProjectIndex = $scope.projects.length;
 		$scope.showEditor = 'create';
-		$scope.projectId = "";
-		$scope.projectName = "";
-		$scope.projectRootPath = "";
-		$scope.projectLogo = "";
-		$scope.linked = false;
-		$scope.configNightTheme = true;
-		//console.log($scope.projects);
+		//$scope.projects[$scope.currentProjectIndex] = $scope.project;
+		
 	};
 	$scope.editProject = function(index) {
-	//	console.log(index);
+		//console.log(index);
 		$scope.action = 'edit';
-		$scope.projectIndex = index;
+		$scope.currentProjectIndex = index;
 		$scope.showEditor = index;
-		$scope.projectId = $scope.projects[index].projectId;
-		$scope.projectName = $scope.projects[index].projectName;
-		$scope.projectRootPath = $scope.projects[index].projectRootPath;
-		$scope.projectLogo = $scope.projects[index].projectLogo;
-		$scope.linked = $scope.projects[index].linked;
-		$scope.configNightTheme = $scope.projects[index].configNightTheme;
+		$scope.uneditedCopy = angular.copy($scope.projects[index]);
 	};
 	$scope.hideEditor = function (event) {
 		event.preventDefault();
-		$scope.showEditor = false;	
+		//console.log($scope.currentProjectIndex);
+		if ($scope.action == 'edit') {
+			$scope.projects[$scope.currentProjectIndex] = $scope.uneditedCopy;
+		};
+		delete $scope.uneditedCopy;
+		$scope.action = false;
+		$scope.showEditor = false;
 	};
 	$scope.deleteProject = function(index) {
-		var project = $scope.projects[index],
-			confirmDelete = confirm("Are you sure you want to delete " + project.projectName + "?");
+		var projectId = $scope.projects[index].projectId,
+			confirmDelete = confirm("Are you sure you want to delete " + $scope.projects[index].projectName + "?");
 		if (confirmDelete) {
 			$scope.action = 'delete';
 			$scope.projects.splice(index, 1);
 			//console.log($scope.projects);
 			if ( ! angular.isDefined($scope.projects[0]) ) $scope.actionText = 'No projects found, create one?';
-			$scope.updateFiles($scope.projects, $scope.action, project.projectId);
+			$scope.updateFiles($scope.projects, $scope.action, projectId);
 		}
 	};
-	$scope.writeProject = function(id, name, folder, logo, night) {
-		var project = {},
-			stripSlashes;
-		stripSlashes = function (str) {
+	$scope.writeProject = function(project) {
+		
+		var stripSlashes = function (str) {
 			str = str.replace(/[\/]+/g, '/');
 			if (str.indexOf('/') == 0) {
 				str = str.slice(1);
@@ -65,28 +68,23 @@ projects.config(['$routeProvider', function ($routeProvider) {
 			return str;
 		};
 		
-		project.projectId = id;
-		project.projectName = name;
-		project.projectRootPath = stripSlashes(folder);
-		project.projectLogo = stripSlashes(logo);
-		project.linked = $scope.linked;
-		project.configNightTheme = night;
-
-		if (project.projectId && project.projectName && project.projectRootPath ) {
-			project.revisionStamp = new Date();
-			if ($scope.projects[$scope.projectIndex]) {
-				$scope.projects[$scope.projectIndex] = project;
-			} else {
-				$scope.projects.push(project);
-			}
-			//console.log($scope.projects);
-			$scope.updateFiles($scope.projects, $scope.action, project.projectId);
-		} else {
-			console.log(project.projectId);
-			console.log(project.projectName);
-			console.log(project.projectRootPath);
-			console.log(project.projectLogo);
+		if ($scope.action == 'create') {
+			$scope.projects[$scope.currentProjectIndex] = $scope.project;
+		};
+		
+		project.projectRootPath = stripSlashes(project.projectRootPath);
+		project.projectLogo = stripSlashes(project.projectLogo);
+		project.revisionStamp = new Date();
+		
+		if ($scope.projects[$scope.currentProjectIndex]) { 
+			$scope.projects[$scope.currentProjectIndex] = project; // edit a project
+		} else { 
+			$scope.projects.push(project); //create a project
 		}
+		//console.log($scope.projects);
+		
+		$scope.updateFiles($scope.projects, $scope.action, project.projectId);
+		
 	
 	};
 	$scope.updateFiles = function(projects, action, project) {
@@ -137,8 +135,7 @@ projects.config(['$routeProvider', function ($routeProvider) {
 			$scope.feedback = $sce.trustAsHtml(response);
 			$scope.editProject(index);
 			$timeout( function() {
-				
-				$scope.writeProject($scope.projectId, $scope.projectName, $scope.projectRootPath, $scope.projectLogo, $scope.configNightTheme);
+				$scope.writeProject($scope.projects[index]);
 			}, 2000 );
 		})
 		.error(function() {

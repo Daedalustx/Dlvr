@@ -1,8 +1,8 @@
-<form class="create-project" name="projectEditor">
+<form class="create-project" name="projectEditor" ng-submit="writeProject(project)">
 
 	<legend>Enter Project Details:</legend>
 	
-	<label>Url: <input placeholder="project-id" name="url" ng-model="projectId" project-id required>
+	<label>Url: <input placeholder="project-id" name="url" ng-model="project.projectId" project-id required>
 	
 		<span class="error" ng-show="projectEditor.url.$error.required">Required!</span>
 		
@@ -12,7 +12,7 @@
 		
 	</label>
 	
-	<label>Project Name: <input placeholder="Project Name" name="pname"  ng-model="projectName" project-name required>
+	<label>Project Name: <input placeholder="Project Name" name="pname"  ng-model="project.projectName" project-name required>
 	
 		<span class="error" ng-show="projectEditor.pname.$error.required">Required!</span>
 		
@@ -22,7 +22,7 @@
 		
 	</label>
 	
-	<label>Project Folder: Dlvr/projects/ <input placeholder="folder-name" name="fname" ng-model="projectRootPath" folder-name required>
+	<label>Project Folder: Dlvr/projects/ <input placeholder="folder-name" name="fname" ng-model="project.projectRootPath" folder-name required>
 	
 		<span class="error" ng-show="projectEditor.fname.$error.required">Required!</span>
 		
@@ -32,19 +32,19 @@
 	
 	</label>
 	
-	<label>Project Logo Filename: Dlvr/projects/{{projectRootPath}}/ <input placeholder="logo-filename.png" name="logofile" ng-model="projectLogo" logo-filename> <small>( .jpg .jpeg .png .gif )</small>
+	<label>Project Logo Filename: Dlvr/projects/{{project.projectRootPath}}/ <input placeholder="logo-filename.png" name="logofile" ng-model="project.projectLogo" logo-filename> <small>( .jpg .jpeg .png .gif )</small>
 		 <span class="error" ng-show="projectEditor.logofile.$error.logoFilename">
 			Alphanumeric and _ and - and / only, please.
 		</span>
 	</label>
 	
 	<label>Use Night theme: <input type="checkbox"
-	ng-model="configNightTheme"></label>
+	ng-model="project.configNightTheme"></label>
 	
 	<br>
 	
-	<input type="submit" class="save" value="Save Project" ng-click="writeProject(projectId, projectName, projectRootPath, projectLogo, configNightTheme)">
+	<input type="submit" class="save" value="Save Project" ng-if="projectEditor.$valid">
 	
-	<input type="reset" class="cancel" value="Cancel" ng-click="hideEditor($event)">
+	<input type="reset" class="cancel" value="Cancel" ng-click="hideEditor($event, project)">
 	
 </form>
