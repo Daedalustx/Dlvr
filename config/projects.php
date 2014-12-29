@@ -26,11 +26,11 @@ if ($action == "delete") {
 		
 		if ($project->projectId == $projectToUpdate) {
 		
-			$flag = dirname(__DIR__)."/projects/$project->projectRootPath";
+			$path = dirname(__DIR__)."/projects/$project->projectRootPath";
 			
-			if ( is_dir($flag) ) {
-				$flag = substr($flag, stripos($flag, 'dlvr'));
-				$response = $project->projectName . $action_text . 'Successfully<br><small>project folder found at:<br>' . $flag . '</small>'; 
+			if ( is_dir($path) ) {
+				$folder = substr($path, stripos($path, 'dlvr'));
+				$response = $project->projectName . $action_text . 'Successfully<br><small>project folder found at:<br>' . $folder . '</small>'; 
 				$project->linked = true;
 			} else {
 			
