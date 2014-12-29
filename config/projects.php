@@ -10,9 +10,9 @@ $projectToUpdate = get_object_vars($request)['project'];
 
 if ($action == "delete") {
 
-	unlink( 'projects/' . $projectToUpdate . '.json' );
+	unlink( '../projects/' . $projectToUpdate . '.json' );
 	
-	$response = $projectToUpdate . '.json' . ' Deleted<br><small>Media files not affected</small>';
+	$response = $projectToUpdate . '.json' . ' Deleted<br><small>Media and settings files were not affected</small>';
 	
 } else {
 
@@ -21,10 +21,10 @@ if ($action == "delete") {
 	if ($action == "edit") { $action_text = ' Edited '; };
 	
 	foreach ($projects as $project) {
-	
-		file_put_contents( 'projects/' . $project->projectId . '.json', json_encode($project));
 		
 		if ($project->projectId == $projectToUpdate) {
+			
+			file_put_contents( '../projects/' . $project->projectId . '.json', json_encode($project));
 		
 			$path = dirname(__DIR__)."/projects/$project->projectRootPath";
 			
