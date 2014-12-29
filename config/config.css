@@ -1,11 +1,15 @@
 /* video delivery app config css stylesheet */
 
-.create-project label {
+form.project-details {
+	margin-top: 2em;
+}
+
+.project-details label {
 	display: block;
 	margin: .5em 0 .5em 0;
 }
 
-.create-project .save {
+.project-details .save {
 	margin-bottom: 1.5em;
 }
 
