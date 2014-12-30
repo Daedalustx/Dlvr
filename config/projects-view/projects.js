@@ -49,9 +49,9 @@ projects.config(['$routeProvider', function ($routeProvider) {
 			confirmDelete = confirm("Are you sure you want to delete " + $scope.projects[index].projectName + "?");
 		if (confirmDelete) {
 			$scope.action = 'delete';
-			$scope.projects.splice(index, 1);
+			//$scope.projects.splice(index, 1);
 			//console.log($scope.projects);
-			if ( ! angular.isDefined($scope.projects[0]) ) $scope.actionText = 'No projects found, create one?';
+			
 			$scope.updateFiles($scope.projects, $scope.action, projectId);
 		}
 	};
@@ -101,16 +101,19 @@ projects.config(['$routeProvider', function ($routeProvider) {
 		})
 		.success(function(response) {
 			$scope.showEditor = false;
-			$scope.feedback = $sce.trustAsHtml(response);
+			$scope.action = false;
+			$scope.feedback = $sce.trustAsHtml(response.responseText);
 			//console.log($scope.projects);
-			$scope.getData();
+			//$scope.getData();
+			$scope.projects = response.projects;
 			$timeout( function() {
+				if ( ! angular.isDefined($scope.projects[0]) ) $scope.actionText = 'No projects found, create one?';
 				$scope.feedback="";
-				$route.reload();
+				//$route.reload();
 			}, 3000 );
 		})
-		.error(function() {
-			$scope.feedback = $sce.trustAsHtml("Project " + action + " failed");
+		.error(function(data, status) {
+			$scope.feedback = $sce.trustAsHtml("Project " + action + " failed<br>" + status + ' ' + data );
 			$scope.fail = true;
 			$timeout( function() {
 				$scope.feedback="";
