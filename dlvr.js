@@ -82,13 +82,18 @@ videoApp.directive('dlvrVideo', function() {
 			
 			scope.$watch('data', function(newVal) {
 				var video = el.find('video');
+				
 				if (newVal) {
+					video.on('click', function() {
+						if (!video[0].paused) {
+							video[0].pause();
+						} else {
+							video[0].play();
+						}
+					});
 					if (scope.current.video.poster == 'first-frame') {
 						video.removeAttr('ng-attr-poster');
 						video[0].currentTime = 1.9;
-						video.on('click', function() {
-							video[0].play();
-						});
 						video.one('play', function() {
 							video[0].currentTime = 0;
 							video[0].play();
