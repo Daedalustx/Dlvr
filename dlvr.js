@@ -79,10 +79,20 @@ videoApp.directive('dlvrVideo', function() {
 	return {
 		templateUrl: 'components/dlvr-video.html',
 		link: function (scope, el, attrs) {
+			
 			scope.$watch('data', function(newVal) {
+				var video = el.find('video');
 				if (newVal) {
 					if (scope.current.video.poster == 'first-frame') {
-						el.find('video').removeAttr();
+						video.removeAttr('ng-attr-poster');
+						video[0].currentTime = 1.9;
+						video.on('click', function() {
+							video[0].play();
+						});
+						video.one('play', function() {
+							video[0].currentTime = 0;
+							video[0].play();
+						});
 					} else if (scope.current.video.poster == 'default') {
 						el.find('video').attr('poster', 'data:image/gif, AAAA');
 					} else {
@@ -90,6 +100,11 @@ videoApp.directive('dlvrVideo', function() {
 						el.find('video').attr({'poster': 'data:image/gif, AAAA', 'style': 'background-image: url("' + imgUrl + '");'});
 					}
 				}
+			});
+			
+			el.on('$destroy', function () {
+				console.log('video destroyed - event listener removed');
+				el.find('video').off();
 			});
 		}
 	};

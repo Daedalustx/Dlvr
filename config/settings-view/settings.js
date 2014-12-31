@@ -73,6 +73,11 @@ projectSettings.config(['$routeProvider', '$locationProvider', function ($routeP
 	};
 	$scope.writeData = function() {
 		var path = 'settings-view/settings.php';
+		angular.forEach($scope.data.videos, function (video) {
+			if (!video.poster) {
+				video.poster = 'default';
+			};
+		});
 		$scope.data.revisionStamp = new Date();
 		$http({
 			method: 'post',
