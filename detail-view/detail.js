@@ -14,10 +14,11 @@ angular.module('video1.detail', ['ngRoute'])
 	//	console.log('routeChangeStart detail');
 	});
 	$scope.$on('$routeChangeSuccess', function () {
-		//console.log('routeChangeSuccess detail');
+		console.log('routeChangeSuccess detail');
 	});
 	$scope.list = 'list-item';
-	$scope.video = null;
+	$scope.current = {};
+	$scope.current.video = null;
 	$scope.$watch('settings', function(newVal) {
 		if (newVal) {
 			$scope.source = function(fileName, ext) {
@@ -30,14 +31,16 @@ angular.module('video1.detail', ['ngRoute'])
 			var id = $routeParams.previewUrl,
 				videos = $scope.videoList;
 	
-			
+			// rewrite this so it breaks if video is found
 	
 			for (var i=0; i < videos.length; i++) {
-				$scope.video = videos[i].previewUrl === id ? videos[i] : $scope.video;
+				$scope.current.video = videos[i].previewUrl === id ? videos[i] : $scope.current.video;
 			};
-	
+			
+				
+			
 			angular.forEach($scope.videoList, function(item) {
-				if (item.groupUrl == $scope.video.belongsTo && $scope.list != 'main') {
+				if (item.groupUrl == $scope.current.video.belongsTo && $scope.list != 'main') {
 					$scope.listName = item.name;
 				}
 			});

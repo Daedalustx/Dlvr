@@ -1,0 +1,21 @@
+<h2>{{current.video.name}}</h2>
+	
+<video controls ng-if="settings.projectRootPath" ng-attr-poster="current.video.poster">
+
+	<source ng-src="{{source(current.video.previewFilename, '.mp4')}}" type="video/mp4" ng-if="current.video.previewFilename">
+	
+	<source ng-src="{{source(current.video.previewFilename, '.webm')}}" type="video/webm" ng-if="current.video.previewFilename">
+	
+	We could not find a source file that your browser supports....
+	
+</video>
+
+<p ng-if="current.video.optional1">{{colHeaders[2].title}}: {{current.video.optional1}}</p>
+
+<p ng-if="current.video.optional2">{{colHeaders[3].title}}: {{current.video.optional2}}</p>
+
+<p ng-if="current.video.downloadFilename">
+
+	<a href="{{settings.projectRootPath}}/{{data.downloadPath}}/{{current.video.downloadFilename}}">Download</a>
+	
+</p>

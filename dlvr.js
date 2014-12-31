@@ -75,6 +75,25 @@ videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route',
 	});
 }]);
 
+videoApp.directive('dlvrVideo', function() {
+	return {
+		templateUrl: 'components/dlvr-video.html',
+		link: function (scope, el, attrs) {
+			scope.$watch('data', function(newVal) {
+				if (newVal) {
+					if (scope.current.video.poster == 'first-frame') {
+						el.find('video').removeAttr();
+					} else if (scope.current.video.poster == 'default') {
+						el.find('video').attr('poster', 'data:image/gif, AAAA');
+					} else {
+						var imgUrl = scope.settings.projectRootPath + '/' + scope.data.previewPath + '/' + scope.current.video.poster;
+						el.find('video').attr({'poster': 'data:image/gif, AAAA', 'style': 'background-image: url("' + imgUrl + '");'});
+					}
+				}
+			});
+		}
+	};
+});
 
 
 		

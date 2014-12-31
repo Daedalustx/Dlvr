@@ -107,68 +107,173 @@
 </section>
 
 <section id="row-config">
+
 	<h2>Configure Rows</h2>
+	
 	<h3>Advanced Options <input type="checkbox" ng-model="showAdvancedOptions"></h3>
+	
 	<div class="row-options" ng-show="showAdvancedOptions">
+	
 		Title links to: <select ng-model="data.colHeaders[1].linksTo" ng-change="setGlobalLinkPref()">
+		
 			<option value="false">No Link</option>
+			
 			<option value="previewUrl">Preview URL</option>
+			
 			<option value="downloadFilename">File Download</option>
+			
 			<option value="groupUrl">A Nested List</option>
+			
 		</select>
+		
 		<br>
+		
 		<button ng-click="setSeqFilenames('preview')">Sequential Preview Filenames</button>
+		
 		<button ng-click="setSeqFilenames('download')">Sequential Download Filenames</button>
+		
 		<br>
+		
 		<button ng-click="setUrlFromName('preview')">Preview URL from Title</button>
+		
 		<button ng-click="setUrlFromName('group')">Group Url from Title</button>
+		
 		<p>Choices apply to all items, but can be individually overriden below</p>
+		
 	</div>
+	
 	<ul class="delivery-list">
+	
 		<li class="row" ng-repeat="(rowIndex, video) in data.videos | orderBy:priority(data.colHeaders[0].sortable)">
+		
 			<div class="row">
+			
 				<div ng-repeat="(colIndex, col) in data.colHeaders" ng-if="showHeader(colIndex, rowIndex)">
+				
 					<span class="col-{{$index}}">{{col.title}}: 
+					
 						<span ng-if="colIndex==0"><input class="display-order"  col-input="colValue(colIndex,rowIndex)" ng-model-options="{updateOn: 'blur'}"></span>
+						
 					</span>
+					
 					<span ng-if="(colIndex!=0 && video.linksTo!='groupUrl') || colIndex==1"><input col-input="colValue(colIndex,rowIndex)"></span>
+					
 					<span ng-if="$index==1">
+					
 						Links to: <select ng-model="video.linksTo" ng-change="watchIsGroup(video)">
+						
 							<option value="false">No Link</option>
+							
 							<option value="previewUrl">Preview URL</option>
+							
 							<option value="downloadFilename">File Download</option>
+							
 							<option value="groupUrl">A Nested List</option>
+							
 						</select>
+						
 						<br>
 						<span ng-if="video.linksTo=='previewUrl'">
-							Preview URL: {{settings.projectRootPath}}/{{data.previewPath}}/<input ng-model="video.previewUrl"><br>
+						
+							Preview URL: {{settings.projectRootPath}}/{{data.previewPath}}/<input ng-model="video.previewUrl">
+							
+							<br>
+							
 							Preview Filename: <input ng-model="video.previewFilename">
+							
+							<br>
+							
+							Poster Filename: <input ng-model="video.poster">
+							
 						</span>
+						
 						<span ng-if="video.linksTo=='groupUrl'">
+						
 							Group URL: /deliverables/<input ng-model="video.groupUrl" ng-change="video.isGroup=video.groupUrl?true:false">
-							<br>Group Description: <textarea ng-model="video.groupDescription" placeholder="optional"></textarea>
+							
+							<br>
+							
+							Group Description: <textarea ng-model="video.groupDescription" placeholder="optional"></textarea>
+							
 						</span>
+						
 						<span ng-if="video.linksTo=='downloadFilename'">
+						
 							Download URL: {{settings.projectRootPath}}/{{data.downloadPath}}/<input ng-model="video.downloadFilename">
+							
 						</span>
+						
 					</span>
-					<span ng-if="$index==4 && col.displayDownloadAsIcon && video.linksTo!='groupUrl' && video.downloadFilename"> Displayed as icon <img height="32" width="40" ng-src="../projects/{{settings.projectRootPath}}/{{col.iconFilename}}"/>
+					
+					<span ng-if="$index==4 && col.displayDownloadAsIcon && video.linksTo!='groupUrl' && video.downloadFilename"> Displayed as icon 
+						
+						<img height="32" width="40" ng-src="../projects/{{settings.projectRootPath}}/{{col.iconFilename}}"/>
+						
 					</span>
+					
 				</div>
+				
 				<div class="belongs-to">
+				
 					<span ng-if="video.isGroup">--</span>
+					
 					<item-group></item-group>
+					
 				</div>
-				<span class="delete-row"><button ng-click="deleteRow($index)">Delete Row</button></span>
+				
+				<span class="delete-row">
+				
+					<button ng-click="deleteRow($index)">Delete Row</button>
+					
+				</span>
+				
 			</div>
+			
 		</li>
+		
 	</ul>
-	<p><button ng-click="addRow()">Add a row</button></p>
+	
+	<p>
+	
+		<button ng-click="addRow()">Add a row</button>
+		
+	</p>
+	
 </section>
-<p ng-if="!settings.linked" class="centered error">Your project folder '{{settings.projectRootPath}}' is not available.  Please upload a folder via ftp, or <a href="../config/projects" ng-click="$parent.title='Dlvr'">go back to the projects page</a> and create an empty repository.</p> 
-<p class="centered" ng-if="settings.linked"><button ng-click="writeData()" class="save">Save to File</button></p>
-<p class="centered" ng-if="data.revisionStamp">Last saved: {{data.revisionStamp | date : 'short'}}</p>
-<p class="centered"><button class="delivery-link"><a href="../{{settings.projectId}}" target="_blank">View Delivery</a></button></p>
-<p></p>
-<p></p>
+
+<p ng-if="!settings.linked" class="centered error">
+
+	Your project folder '{{settings.projectRootPath}}' is not available.  Please upload a folder via ftp, or 
+		<a href="../config/projects" ng-click="$parent.title='Dlvr'">go back to the projects page</a> 
+		
+	and create an empty repository.
+	
+</p>
+
+<p class="centered" ng-if="settings.linked">
+
+	<button ng-click="writeData()" class="save">Save to File</button>
+	
+</p>
+
+<p class="centered" ng-if="data.revisionStamp">
+
+	Last saved: {{data.revisionStamp | date : 'short'}}
+	
+</p>
+
+<p class="centered">
+
+	<button class="delivery-link">
+	
+		<a href="../{{settings.projectId}}" target="_blank">View Delivery</a>
+		
+	</button>
+	
+</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
 <p ng-class="{feedback: feedback}" class="centered" ng-bind-html="feedback"></p>

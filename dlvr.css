@@ -146,4 +146,7 @@ video-list ul {
 
 video {
 	max-width: 100%;
+	background:transparent no-repeat url('dlvr.png');
+	background-size:50% 50%;
+	background-position: 50% 30%;
 }
