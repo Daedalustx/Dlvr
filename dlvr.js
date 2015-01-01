@@ -85,11 +85,16 @@ videoApp.directive('dlvrVideo', function() {
 				
 				if (newVal) {
 					video.on('click', function(e) {
-						e.preventDefault();
-						if (!video[0].paused) {
-							video[0].pause();
-						} else {
-							video[0].play();
+					
+						var target = e.target.getBoundingClientRect();
+					
+						if (e.clientY < target.bottom - 35) { // avoids messing with controls in firefox
+							e.preventDefault();
+							if (!video[0].paused) {
+								video[0].pause();
+							} else {
+								video[0].play();
+							}
 						}
 					});
 					if (scope.current.video.poster == 'first-frame') {
