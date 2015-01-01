@@ -77,6 +77,9 @@ projectSettings.config(['$routeProvider', '$locationProvider', function ($routeP
 			if (!video.poster) {
 				video.poster = 'default';
 			};
+			if (video.poster == 'frame' && !angular.isDefined(video.posterFrame) ) {
+				video.posterFrame = 0;
+			}
 		});
 		$scope.data.revisionStamp = new Date();
 		$http({

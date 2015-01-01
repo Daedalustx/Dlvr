@@ -183,7 +183,14 @@
 							
 							<br>
 							
-							Poster Filename: <input ng-model="video.poster">
+							poster: <select ng-model="video.poster">
+										<option value="default">Default</option>
+										<option value="frame">Frame</option>
+										<option value="filename">File</option>
+									</select>
+							
+							<label ng-if="video.poster=='filename'"> Filename: <input ng-model="video.posterFilename"></label>
+							<label ng-if="video.poster=='frame'"> Timecode: <input type="number" ng-model="video.posterFrame"> in seconds decimal</label>
 							
 						</span>
 						

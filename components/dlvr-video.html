@@ -1,6 +1,6 @@
 <h2>{{current.video.name}}</h2>
 	
-<video controls ng-if="settings.projectRootPath" ng-attr-poster="current.video.poster">
+<video controls preload="metadata" ng-if="settings.projectRootPath" ng-attr-poster="current.video.poster">
 
 	<source ng-src="{{source(current.video.previewFilename, '.mp4')}}" type="video/mp4" ng-if="current.video.previewFilename">
 	

@@ -97,20 +97,25 @@ videoApp.directive('dlvrVideo', function() {
 							}
 						}
 					});
-					if (scope.current.video.poster == 'first-frame') {
+					if (scope.current.video.poster == 'frame') {
+					console.log('frame');
 						video.removeAttr('ng-attr-poster');
 						video.one('loadedmetadata', function () {
-							video[0].currentTime = 1.9;
+							console.log('loadedmetadata');
+							video[0].currentTime = scope.current.video.posterFrame;
 						});
 						video.one('play', function() {
+							console.log('play');
 							video[0].currentTime = 0;
 							video[0].play();
 						});
 					} else if (scope.current.video.poster == 'default') {
-						el.find('video').attr('poster', 'data:image/gif, AAAA');
+						console.log('default');
+						el.find('video').attr('poster', 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==');
 					} else {
-						var imgUrl = scope.settings.projectRootPath + '/' + scope.data.previewPath + '/' + scope.current.video.poster;
-						el.find('video').attr({'poster': 'data:image/gif, AAAA', 'style': 'background-image: url("' + imgUrl + '");'});
+						console.log('else - filename');
+						var imgUrl = 'projects/' + scope.settings.projectRootPath + '/' + scope.data.previewPath + '/' + scope.current.video.posterFilename;
+						el.find('video').attr({'poster': 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==', 'style': 'background-image: url("' + imgUrl + '");'});
 					}
 				}
 			});
