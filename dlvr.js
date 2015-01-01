@@ -84,7 +84,8 @@ videoApp.directive('dlvrVideo', function() {
 				var video = el.find('video');
 				
 				if (newVal) {
-					video.on('click', function() {
+					video.on('click', function(e) {
+						e.preventDefault();
 						if (!video[0].paused) {
 							video[0].pause();
 						} else {
@@ -93,7 +94,9 @@ videoApp.directive('dlvrVideo', function() {
 					});
 					if (scope.current.video.poster == 'first-frame') {
 						video.removeAttr('ng-attr-poster');
-						video[0].currentTime = 1.9;
+						video.one('loadedmetadata', function () {
+							video[0].currentTime = 1.9;
+						});
 						video.one('play', function() {
 							video[0].currentTime = 0;
 							video[0].play();
