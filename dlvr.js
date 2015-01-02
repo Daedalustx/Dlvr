@@ -7,33 +7,69 @@ var videoApp = angular.module('video1', [
   'video1.detail',
   'video1.version'
 ]);
-		
+
+videoApp.factory("messageService", function($q){
+    return {
+        getMessage: function(){
+            return $q.when("Hello World!");
+        }
+    };
+});
+
+videoApp.factory("loaderService", function($route, $http){
+    return {
+        getProject: function(){
+            return $http.get('projects/' + $route.current.params.projectUrl + '.json?t=' + new Date().getTime())
+			.success( function (result) {
+				return result;
+			});
+        }
+    };
+});
+
 videoApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $routeProvider
   	.when('/', {
+  		controller: 'AppController',
   		templateUrl: 'dlvr.html'
   	})
-	.when('/:projectUrl', {})
+	.when('/:projectUrl', {
+		controller: function ($scope, message, project) {
+			$scope.settings = project.data;
+			$scope.message = message;
+			console.log($scope.message, $scope.settings);
+		},
+		resolve: {
+			message: function(messageService){
+                return messageService.getMessage();
+            },
+            project: function(loaderService){
+            	return loaderService.getProject();
+            }
+        }
+	})
 	.otherwise({redirectTo: '/'});
   $locationProvider.html5Mode(true);
 }]);
 
-videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route', '$routeParams', '$location', '$window',  function($rootScope, $scope, $http, $route, $routeParams, $location, $window) {
+videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route', '$routeParams', '$location', '$window', function($rootScope, $scope, $http, $route, $routeParams, $location, $window) {
 	console.log('video app controller');
+
 	if ($location.path() == '/') {
 		$scope.settings = {};
 		$scope.settings.projectName = 'Dlvr';
 		$scope.nightTheme = true;
 		return;
 	};
+	/*
 	$rootScope.dataLoaded = false;
 	$rootScope.$on('$routeChangeStart', function () {
 		
-		//console.log('routeChangeStart');		
+		console.log('routeChangeStart');		
 	});
 	$rootScope.$on('$routeChangeSuccess', function () {
 		if (!angular.isDefined($scope.data)) {
-			//console.log('no data yet - loading it');
+			console.log('no data yet - loading it');
 			$http.get('projects/' + $route.current.params.projectUrl + '.json?t=' + new Date().getTime())
 			.success( function (result) {
 				$scope.settings = result;
@@ -72,7 +108,7 @@ videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route',
 				$window.location.reload();
 			});
 		}
-	});
+	});*/
 }]);
 
 videoApp.directive('dlvrVideo', function() {
