@@ -33,21 +33,6 @@ videoApp.config(['$routeProvider', '$locationProvider', function($routeProvider,
   		controller: 'AppController',
   		templateUrl: 'dlvr.html'
   	})
-	.when('/:projectUrl', {
-		controller: function ($scope, message, project) {
-			$scope.settings = project.data;
-			$scope.message = message;
-			console.log($scope.message, $scope.settings);
-		},
-		resolve: {
-			message: function(messageService){
-                return messageService.getMessage();
-            },
-            project: function(loaderService){
-            	return loaderService.getProject();
-            }
-        }
-	})
 	.otherwise({redirectTo: '/'});
   $locationProvider.html5Mode(true);
 }]);
@@ -55,12 +40,13 @@ videoApp.config(['$routeProvider', '$locationProvider', function($routeProvider,
 videoApp.controller('AppController', ['$rootScope', '$scope', '$http', '$route', '$routeParams', '$location', '$window', function($rootScope, $scope, $http, $route, $routeParams, $location, $window) {
 	console.log('video app controller');
 
-	if ($location.path() == '/') {
-		$scope.settings = {};
-		$scope.settings.projectName = 'Dlvr';
-		$scope.nightTheme = true;
-		return;
-	};
+	$scope.settings = {};
+	$scope.settings.projectName = 'Dlvr';
+	$scope.nightTheme = true;
+	
+	if ($location.path() == '/') return;
+
+	
 	/*
 	$rootScope.dataLoaded = false;
 	$rootScope.$on('$routeChangeStart', function () {

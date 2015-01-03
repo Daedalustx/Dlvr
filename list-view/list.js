@@ -3,10 +3,30 @@
 var listModule = angular.module('video1.videoList', ['ngRoute']);
 
 listModule.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/:projectUrl/:groupUrl', {
-    templateUrl: 'list-view/list.html',
-    controller: 'VideoListCtrl'
-  });
+  $routeProvider
+  .when('/:projectUrl', {
+		templateUrl: 'list-view/list.html',
+		controller: function ($scope, message, project) {
+			console.log('controller');
+			$scope.$parent.settings = project.data;
+			$scope.message = message;
+			console.log($scope.message, $scope.settings);
+		},
+		resolve: {
+			message: function(messageService){
+				console.log('resolve');
+                return messageService.getMessage();
+            },
+            project: function(loaderService){
+            	console.log('resolve2');
+            	return loaderService.getProject();
+            }
+        }
+	})
+	.when('/:projectUrl/:groupUrl', {
+    	templateUrl: 'list-view/list.html',
+    	controller: 'VideoListCtrl'
+  	});
 }])
 
 .controller('VideoListCtrl', [ '$rootScope', '$scope', '$http', '$route', '$routeParams', 'nestedFilter', function($rootScope, $scope, $http, $route, $routeParams, nestedFilter) {
