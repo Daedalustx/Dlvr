@@ -1,6 +1,6 @@
 <span ng-if="data.colHeaders[4].displayDownloadAsIcon && data.colHeaders[4].display && !video.isGroup && video.downloadFilename">
 
-	<a href="projects/{{settings.projectRootPath}}/{{data.downloadPath}}/{{video.downloadFilename}}" title="Download {{video.downloadFilename}}">
+	<a href="projects/{{settings.projectRootPath}}/{{data.downloadPath}}/{{video.downloadFilename}}" target="_self" title="Download {{video.downloadFilename}}">
 	
 		<img height="32" width="40" ng-src="projects/{{settings.projectRootPath}}/{{data.colHeaders[4].iconFilename}}">
 		
@@ -10,6 +10,6 @@
 
 <span ng-if="!data.colHeaders[4].displayDownloadAsIcon && data.colHeaders[4].display">
 
-	<a href="projects/{{settings.projectRootPath}}/{{data.downloadPath}}/{{video.downloadFilename}}" title="Download {{video.downloadFilename}}">{{video.downloadFilename}}</a>
+	<a href="projects/{{settings.projectRootPath}}/{{data.downloadPath}}/{{video.downloadFilename}}" target="_self" title="Download {{video.downloadFilename}}">{{video.downloadFilename}}</a>
 	
 </span>

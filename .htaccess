@@ -1,4 +1,5 @@
 Options -Indexes
+Options +FollowSymLinks
 
 AddType video/webm .webm
 
