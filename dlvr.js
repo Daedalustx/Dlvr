@@ -22,7 +22,7 @@ videoApp.factory("projectSharingService", function () {
 			return false;
 		},
 		setProject: function(data, type) {
-		console.log('setProject');
+		
 			if (type=='settings') this.settings = data;
 			if (type=='data') this.data = data;
 			
@@ -55,22 +55,37 @@ videoApp.factory("settingsService", function($route, $http, projectSharingServic
 			.success( function (result) {
 				projectSharingService.setProject(result, 'settings');
 				return result;
+			})
+			.error( function (data, status) {
+				var message = {
+						data: data,
+						status: status
+					};
+				
+				return message;
 			});
         }
     };
 });
 
-videoApp.factory("dataService", function($q, projectService, settingsService){
+videoApp.factory("dataService", function($q, projectService, settingsService, $location){
     return function () {
     	var project = {};
         return $q.when( settingsService.getSettings() )
         .then( function(settings) {
         	project.settings = settings.data ? settings.data : settings;
+        	return settings;
+        }, function(error) {
+        	alert(error.status + ' ' + error.statusText);
+        	return false;
         })
-        .then( function() {
+        .then( function(settings) {
+        	console.log(settings);
+        	if (!settings) return false;
         	return projectService.getProject(project.settings.projectRootPath);
         })
         .then( function(data) {
+        	if (!data) return false;
         	project.data = data.data ? data.data : data;
         	return project;
         });
@@ -105,7 +120,7 @@ videoApp.directive('dlvrVideo', function() {
 		link: function (scope, el, attrs, ctrl) {
 			
 			var video = el.find('video');
-			console.log(el);
+			
 			video.on('click', function(e) {
 			
 				var target = e.target.getBoundingClientRect();
@@ -119,32 +134,34 @@ videoApp.directive('dlvrVideo', function() {
 					}
 				}
 			});
-			if (scope.current.video.poster == 'frame') {
-			console.log('frame');
-				video.removeAttr('ng-attr-poster');
-				video.one('loadedmetadata', function () {
-					console.log('loadedmetadata');
-					video[0].currentTime = scope.current.video.posterFrame;
-				});
-				video.one('play', function() {
-					console.log('play');
-					video[0].currentTime = 0;
-					video[0].play();
-				});
-			} else if (scope.current.video.poster == 'default') {
-				console.log('default');
-				el.find('video').attr('poster', 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==');
-			} else {
-				console.log('else - filename');
-				var imgUrl = 'projects/' + scope.settings.projectRootPath + '/' + scope.data.previewPath + '/' + scope.current.video.posterFilename;
-				console.log(imgUrl);
-				el.find('video').attr({'poster': 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==', 'style': 'background-image: url("' + imgUrl + '");'});
-			}
+			if ( angular.isDefined(scope.current) && scope.current.video !== null ) {
+				if (scope.current.video.poster == 'frame') {
 			
-			el.on('$destroy', function () {
-				console.log('video destroyed - event listener removed');
-				el.find('video').off();
-			});
+					video.removeAttr('ng-attr-poster');
+					video.one('loadedmetadata', function () {
+				
+						video[0].currentTime = scope.current.video.posterFrame;
+					});
+					video.one('play', function() {
+				
+						video[0].currentTime = 0;
+						video[0].play();
+					});
+				} else if (scope.current.video.poster == 'default') {
+				
+					el.find('video').attr('poster', 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==');
+				} else {
+				
+					var imgUrl = 'projects/' + scope.settings.projectRootPath + '/' + scope.data.previewPath + '/' + scope.current.video.posterFilename;
+				
+					el.find('video').attr({'poster': 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==', 'style': 'background-image: url("' + imgUrl + '");'});
+				}
+			
+				el.on('$destroy', function () {
+				
+					el.find('video').off();
+				});
+			}
 		}
 	};
 });

@@ -9,65 +9,54 @@ listModule.config(['$routeProvider', function($routeProvider) {
 		controller: 'VideoListCtrl',
 		resolve: {
             project: function(dataService){
-            	console.log('resolve');
+            	console.log('List resolve');
             	return dataService();
             }
         }
 	});
 }])
 
-.controller('VideoListCtrl', [ '$rootScope', '$scope', '$http', '$route', '$routeParams', 'nestedFilter', 'project', function($rootScope, $scope, $http, $route, $routeParams, nestedFilter, project) {
-	console.log('controller');
-	console.log(project);
+.controller('VideoListCtrl', ['$location', '$rootScope', '$scope', '$http', '$route', '$routeParams', 'nestedFilter', 'project', function($location, $rootScope, $scope, $http, $route, $routeParams, nestedFilter, project) {
+	console.log('List controller');
+	
+	if (!project) return $location.path('/');
+	
+	var numColumns = 0;
+
 	$scope.$parent.settings = project.settings;
-	$scope.data = project.data;
 	$scope.$parent.projectName = project.data.projectName;
 	$scope.$parent.projectText = project.data.projectText;
+	
+	$scope.data = project.data;
 	$scope.priority = project.data.colHeaders[0].sortable ? 'priority' : 'id';
 	$scope.nightTheme = project.data.nightTheme;
 	
+	$scope.list = angular.isDefined($routeParams.groupUrl) ? $routeParams.groupUrl : 'main';
+	
+	angular.forEach($scope.data.videos, function(item) {
+		if (item.groupUrl == $scope.list && $scope.list != 'main') {
+			$scope.listName = item.name;
+			$scope.listDescription = item.groupDescription || '';
+			return;
+		}
+	});
+	
+	if (!$scope.listName) $location.path('/' + $routeParams.projectUrl);
+	
+	angular.forEach($scope.data.colHeaders, function(header) {
+		if ( header.display && header.index != 0 && header.index !=4 ) numColumns++;
+	});	
+	
+	$scope.variableColumn = function () {
+		return 'col-' + numColumns;
+	};	
+	
+		/*
 	$rootScope.$on('$routeChangeStart', function () {
 		//console.log('routeChangeStart list');
 	});
 	$scope.$on('$routeChangeSuccess', function () {
 		//console.log('routeChangeSuccess list');
-	});
-	var numColumns = 0;
-	$scope.list = angular.isDefined($routeParams.groupUrl) ? $routeParams.groupUrl : 'main';
-	console.log($scope.list);
-	angular.forEach($scope.data.videos, function(item) {
-	
-		if (item.groupUrl == $scope.list && $scope.list != 'main') {
-			$scope.listName = item.name;
-			$scope.listDescription = item.groupDescription || '';
-			return;
-		} 
-		console.log('iter');
-	});
-	angular.forEach($scope.data.colHeaders, function(header) {
-		if ( header.display && header.index != 0 && header.index !=4 ) numColumns++;
-	});	
-	$scope.variableColumn = function () {
-		return 'col-' + numColumns;
-	};	
-	/*
-	$scope.$watch('data', function(newVal) {
-		if (newVal) {
-			angular.forEach($scope.videoList, function(item) {
-				if (item.groupUrl == $scope.list && $scope.list != 'main') {
-					$scope.listName = item.name;
-					$scope.listDescription = item.groupDescription || '';
-				} else {
-				//	$scope.listName = 'main';
-				}
-			});
-			angular.forEach($scope.colHeaders, function(header) {
-				if ( header.display && header.index != 0 && header.index !=4 ) numColumns++;
-			});	
-			$scope.variableColumn = function () {
-				return 'col-' + numColumns;
-			};	
-		}
 	});
 	*/
 	
@@ -83,27 +72,6 @@ listModule.config(['$routeProvider', function($routeProvider) {
 				}
 			};
 			return filtered;
-		}
-	};
-});
-	
-listModule.directive('projectText', function() {
-	return {
-		controller: function($scope) {
-			
-		},
-		link: function (scope, el) {
-			scope.$watch('data', function (newVal) {
-				if (newVal) {
-					//console.log('write project text');
-					if ( scope.list == 'main' ) {
-						scope.introText = scope.projectText;
-					} else {
-						scope.introText = "<h2>" + scope.listName + "</h2>" + scope.listDescription;
-					}
-					return el.append(scope.introText);
-				}
-			});
 		}
 	};
 });
@@ -128,6 +96,23 @@ listModule.directive('breadcrumb', function() {
 			});
 		},
 		template: "<span>{{breadcrumbs}}</span>"
+	};
+});
+	
+listModule.directive('projectText', function() {
+	return {
+		link: function (scope, el) {
+			scope.$watch('data', function (newVal) {
+				if (newVal) {
+					if ( scope.list == 'main' ) {
+						scope.introText = scope.projectText;
+					} else {
+						scope.introText = "<h2>" + scope.listName + "</h2>" + scope.listDescription;
+					}
+					return el.append(scope.introText);
+				}
+			});
+		}
 	};
 });
 
