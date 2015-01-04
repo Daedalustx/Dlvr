@@ -4,32 +4,28 @@ var listModule = angular.module('video1.videoList', ['ngRoute']);
 
 listModule.config(['$routeProvider', function($routeProvider) {
   $routeProvider
-  .when('/:projectUrl', {
+  .when('/:projectUrl/:groupUrl?', {
 		templateUrl: 'list-view/list.html',
-		controller: function ($scope, message, project) {
-			console.log('controller');
-			$scope.$parent.settings = project.data;
-			$scope.message = message;
-			console.log($scope.message, $scope.settings);
-		},
+		controller: 'VideoListCtrl',
 		resolve: {
-			message: function(messageService){
-				console.log('resolve');
-                return messageService.getMessage();
-            },
-            project: function(loaderService){
-            	console.log('resolve2');
-            	return loaderService.getProject();
+            project: function(dataService){
+            	console.log('resolve');
+            	return dataService();
             }
         }
-	})
-	.when('/:projectUrl/:groupUrl', {
-    	templateUrl: 'list-view/list.html',
-    	controller: 'VideoListCtrl'
-  	});
+	});
 }])
 
-.controller('VideoListCtrl', [ '$rootScope', '$scope', '$http', '$route', '$routeParams', 'nestedFilter', function($rootScope, $scope, $http, $route, $routeParams, nestedFilter) {
+.controller('VideoListCtrl', [ '$rootScope', '$scope', '$http', '$route', '$routeParams', 'nestedFilter', 'project', function($rootScope, $scope, $http, $route, $routeParams, nestedFilter, project) {
+	console.log('controller');
+	console.log(project);
+	$scope.$parent.settings = project.settings;
+	$scope.data = project.data;
+	$scope.$parent.projectName = project.data.projectName;
+	$scope.$parent.projectText = project.data.projectText;
+	$scope.priority = project.data.colHeaders[0].sortable ? 'priority' : 'id';
+	$scope.nightTheme = project.data.nightTheme;
+	
 	$rootScope.$on('$routeChangeStart', function () {
 		//console.log('routeChangeStart list');
 	});
@@ -37,7 +33,24 @@ listModule.config(['$routeProvider', function($routeProvider) {
 		//console.log('routeChangeSuccess list');
 	});
 	var numColumns = 0;
-	$scope.list = $routeParams.groupUrl;
+	$scope.list = angular.isDefined($routeParams.groupUrl) ? $routeParams.groupUrl : 'main';
+	console.log($scope.list);
+	angular.forEach($scope.data.videos, function(item) {
+	
+		if (item.groupUrl == $scope.list && $scope.list != 'main') {
+			$scope.listName = item.name;
+			$scope.listDescription = item.groupDescription || '';
+			return;
+		} 
+		console.log('iter');
+	});
+	angular.forEach($scope.data.colHeaders, function(header) {
+		if ( header.display && header.index != 0 && header.index !=4 ) numColumns++;
+	});	
+	$scope.variableColumn = function () {
+		return 'col-' + numColumns;
+	};	
+	/*
 	$scope.$watch('data', function(newVal) {
 		if (newVal) {
 			angular.forEach($scope.videoList, function(item) {
@@ -56,6 +69,7 @@ listModule.config(['$routeProvider', function($routeProvider) {
 			};	
 		}
 	});
+	*/
 	
 }])
 
@@ -104,7 +118,7 @@ listModule.directive('breadcrumb', function() {
 						breadcrumbs[1] = "<a href='" + scope.settings.projectId + "/" + scope.current.video.belongsTo + "'>" + scope.listName + "</a> &raquo;";
 					} 
 					if ( scope.list !== 'main' ) {
-						breadcrumbs[0] = "<a href='" + scope.settings.projectId + "/main'>Home</a>";
+						breadcrumbs[0] = "<a href='" + scope.settings.projectId + "'>Home</a>";
 					} else {
 						scope.breadcrumbs = "";
 					}
@@ -122,10 +136,10 @@ listModule.directive('colHeaders', function() {
 		restrict: 'E',
 		controller: function($scope, $routeParams, $timeout, $interval) {
 			$scope.getTitle = function(title, group, column) {
-				var numVideos = $scope.videoList.length,
+				var numVideos = $scope.data.videos.length,
 					showHeaderText = false;
 				for (var i=0; i < numVideos; i++) {
-					if ($scope.videoList[i].belongsTo == group && !$scope.videoList[i].isGroup && $scope.videoList[i][column]) {
+					if ($scope.data.videos[i].belongsTo == group && !$scope.data.videos[i].isGroup && $scope.data.videos[i][column]) {
 						showHeaderText = true;
 					}
 				};
@@ -168,7 +182,7 @@ listModule.directive('colHeaders', function() {
 					var headers = "";
 					for (var i=0; i < 5; i++) {
 				
-						headers += scope.getHeader(scope.colHeaders[i]);
+						headers += scope.getHeader(scope.data.colHeaders[i]);
 					};
 					el.append(headers);
 				}

@@ -1,6 +1,6 @@
 <h2>{{current.video.name}}</h2>
 	
-<video controls preload="metadata" ng-if="settings.projectRootPath" ng-attr-poster="current.video.poster">
+<video controls preload="metadata" ng-attr-poster="current.video.poster">
 
 	<source ng-src="{{source(current.video.previewFilename, '.mp4')}}" type="video/mp4" ng-if="current.video.previewFilename">
 	
@@ -10,9 +10,9 @@
 	
 </video>
 
-<p ng-if="current.video.optional1">{{colHeaders[2].title}}: {{current.video.optional1}}</p>
+<p ng-if="current.video.optional1">{{data.colHeaders[2].title}}: {{current.video.optional1}}</p>
 
-<p ng-if="current.video.optional2">{{colHeaders[3].title}}: {{current.video.optional2}}</p>
+<p ng-if="current.video.optional2">{{data.colHeaders[3].title}}: {{current.video.optional2}}</p>
 
 <p ng-if="current.video.downloadFilename">
 
