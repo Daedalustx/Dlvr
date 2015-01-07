@@ -15,6 +15,7 @@ config(['$routeProvider', '$locationProvider', function($routeProvider, $locatio
 .controller('ConfigController', ['$location', '$scope', '$http', '$timeout', function($location, $scope, $http, $timeout) {
 	
 	$scope.title = "Dlvr";
+	$scope.pageTitle = "Dlvr | Projects";
 	
 	$scope.configNightTheme = true;
 	$scope.$on('lightsOut', function () {

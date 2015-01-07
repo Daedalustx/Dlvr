@@ -13,6 +13,7 @@ projectSettings.config(['$routeProvider', '$locationProvider', function ($routeP
 	for (var i=0, length=$scope.projects.length; i < length; i++) {
 		if ($scope.projects[i].projectId === $routeParams.projectId) {
 			$scope.settings = $scope.projects[i];
+			$scope.$parent.pageTitle = "Configure " + $scope.settings.projectName;
 			break;
 		}
 	};

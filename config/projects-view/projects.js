@@ -11,6 +11,8 @@ projects.config(['$routeProvider', function ($routeProvider) {
 }])
 .controller('projectCtrl', ['$route', '$location', '$scope', '$http', '$timeout', '$sce', function ($route, $location, $scope, $http, $timeout, $sce) {
 	
+	$scope.$parent.pageTitle = "Dlvr | Projects";
+	
 	$scope.createProject = function() {
 		$scope.project = {
 							projectId: "",
