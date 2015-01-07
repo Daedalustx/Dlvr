@@ -1,38 +1,4 @@
-/* video delivery app css stylesheet */
-
-body.night {
-	background-color: #222;
-	color: white;
-}
-
-.night a {
-	color: #89B;
-}
-
-.night a:visited {
-	color: #89B;
-}
-
-.night a:hover {
-	color: #C55;
-}
-
-.night a:active {
-	color: #E00;
-}
-
-.night .video-list ul li {
-	background-color: #333;
-	color: #EEE;
-}
-
-.night .video-list ul li:nth-child(even) {
-	background-color: #222;
-}
-
-.night .col-headers {
-	border-color: #C55;
-}
+/* Dlvr css stylesheet */
 
 header {
 	padding: 0 40px 0 40px;
@@ -131,13 +97,10 @@ video-list ul {
 .index.col {
 	width: 10%;
 }
+
 .download.col {
 	width: 15%;
 	padding-right: 0;
-}
-
-.night .search input:focus {
-	outline-color: #C55;
 }
 
 video {
@@ -149,4 +112,44 @@ video {
 
 video:hover {
 	cursor: pointer;
+}
+
+/* Night Theme */
+
+body.night {
+	background-color: #222;
+	color: white;
+}
+
+.night a {
+	color: #89B;
+}
+
+.night a:visited {
+	color: #89B;
+}
+
+.night a:hover {
+	color: #C55;
+}
+
+.night a:active {
+	color: #E00;
+}
+
+.night .video-list ul li {
+	background-color: #333;
+	color: #EEE;
+}
+
+.night .video-list ul li:nth-child(even) {
+	background-color: #222;
+}
+
+.night .col-headers {
+	border-color: #C55;
+}
+
+.night .search input:focus {
+	outline-color: #C55;
 }
