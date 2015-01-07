@@ -6,11 +6,7 @@ body.night {
 }
 
 .night a {
-	color: #C55;
-}
-
-.night a:link {
-	color: #C55;
+	color: #89B;
 }
 
 .night a:visited {
