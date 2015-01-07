@@ -24,18 +24,24 @@ listModule.config(['$routeProvider', function($routeProvider) {
 	var numColumns = 0;
 
 	$scope.$parent.settings = project.settings;
-	$scope.$parent.projectName = project.data.projectName;
-	$scope.$parent.projectText = project.data.projectText;
+	//$scope.$parent.projectName = project.data.projectName;
+	//$scope.$parent.projectText = project.data.projectText;
 	
 	$scope.data = project.data;
 	$scope.priority = project.data.colHeaders[0].sortable ? 'priority' : 'id';
 	$scope.nightTheme = project.data.nightTheme;
 	
-	$scope.list = angular.isDefined($routeParams.groupUrl) ? $routeParams.groupUrl : 'main';
+	if ( angular.isDefined($routeParams.groupUrl) ) {
+		$scope.list = $routeParams.groupUrl;
+	} else {
+		$scope.list = 'main';
+		$scope.$parent.settings.pageTitle =  $scope.$parent.settings.projectName;
+	}
 	
 	angular.forEach($scope.data.videos, function(item) {
 		if (item.groupUrl == $scope.list && $scope.list != 'main') {
 			$scope.listName = item.name;
+			$scope.$parent.settings.pageTitle =  $scope.$parent.settings.projectName + ' | ' + $scope.listName;
 			$scope.listDescription = item.groupDescription || '';
 			return;
 		}

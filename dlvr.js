@@ -107,6 +107,7 @@ videoApp.controller('AppController', ['$scope', '$location', function($scope, $l
 
 	$scope.settings = {};
 	$scope.settings.projectName = 'Dlvr';
+	$scope.settings.pageTitle = $scope.settings.projectName;
 	$scope.nightTheme = true;
 	
 	if ($location.path() == '/') return;

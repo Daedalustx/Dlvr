@@ -46,6 +46,8 @@ angular.module('video1.detail', ['ngRoute'])
 	
 	console.log($scope.current.video);
 	
+	$scope.$parent.settings.pageTitle =  $scope.$parent.settings.projectName + ' | ' + $scope.current.video.name;
+	
 	if ($scope.current.video == null) return $location.path('/' + $routeParams.projectUrl);
 	
 	angular.forEach($scope.data.videos, function(item) {
