@@ -215,11 +215,30 @@ projects.directive('folderName', function() {
 });
 
 projects.directive('logoFilename', function() {
-	var IMG_PATH_REGEXP = /[0-9A-Za-z-]+\.(jpg|png|gif|jpeg)/;
+	var IMG_PATH_REGEXP_CHARS = /^[0-9A-Za-z_\/\.-]*$/;
+	//var IMG_PATH_REGEXP = /[0-9A-Za-z-]+\.(jpg|png|gif|jpeg)/;
   	return {
     	require: 'ngModel',
     	link: function(scope, elm, attrs, ctrl) {
       		ctrl.$validators.logoFilename = function(modelValue, viewValue) {
+				if (!viewValue || IMG_PATH_REGEXP_CHARS.test(viewValue)) {
+					 // it is valid
+					return true;
+				}
+
+				// it is invalid
+				return false;
+			};
+		}
+	};
+});
+
+projects.directive('logoExt', function() {
+	var IMG_PATH_REGEXP = /[0-9A-Za-z-]+\.(jpg|png|gif|jpeg)/;
+  	return {
+    	require: 'ngModel',
+    	link: function(scope, elm, attrs, ctrl) {
+      		ctrl.$validators.logoExt = function(modelValue, viewValue) {
 				if (!viewValue || IMG_PATH_REGEXP.test(viewValue)) {
 					 // it is valid
 					return true;

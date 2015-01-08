@@ -32,7 +32,10 @@
 	
 	</label>
 	
-	<label>Project Logo Filename: Dlvr/projects/{{project.projectRootPath}}/ <input placeholder="logo-filename.png" name="logofile" ng-model="project.projectLogo" logo-filename> <small>( .jpg .jpeg .png .gif )</small>
+	<label>Project Logo Filename: Dlvr/projects/{{project.projectRootPath}}/ <input placeholder="logo-filename.png" name="logofile" ng-model="project.projectLogo" logo-filename logo-ext> 
+		<span class="error" ng-show="projectEditor.logofile.$error.logoExt">
+			<small>( .jpg .jpeg .png .gif )</small>
+		</span>
 		 <span class="error" ng-show="projectEditor.logofile.$error.logoFilename">
 			Alphanumeric and _ and - and / only, please.
 		</span>
